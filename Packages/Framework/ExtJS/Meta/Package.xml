@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package xmlns="http://typo3.org/ns/2008/flow3/package">
+    <key>ExtJS</key>
+    <title>ExtJS Package</title>
+    <description>The package contains ExtJS for use in FLOW3 packages. It is a
+	slightly trimmed version of ExtJS (missing source, build, examples,
+	documentation) with JavaScript, images, CSS and Flash moved to distinct
+	folders.
+	In addition it contains the ux files found in the examples folder of the
+	ExtJS distribution.
+	Using Ext Direct is supported by an Ext Direct request handler and a
+	viewhelper to build a provider configuration from controller actions.</description>
+    <version>3.3.1</version>
+    <categories>
+        <category>Testing</category>
+    </categories>
+    <parties>
+        <person role="LeadDeveloper">
+            <name>Karsten Dambekalns</name>
+            <email>karsten@typo3.org</email>
+            <website></website>
+            <organisation>TYPO3 Association</organisation>
+            <repositoryUserName></repositoryUserName>
+        </person>
+        <person role="LeadDeveloper">
+            <name>Robert Lemke</name>
+            <email>robert@typo3.org</email>
+            <website></website>
+            <organisation>TYPO3 Association</organisation>
+            <repositoryUserName></repositoryUserName>
+        </person>
+        <person role="Developer">
+            <name>Christopher Hlubek</name>
+            <email>hlubek@networkteam.com</email>
+            <website></website>
+            <organisation>networkteam</organisation>
+            <repositoryUserName></repositoryUserName>
+        </person>
+    </parties>
+    <constraints>
+        <depends/>
+        <conflicts/>
+        <suggests/>
+    </constraints>
+</package>

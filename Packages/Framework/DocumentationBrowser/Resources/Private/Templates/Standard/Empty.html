@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:f="urn:flow3:fluid">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Documentation Browser</title>
+<f:base />
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'css/styles.css')}" />
+</head>
+<body>
+
+<div id="application-bar">
+<div class="logo">FLOW3</div> <span class="title">Documentation</span>
+</div>
+
+<div id="notice">
+<h2>No rendered documentation found</h2>
+<p>It seems you have no rendered documentation yet. In the official FLOW3 releases
+the rendered documentation is bundled inside the packages.</p>
+<p>If you checked out from Git, you can use Phing to render documentation with
+<code>phing -f Build/Common/Phing/Master.xml doc-render</code>. Be aware that
+you need some PEAR packages for that, see the top of Master.xml for details.</p>
+</div>
+
+</body>
+</html>
