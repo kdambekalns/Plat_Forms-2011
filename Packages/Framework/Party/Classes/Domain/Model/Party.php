@@ -37,6 +37,11 @@ class Party {
 	protected $accounts;
 
 	/**
+	 * @var \F3\Party\Domain\Model\Address
+	 */
+	protected $address;
+
+	/**
 	 * Constructor
 	 *
 	 * @return void
@@ -77,6 +82,25 @@ class Party {
 	 */
 	public function getAccounts() {
 		return $this->accounts;
+	}
+
+	/**
+	 * Sets the address of this party
+	 *
+	 * @param \F3\Party\Domain\Model\Address $address
+	 * @return void
+	 */
+	public function setAddress(\F3\Party\Domain\Model\Address $address) {
+		$this->address = $address;
+	}
+
+	/**
+	 * Returns the address of this party
+	 *
+	 * @return \F3\Party\Domain\Model\Address
+	 */
+	public function getAddress() {
+		return $this->address;
 	}
 
 }

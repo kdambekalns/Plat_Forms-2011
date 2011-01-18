@@ -43,31 +43,94 @@ class RegistrationController extends \F3\FLOW3\MVC\Controller\ActionController {
 	protected $accountFactory;
 
 	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
+	 * @var \F3\FLOW3\Security\Account
+	 */
+	protected $account;
+
+	/**
+	 * Initializes the controller before invoking an action method.
+	 *
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeAction() {
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$this->account = $token->getAccount();
+			}
+		}
+	}
+
+	/**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * @param \F3\FLOW3\MVC\View\ViewInterface $view The view to be initialized
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeView(\F3\FLOW3\MVC\View\ViewInterface $view) {
+		$view->assign('account', $this->account);
+	}
+
+	/**
 	 * Index action
 	 *
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('foos', array(
-			'bar', 'baz'
-		));
+		$this->forward('new');
 	}
 
 	/**
-	 * add account action
+	 * Renders a form for creating a new member + account.
 	 *
+	 * @param \F3\CaP\Domain\Model\Member $newMember
+	 * @dontvalidate $newMember
 	 * @return void
 	 */
-	public function addAccountAction() {
-		$this->accountRepository->removeAll();
-		$RESTAccount = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'RESTServiceProvider');
-		$WebAccount = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'DefaultProvider');
+	public function newAction(\F3\CaP\Domain\Model\Member $newMember = NULL) {
+		$this->view->assign('newMember', $newMember);
+	}
+
+	/**
+	 * Create account action
+	 *
+	 * @param \F3\CaP\Domain\Model\Member $newMember The new member to add
+	 * @param string $username The username to authenticate this member
+	 * @param string $password The password to authenticate this member
+	 * @return void
+	 */
+	public function createAction(\F3\CaP\Domain\Model\Member $newMember, $username, $password) {
+		$existingAccount = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
+		if (count($existingAccount) > 0) {
+			$this->flashMessageContainer->add('The username is already taken, please choose another username.');
+			$referrer = $this->request->getArgument('__referrer');
+			$this->forward($referrer['actionName'], $referrer['controllerName'], $referrer['packageKey'], $this->request->getArguments());
+		}
+
+		$RESTAccount = $this->accountFactory->createAccountWithPassword($username, $password, array('PortalMember'), 'RESTServiceProvider');
+		$RESTAccount->setParty($newMember);
+		$WebAccount = $this->accountFactory->createAccountWithPassword($username, $password, array('PortalMember'), 'DefaultProvider');
+		$WebAccount->setParty($newMember);
 		$this->accountRepository->add($RESTAccount);
 		$this->accountRepository->add($WebAccount);
 
-		return 'accounts for REST and Web created!';
+		$authenticationTokens = $this->securityContext->getAuthenticationTokensOfType('\F3\FLOW3\Security\Authentication\Token\UsernamePassword');
+		\F3\var_dump($authenticationTokens);
+		if (count($authenticationTokens) === 1) {
+			$authenticationTokens[0]->setAccount($WebAccount);
+			$authenticationTokens[0]->setAuthenticationStatus(\F3\FLOW3\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);
+		}
+
+		return 'redirect to main page?';
 	}
-	
 }
 
 ?>

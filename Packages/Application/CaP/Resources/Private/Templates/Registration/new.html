@@ -1,0 +1,58 @@
+<f:layout name="master"/>
+
+<f:section name="mainbox">
+	<h1>Register:</h1>
+	<p>
+		<f:security.ifAuthenticated>
+			<f:then>
+				<div class="attention-box orange">
+					<strong>You are currently logged in as {account.accountIdentifier}.</strong>
+				</div>
+			</f:then>
+			<f:else>
+				You need to create an account in order to work with this portal.<br />
+				Already have an account? <f:link.action action="index" controller="Login">Proceed to login</f:link.action></p>
+
+				<f:form action="create" object="{newMember}" name="newMember" class="dataform">
+					<fieldset>
+						<legend>About Yourself</legend>
+						<f:form.errors for="newMember">
+							<div class="error">
+								<strong>{error.propertyName}</strong>: <f:for each="{error.errors}" as="errorDetail">{errorDetail.message}</f:for>
+							</div>
+						</f:form.errors>
+						<ol>
+							<li><label>First Name<em>*</em><f:form.textfield property="name.firstName" required="required" /></label></li>
+							<li><label>Last Name<em>*</em><f:form.textfield property="name.lastName" required="required"/></label></li>
+							<li>
+								<label>Email Address<em>*</em><f:form.textfield type="email" property="primaryElectronicAddress.identifier" required="required"/></label>
+								<f:form.hidden property="primaryElectronicAddress.type" value="Email" />
+								<f:form.hidden property="primaryElectronicAddress.usage" value="Home" />
+							</li>
+							<li><label>Town<em>*</em><f:form.textfield type="text" property="address.locality" required="required"/></label></li>
+							<li><label>Country<em>*</em><f:form.textfield type="text" property="address.country" required="required"/></label></li>
+						</ol>
+					</fieldset>
+					<fieldset>
+						<legend>Your Account</legend>
+						<f:form.errors for="password">
+							<div class="error">
+								{error.message}
+							</div>
+						</f:form.errors>
+						<ol>
+							<li><label>Username<em>*</em><f:form.textfield type="text" name="username"/></label></li>
+							<li><label>Password<em>*</em><f:form.password name="password"/></label></li>
+						</ol>
+					</fieldset>
+					<fieldset>
+						<legend></legend>
+						<ol>
+							<li><f:form.submit value="Create Account" class="positive-submit" /> | <f:link.action action="index" controller="Sessions" class="cancel">Cancel</f:link.action></li>
+						</ol>
+					</fieldset>
+				</f:form>
+			</f:else>
+		</f:security.ifAuthenticated>
+	<f:flashMessages class="flashmessages" />
+</f:section>
