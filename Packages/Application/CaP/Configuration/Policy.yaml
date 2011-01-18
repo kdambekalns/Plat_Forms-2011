@@ -8,7 +8,7 @@
 resources:
   entities: []
   methods:
-    testResource: 'method(F3\CaP\Controller\TestController->indexAction()) || method(F3\CaP\Controller\TestRESTController->indexAction())'
+    conferenceDetails: 'method(F3\CaP\Controller\ConferenceController->showAction())'
 
 roles:
   PortalMember: []
@@ -17,5 +17,5 @@ roles:
 acls:
   PortalMember:
     methods:
-      testResource: GRANT
+      conferenceDetails: GRANT
     entities: []

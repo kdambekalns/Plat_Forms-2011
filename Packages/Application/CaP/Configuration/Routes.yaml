@@ -4,6 +4,24 @@
 # origin: M                                                              #
 
 -
+  name:          'Frontend: /login'
+
+  uriPattern:    'login'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Login'
+    '@action':     'index'
+
+-
+  name:          'Frontend: /account/registration'
+
+  uriPattern:    'account/registration'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Registration'
+    '@action':     'index'
+
+-
   name:          'Frontend: /conferences/category/{category}'
 
   uriPattern:    'conferences/category/{category}'

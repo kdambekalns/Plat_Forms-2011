@@ -21,7 +21,7 @@ FLOW3:
             controllerObjectName: 'F3\CaP\Controller\.*Controller'
           entryPoint:
             webRedirect:
-              uri: cap/login
+              uri: login
 
         RESTServiceProvider:
           providerClass: PersistedUsernamePasswordProvider
