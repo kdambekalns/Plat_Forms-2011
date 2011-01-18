@@ -1,18 +1,20 @@
 
 ---
-FLOW3:
+FLOW3: 
   state: active
-DocumentationBrowser:
+DocumentationBrowser: 
   state: active
-ExtJS:
+ExtJS: 
   state: active
-Fluid:
+Fluid: 
   state: active
-Kickstart:
+Kickstart: 
   state: active
-Party:
+Party: 
   state: active
-Testing:
+Testing: 
   state: inactive
-Welcome:
+Welcome: 
+  state: active
+CaP: 
   state: active
