@@ -28,6 +28,16 @@
     '@format':     'json'
 
 -
+  name:          'REST: /reset'
+
+  uriPattern:    'ws/reset'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Reset'
+    '@format':     'json'
+
+-
   name:          'REST: /factorydefaults'
 
   uriPattern:    'ws/factorydefaults'

@@ -23,12 +23,12 @@ namespace F3\CaP\Service\Rest\V1\Controller;
  *                                                                        */
 
 /**
- * REST Controller for Factory Defaults
+ * REST Controller for Reset
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
  */
-class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController {
+class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 
 	/**
 	 * @var array
@@ -66,43 +66,20 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function listAction() {
-		$this->forward('import');
+		$this->forward('reset');
 	}
 
 	/**
-	 * Resets the whole application to the initial data provided by FactoryDefaults.json
+	 * Discards all data of this application and creates an admin user
 	 *
 	 * @return void
 	 */
-	public function importAction() {
+	public function resetAction() {
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 
-		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
-		foreach ($factoryDefaults->member as $memberRecord) {
-			$account = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password);
-
-			if (substr_count($memberRecord->fullname, ' ') === 2) {
-				list($firstName, $middleName, $lastName) = explode(' ', $memberRecord->fullname);
-			} else {
-				list($firstName, $lastName) = explode(' ', $memberRecord->fullname);
-				$middleName = '';
-			}
-			$name = $this->objectManager->create('F3\Party\Domain\Model\PersonName', '', $firstName, $middleName, $lastName);
-
-			$electronicAddress = $this->objectManager->create('F3\Party\Domain\Model\ElectronicAddress');
-			$electronicAddress->setIdentifier(trim($memberRecord->email));
-			$electronicAddress->setType(\F3\Party\Domain\Model\ElectronicAddress::TYPE_EMAIL);
-
-			$member = $this->objectManager->create('F3\CaP\Domain\Model\Member');
-			$member->setName($name);
-			$member->setPrimaryElectronicAddress($electronicAddress);
-			$member->addAccount($account);
-
-			$this->accountRepository->add($account);
-			$this->memberRepository->add($member);
-
-		}
+		$account = $this->accountFactory->createAccountWithPassword('admin', 'password');
+		$this->accountRepository->add($account);
 
 		$this->response->setStatus(204);
 	}
