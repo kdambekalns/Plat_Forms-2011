@@ -73,9 +73,9 @@
       handler:    F3\CaP\Routing\ConferenceRoutePartHandler
 
 -
-  name:          'Frontend: /conferences'
+  name:          'Frontend: /conferences(/{@action})'
 
-  uriPattern:    'conferences'
+  uriPattern:    'conferences(/{@action})'
   defaults:
     '@package':    'CaP'
     '@controller': 'Conference'

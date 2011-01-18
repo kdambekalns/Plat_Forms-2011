@@ -3,6 +3,10 @@
 <f:section name="mainbox">
 	<h1>{conference.name}</h1>
 	<p>From <f:format.date>{conference.startDate}</f:format.date> to <f:format.date>{conference.endDate}</f:format.date></p>
+	<label for="creatorname">Creator Name:</label>
+	<p id="creatorname">{conference.creator.name}</p>
+	<label for="creatoremail">Creator E-Mail:</label>
+	<p id="creatoremail">{conference.creator.primaryElectronicAddress}</p>
 
 	<f:for each="{conference.categories}" as="category">
 		<f:link.action arguments="{category: category}">{category.name}</f:link.action>
