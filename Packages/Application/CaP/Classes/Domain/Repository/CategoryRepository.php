@@ -31,7 +31,13 @@ namespace F3\CaP\Domain\Repository;
  */
 class CategoryRepository extends \F3\FLOW3\Persistence\Repository {
 
-	// add customized methods here
+	/**
+	 * @var array
+	 */
+	protected $defaultOrderings = array(
+		'name' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING
+	);
+
 
 }
 ?>

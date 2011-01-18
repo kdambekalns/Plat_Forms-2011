@@ -32,6 +32,12 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 
 	/**
 	 * @inject
+	 * @var \F3\CaP\Domain\Repository\CategoryRepository
+	 */
+	protected $categoryRepository;
+
+	/**
+	 * @inject
 	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
 	 */
 	protected $conferenceRepository;
@@ -44,11 +50,21 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
 	public function indexAction(\F3\CaP\Domain\Model\Category $category = NULL) {
+		$this->view->assign('categories', $this->categoryRepository->findByParent($category));
+
 		if ($category === NULL) {
 			$this->view->assign('conferences', $this->conferenceRepository->findCurrent());
 		} else {
-			$this->view->assign('conferences', $this->conferenceRepository->findByCategory($category));
+			$this->view->assign('conferences', $this->conferenceRepository->findCurrentByCategory($category));
 		}
+
+		$categoryPath = array();
+		if ($category !== NULL) {
+			do {
+				array_unshift($categoryPath, $category);
+			} while (($category = $category->getParent()) !== NULL);
+		}
+		$this->view->assign('categoryPath', $categoryPath);
 	}
 
 }

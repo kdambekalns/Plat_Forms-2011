@@ -2,9 +2,57 @@
 
 <f:section name="mainbox">
 	<h1>Upcoming conferences</h1>
-	<ol class="conferences">
-	<f:for each="{conferences}" as="conference">
-		<li>{$conference.name}</li>
+
+	<p>The following conference are upcoming in
+	<f:if condition="{categoryPath}">the category
+		<f:then>
+		<f:link.action>[All]</f:link.action>
+		<f:for each="{categoryPath}" as="category">
+			&gt; <f:link.action arguments="{category: category}">{category.name}</f:link.action>
+		</f:for>.
+			<f:if condition="{categories}">
+			 Select a sub-category below to limit the listed conferences.
+			</f:if>
+		</f:then>
+		<f:else>
+			all categories. Select a category below to limit the listed conferences.
+		</f:else>
+	</f:if>
+	<ol class="categories">
+	<f:for each="{categories}" as="category">
+		<li><f:link.action arguments="{category: category}">{category.name}</f:link.action></li>
 	</f:for>
+	</ol>
+	</p>
+
+	<ol class="conferences">
+		<f:if condition="{conferences.now}">
+			<li>Running now<ol>
+			<f:for each="{conferences.now}" as="conference">
+				<li>{conference.name}</li>
+			</f:for>
+			</ol></li>
+		</f:if>
+		<f:if condition="{conferences.day}">
+			<li>Starting tomorrow<ol>
+			<f:for each="{conferences.day}" as="conference">
+				<li>{conference.name}</li>
+			</f:for>
+			</ol></li>
+		</f:if>
+		<f:if condition="{conferences.week}">
+			<li>Starting within a week<ol>
+			<f:for each="{conferences.week}" as="conference">
+				<li>{conference.name}</li>
+			</f:for>
+			</ol></li>
+		</f:if>
+		<f:if condition="{conferences.future}">
+			<li>Further on<ol>
+			<f:for each="{conferences.future}" as="conference">
+				<li>{conference.name}</li>
+			</f:for>
+			</ol></li>
+		</f:if>
 	</ol>
 </f:section>
