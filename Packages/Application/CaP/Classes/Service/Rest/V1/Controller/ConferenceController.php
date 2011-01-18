@@ -54,11 +54,33 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	);
 
 	/**
+	 * Lists all conferences
 	 *
+	 * @return void
 	 */
 	public function listAction() {
+		$this->listConferences($this->conferenceRepository->findAll());
+	}
+
+	/**
+	 * Lists all conferences of the given category
+	 *
+	 * \F3\CaP\Domain\Model\Category $category
+	 * @return void
+	 */
+	public function listByCategoryAction(\F3\CaP\Domain\Model\Category $category) {
+		$this->listConferences($this->conferenceRepository->findByCategory($category));
+	}
+
+	/**
+	 * Prepares the view to list the given conferences
+	 *
+	 * @param \F3\FLOW3\Persistence\QueryResult $conferences
+	 * @return void
+	 */
+	protected function listConferences(\F3\FLOW3\Persistence\QueryResult $conferences) {
 		$conferencesArray = array();
-		foreach ($this->conferenceRepository->findAll() as $conference) {
+		foreach ($conferences as $conference) {
 			$categoriesArray = array();
 			foreach ($conference->getCategories() as $category) {
 				$categoriesArray[] = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category');
@@ -72,7 +94,12 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 				'details' => $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('conference' => $conference))
 			);
 		}
+
 		$this->view->assign('value', $conferencesArray);
+
+		if (count($conferencesArray) === 0) {
+			$this->response->setStatus(204);
+		}
 	}
 
 	/**

@@ -30,6 +30,20 @@
       handler:    F3\CaP\Routing\ConferenceRoutePartHandler
 
 -
+  name:          'REST: /conferencesbycategory/{category}'
+
+  uriPattern:    'ws/conferencesbycategory/{category}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Conference'
+    '@format':     'json'
+    '@action':     'listByCategory'
+  routeParts:
+    category:
+      handler:    F3\CaP\Routing\CategoryRoutePartHandler
+
+-
   name:          'REST: /conferences'
 
   uriPattern:    'ws/conferences'

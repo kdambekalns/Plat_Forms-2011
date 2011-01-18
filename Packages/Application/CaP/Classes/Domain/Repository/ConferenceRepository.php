@@ -32,6 +32,17 @@ namespace F3\CaP\Domain\Repository;
 class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 
 	/**
+	 * Finds a conference by the given category
+	 *
+	 * @param \F3\CaP\Domain\Model\Category $category
+	 * @return \F3\CaP\Domain\Model\Conference
+	 */
+	public function findByCategory(\F3\CaP\Domain\Model\Category $category) {
+		$query = $this->createQuery();
+		return $query->matching($query->contains('categories', $category))->execute();
+	}
+
+	/**
 	 * Parse a query as defined by M26
 	 *
 	 * @param string $query
