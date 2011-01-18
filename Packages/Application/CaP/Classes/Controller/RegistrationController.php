@@ -26,6 +26,7 @@ namespace F3\CaP\Controller;
  * Standard controller for the CaP package 
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @origin RM
  */
 class RegistrationController extends \F3\FLOW3\MVC\Controller\ActionController {
 
