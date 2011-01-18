@@ -18,7 +18,7 @@ FLOW3:
           providerClass: PersistedUsernamePasswordProvider
           useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePassword
           requestPatterns:
-            controllerObjectName: 'F3\CaP\Controller\(Login|Test)Controller'
+            controllerObjectName: 'F3\CaP\Service\V1\Controller\.*Controller'
           entryPoint:
             webRedirect:
               uri: cap/login
@@ -27,7 +27,7 @@ FLOW3:
           providerClass: PersistedUsernamePasswordProvider
           useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePasswordHTTPBasic
           requestPatterns:
-            controllerObjectName: F3\CaP\Controller\TestRESTController
+            controllerObjectName: 'F3\CaP\Controller\.*Controller'
           entryPoint:
             HTTPBasic:
               realm: "Authenticate for the REST services"
