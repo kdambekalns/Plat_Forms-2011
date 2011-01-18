@@ -1,0 +1,12 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<h1>{conference.name}</h1>
+	<p>From <f:format.date>{conference.startDate}</f:format.date> to <f:format.date>{conference.endDate}</f:format.date></p>
+
+	<f:for each="{conference.categories}" as="category">
+		<f:link.action arguments="{category: category}">{category.name}</f:link.action>
+	</f:for>
+
+	<p>{conference.description}</p>
+</f:section>

@@ -67,6 +67,16 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 		$this->view->assign('categoryPath', $categoryPath);
 	}
 
+	/**
+	 * Displays the main screen
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @return void
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
+		$this->view->assign('conference', $conference);
+	}
 }
 
 ?>

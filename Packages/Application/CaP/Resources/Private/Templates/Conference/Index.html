@@ -29,30 +29,36 @@
 		<f:if condition="{conferences.now}">
 			<li>Running now<ol>
 			<f:for each="{conferences.now}" as="conference">
-				<li>{conference.name}</li>
+				<f:render section="conferenceEntry" arguments="{conference: conference}"/>
 			</f:for>
 			</ol></li>
 		</f:if>
 		<f:if condition="{conferences.day}">
 			<li>Starting tomorrow<ol>
 			<f:for each="{conferences.day}" as="conference">
-				<li>{conference.name}</li>
+				<f:render section="conferenceEntry" arguments="{conference: conference}"/>
 			</f:for>
 			</ol></li>
 		</f:if>
 		<f:if condition="{conferences.week}">
 			<li>Starting within a week<ol>
 			<f:for each="{conferences.week}" as="conference">
-				<li>{conference.name}</li>
+				<f:render section="conferenceEntry" arguments="{conference: conference}"/>
 			</f:for>
 			</ol></li>
 		</f:if>
 		<f:if condition="{conferences.future}">
 			<li>Further on<ol>
 			<f:for each="{conferences.future}" as="conference">
-				<li>{conference.name}</li>
+				<f:render section="conferenceEntry" arguments="{conference: conference}"/>
 			</f:for>
 			</ol></li>
 		</f:if>
 	</ol>
+</f:section>
+
+<f:section name="conferenceEntry">
+	<li>
+		<f:link.action action="show" arguments="{conference: conference}">{conference.name}</f:link.action> - <f:format.date>{conference.startDate}</f:format.date> to <f:format.date>{conference.endDate}</f:format.date>
+	</li>
 </f:section>
