@@ -60,6 +60,12 @@ class Repository implements \F3\FLOW3\Persistence\RepositoryInterface {
 	protected $objectType;
 
 	/**
+	 * The property names to order results by. Expected like this:
+	 * array(
+	 *  'foo' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING,
+	 *  'bar' => \F3\FLOW3\Persistence\QueryInterface::ORDER_DESCENDING
+	 * )
+	 *
 	 * @var array
 	 */
 	protected $defaultOrderings = array();
