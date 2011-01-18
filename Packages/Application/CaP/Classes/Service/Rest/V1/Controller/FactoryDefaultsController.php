@@ -92,7 +92,7 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 		$this->categoryRepository->removeAll();
 		$this->conferenceRepository->removeAll();
 
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'));
+		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalMember', 'PortalAdmin'));
 		$this->accountRepository->add($account);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));

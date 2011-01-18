@@ -23,12 +23,17 @@ namespace F3\CaP\Service\Rest\V1\Controller;
  *                                                                        */
 
 /**
- * REST Controller for Reset
+ * REST Controller for Member
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
  */
-class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
+class MemberController extends \F3\FLOW3\MVC\Controller\RestController {
+
+	/**
+	 * @var string
+	 */
+	protected $resourceArgumentName = 'member';
 
 	/**
 	 * @var array
@@ -49,53 +54,31 @@ class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 	protected $memberRepository;
 
 	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountRepository
-	 */
-	protected $accountRepository;
-
-	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountFactory
-	 */
-	protected $accountFactory;
-
-	/**
-	 * @inject
-	 * @var \F3\CaP\Domain\Repository\CategoryRepository
-	 */
-	protected $categoryRepository;
-
-	/**
-	 * @inject
-	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
-	 */
-	protected $conferenceRepository;
-
-	/**
-	 * Forwards to the importAction
+	 * Shows a single member
 	 *
+	 * @param \F3\CaP\Domain\Model\Member
 	 * @return void
 	 */
-	public function listAction() {
-		$this->forward('reset');
-	}
+	public function showAction(\F3\CaP\Domain\Model\Member $member) {
+		$viewConfiguration = array();
 
-	/**
-	 * Discards all data of this application and creates an admin user
-	 *
-	 * @return void
-	 */
-	public function resetAction() {
-		$this->accountRepository->removeAll();
-		$this->memberRepository->removeAll();
-		$this->categoryRepository->removeAll();
-		$this->conferenceRepository->removeAll();
+		$address = $member->getAddress();
+		$town = '';
+		$country = '';
+		$gps = '';
 
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalMember', 'PortalAdmin'));
-		$this->accountRepository->add($account);
+		$memberArray = array(
+			'id' => $member->getId(),
+			'version' => $member->getVersion(),
+			'username' => $member->getUsername(),
+			'fullname' => (string)$member->getName(),
+			'email' => (string)$member->getPrimaryElectronicAddress(),
+			'town' => $town,
+			'country' => $country,
+			'gps' => $gps
+		);
 
-		$this->response->setStatus(204);
+		$this->view->assign('value', $memberArray);
 	}
 }
 

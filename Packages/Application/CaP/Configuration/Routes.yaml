@@ -4,24 +4,6 @@
 # origin: M                                                              #
 
 -
-  name:          'Frontend: /login'
-
-  uriPattern:    'login'
-  defaults:
-    '@package':    'CaP'
-    '@controller': 'Login'
-    '@action':     'index'
-
--
-  name:          'Frontend: /account/registration'
-
-  uriPattern:    'account/registration'
-  defaults:
-    '@package':    'CaP'
-    '@controller': 'Registration'
-    '@action':     'index'
-
--
   name:          'Frontend: /conferences/category/{category}'
 
   uriPattern:    'conferences/category/{category}'
@@ -58,20 +40,6 @@
 # REST services
 
 -
-  name:          'REST: /conferences/{conference}'
-
-  uriPattern:    'ws/conferences/{conference}'
-  defaults:
-    '@package':    'CaP'
-    '@subpackage': 'Service\Rest\V1'
-    '@controller': 'Conference'
-    '@format':     'json'
-    '@action':     'show'
-  routeParts:
-    conference:
-      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
-
--
   name:          'REST: /conferencesbycategory/{category}'
 
   uriPattern:    'ws/conferencesbycategory/{category}'
@@ -86,6 +54,20 @@
       handler:    F3\CaP\Routing\CategoryRoutePartHandler
 
 -
+  name:          'REST: /conferences/{conference}'
+
+  uriPattern:    'ws/conferences/{conference}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Conference'
+    '@format':     'json'
+    '@action':     'show'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
+-
   name:          'REST: /conferences'
 
   uriPattern:    'ws/conferences'
@@ -94,6 +76,20 @@
     '@subpackage': 'Service\Rest\V1'
     '@controller': 'Conference'
     '@format':     'json'
+
+-
+  name:          'REST: /members/{member}'
+
+  uriPattern:    'ws/members/{member}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Member'
+    '@format':     'json'
+    '@action':     'show'
+  routeParts:
+    member:
+      handler:    F3\CaP\Routing\MemberRoutePartHandler
 
 -
   name:          'REST: /categories/{category}'

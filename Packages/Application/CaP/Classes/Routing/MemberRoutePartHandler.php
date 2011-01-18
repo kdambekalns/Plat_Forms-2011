@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\CaP\Domain\Model;
+namespace F3\CaP\Routing;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "CaP".                        *
@@ -23,52 +23,48 @@ namespace F3\CaP\Domain\Model;
  *                                                                        */
 
 /**
- * A Member
+ * A route part handler for Member
  *
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @scope prototype
- * @entity
- * @origin: M
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
+ * @origin: RM
  */
-class Member extends \F3\Party\Domain\Model\Person {
+class MemberRoutePartHandler extends \F3\FLOW3\MVC\Web\Routing\DynamicRoutePart {
 
 	/**
-	 * The contacts
+	 * @inject
+	 * @var \F3\FLOW3\Security\AccountRepository
+	 */
+	protected $accountRepository;
+
+	/**
+	 * While matching, resolves the requested content
 	 *
-	 * @var array
+	 * @param string $value the complete path
+	 * @return boolean
 	 */
-	protected $contacts;
-
-	/**
-	 * Get the Member's contacts
-	 *
-	 * @return \SplObjectStorage The Member's contacts
-	 */
-	public function getContacts() {
-		return $this->contacts;
-	}
-
-	/**
-	 * Sets this Member's contacts
-	 *
-	 * @param  $contact
-	 * @return void
-	 */
-	public function addContact($contact) {
-		$this->contacts->attach($contact);
-	}
-
-	/**
-	 * Returns the username of the website account
-	 * 
-	 * @return string The username for the web account of this member
-	 */
-	public function getUsername() {
-		foreach ($this->accounts as $account) {
-			if ($account->getAuthenticationProviderName() === 'DefaultProvider') {
-				return $account->getAccountIdentifier();
-			}
+	protected function matchValue($value) {
+		$account = $this->accountRepository->findOneByAccountIdentifier($value);
+		if ($account === NULL) {
+			return FALSE;
 		}
+
+		$this->value = $account->getParty();
+		return TRUE;
+	}
+
+	/**
+	 * Checks, whether given value can be resolved and if so, sets $this->value to the resolved value.
+	 * If $value is empty, this method checks whether a default value exists.
+	 *
+	 * @param string $value value to resolve
+	 * @return boolean TRUE if value could be resolved successfully, otherwise FALSE.
+	 */
+	protected function resolveValue($value) {
+		if (!$value instanceof \F3\Cap\Domain\Model\Member) {
+			return FALSE;
+		}
+		$this->value = $value->getUsername();
+		return TRUE;
 	}
 
 }
