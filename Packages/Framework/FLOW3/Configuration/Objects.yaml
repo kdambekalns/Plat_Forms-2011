@@ -13,6 +13,10 @@ DateTime:
   className: DateTime
   scope: prototype
 
+SplObjectStorage:
+  className: SplObjectStorage
+  scope: prototype
+
 #                                                                          #
 # AOP                                                                      #
 #                                                                          #

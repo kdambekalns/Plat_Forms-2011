@@ -50,6 +50,12 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 
 	/**
 	 * @inject
+	 * @var \F3\CaP\Domain\Repository\CategoryRepository
+	 */
+	protected $categoryRepository;
+
+	/**
+	 * @inject
 	 * @var \F3\FLOW3\Security\AccountRepository
 	 */
 	protected $accountRepository;
@@ -77,6 +83,10 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	public function importAction() {
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
+		$this->categoryRepository->removeAll();
+
+		$account = $this->accountFactory->createAccountWithPassword('admin', 'password');
+		$this->accountRepository->add($account);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
 		foreach ($factoryDefaults->member as $memberRecord) {
@@ -102,6 +112,17 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			$this->accountRepository->add($account);
 			$this->memberRepository->add($member);
 
+		}
+
+		$categories = array();
+		foreach ($factoryDefaults->category as $categoryRecord) {
+			$categories[$categoryRecord->name] = $this->objectManager->create('F3\CaP\Domain\Model\Category', $categoryRecord->name);
+			$this->categoryRepository->add($categories[$categoryRecord->name]);
+		}
+		foreach ($factoryDefaults->category as $categoryRecord) {
+			foreach ($categoryRecord->subcategories as $subCategoryRecord) {
+				$categories[$subCategoryRecord->name]->setParent($categories[$categoryRecord->name]);
+			}
 		}
 
 		$this->response->setStatus(204);

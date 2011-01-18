@@ -28,34 +28,52 @@ namespace F3\CaP\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @scope prototype
  * @entity
+ * @origin: M
  */
 class Category {
 
 	/**
-	 * The name
-	 * @var string,parentCategory:Category
+	 * @var string
 	 */
 	protected $name;
 
+	/**
+	 * @var \F3\CaP\Domain\Model\Category
+	 */
+	protected $parent;
+
+	/**
+	 *
+	 * @param string $name Name of the category
+	 */
+	public function __construct($name) {
+		$this->name = $name;
+	}
 
 	/**
 	 * Get the Category's name
 	 *
-	 * @return string,parentCategory:Category The Category's name
+	 * @return string The Category's name
 	 */
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
-	 * Sets this Category's name
+	 * Sets the parent category
 	 *
-	 * @param string,parentCategory:Category $name The Category's name
+	 * @param \F3\CaP\Domain\Model\Category $parentCategory
 	 * @return void
 	 */
-	public function setName($name) {
-		$this->name = $name;
+	public function setParent(\F3\CaP\Domain\Model\Category $parentCategory) {
+		$this->parent = $parentCategory;
 	}
 
+	/**
+	 * @return \F3\CaP\Domain\Model\Category
+	 */
+	public function getParent() {
+		return $this->parent;
+	}
 }
 ?>
