@@ -23,55 +23,34 @@ namespace F3\CaP\Controller;
  *                                                                        */
 
 /**
- * The Login Controller
+ * The Conference Controller
  *
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @origin RM
+ * @origin: M
  */
-class LoginController extends \F3\FLOW3\MVC\Controller\ActionController {
+class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 
 	/**
 	 * @inject
-	 * @var \F3\FLOW3\Security\Authentication\AuthenticationManagerInterface
+	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
 	 */
-	protected $authenticationManager;
+	protected $conferenceRepository;
 
 	/**
-	 * Displays the login screen
+	 * Displays the main screen
 	 *
+	 * @param \F3\CaP\Domain\Model\Category
 	 * @return void
-	 * @author Robert Lemke <robert@typo3.org>
+	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
-	public function indexAction() {
-	}
-
-	/**
-	 * Authenticates an account by invoking the Provider based Authentication Manager.
-	 *
-	 * @return void
-	 * @author Robert Lemke <robert@typo3.org>
-	 */
-	public function authenticateAction() {
-		try {
-			$this->authenticationManager->authenticate();
-			$this->redirect('index');
-		} catch (\F3\FLOW3\Security\Exception\AuthenticationRequiredException $exception) {
-			$this->flashMessageContainer->add('Wrong username or password.');
-			throw $exception;
+	public function indexAction(\F3\CaP\Domain\Model\Category $category = NULL) {
+		if ($category === NULL) {
+			$this->view->assign('conferences', $this->conferenceRepository->findCurrent());
+		} else {
+			$this->view->assign('conferences', $this->conferenceRepository->findByCategory($category));
 		}
 	}
 
-	/**
-	 * Logs out
-	 *
-	 * @return void
-	 * @author Robert Lemke <robert@typo3.org>
-	 */
-	public function logoutAction() {
-		$this->authenticationManager->logout();
-		$this->flashMessageContainer->add('Successfully logged out.');
-		$this->redirect('index');
-	}
 }
 
 ?>

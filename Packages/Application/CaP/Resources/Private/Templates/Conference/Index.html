@@ -1,0 +1,10 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<h1>Upcoming conferences</h1>
+	<ol class="conferences">
+	<f:for each="{conferences}" as="conference">
+		<li>{$conference.name}</li>
+	</f:for>
+	</ol>
+</f:section>
