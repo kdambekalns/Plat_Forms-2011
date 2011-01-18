@@ -7,15 +7,15 @@
 
 resources:
   entities: []
-  methods:
-    conferenceDetails: 'method(F3\CaP\Controller\ConferenceController->showAction())'
+  methods: []
+    serviceResource: 'method(F3\CaP\Service\Rest\V1\Controller\.*Controller->.*Action())'
 
 roles:
   PortalMember: []
   PortalAdmin: []
 
-acls:
+acls: []
   PortalMember:
     methods:
-      conferenceDetails: GRANT
+      serviceResource: GRANT
     entities: []

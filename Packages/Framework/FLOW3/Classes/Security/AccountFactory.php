@@ -72,7 +72,7 @@ class AccountFactory {
 	 * @return F3\FLOW3\Security\Account A new account, not yet added to the account repository
 	 * @author Robert Lemke <robert@typo3.org>
 	 */
-	public function createAccountWithPassword($identifier, $password, $roleIdentifiers = array(), $authenticationProviderName = 'DefaultProvider') {
+	public function createAccountWithPassword($identifier, $password, array $roleIdentifiers = array(), $authenticationProviderName = 'DefaultProvider') {
 		$roles = array();
 		foreach ($roleIdentifiers as $roleIdentifier) {
 			$roles[] = $this->objectManager->create('F3\FLOW3\Security\Policy\Role', $roleIdentifier);

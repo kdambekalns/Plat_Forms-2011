@@ -27,7 +27,7 @@ FLOW3:
           providerClass: PersistedUsernamePasswordProvider
           useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePasswordHTTPBasic
           requestPatterns:
-            controllerObjectName: 'F3\CaP\Service\V1\Controller\.*Controller'
+            controllerObjectName: 'F3\CaP\Service\Rest\V1\Controller\.*Controller'
           entryPoint:
             HTTPBasic:
               realm: "Authenticate for the REST services"

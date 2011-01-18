@@ -31,6 +31,12 @@ namespace F3\CaP\Service\Rest\V1\Controller;
 class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 
 	/**
+	 * @inject
+	 * @var \F3\CaP\Service\Rest\V1\Controller\FactoryDefaultsController
+	 */
+	protected $factoryDefaultsController;
+
+	/**
 	 * @var array
 	 */
 	protected $supportedFormats = array('json');
@@ -92,8 +98,7 @@ class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 		$this->categoryRepository->removeAll();
 		$this->conferenceRepository->removeAll();
 
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalMember', 'PortalAdmin'));
-		$this->accountRepository->add($account);
+		$this->factoryDefaultsController->createAdminAccounts();
 
 		$this->response->setStatus(204);
 	}

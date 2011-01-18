@@ -54,29 +54,48 @@ class MemberController extends \F3\FLOW3\MVC\Controller\RestController {
 	protected $memberRepository;
 
 	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
 	 * Shows a single member
 	 *
 	 * @param \F3\CaP\Domain\Model\Member
 	 * @return void
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Member $member) {
-		$viewConfiguration = array();
-
-		$address = $member->getAddress();
-		$town = '';
-		$country = '';
-		$gps = '';
-
 		$memberArray = array(
 			'id' => $member->getId(),
 			'version' => $member->getVersion(),
 			'username' => $member->getUsername(),
-			'fullname' => (string)$member->getName(),
-			'email' => (string)$member->getPrimaryElectronicAddress(),
-			'town' => $town,
-			'country' => $country,
-			'gps' => $gps
 		);
+
+		$loggedInAccount = $this->securityContext->getAccountByAuthenticationProviderName('RESTServiceProvider');
+		if ($loggedInAccount !== NULL) {
+			$loggedInMember = $loggedInAccount->getParty();
+
+			// TODO: if is contact of ...
+
+			$address = $member->getAddress();
+			if ($address !== NULL) {
+				$town = $address->getLocality();
+				$country = $address->getCountry();
+				$gps = $address->getLocationByCoordinates();
+			}
+
+			$memberArray += array(
+				'id' => $member->getId(),
+				'version' => $member->getVersion(),
+				'username' => $member->getUsername(),
+				'fullname' => (string)$member->getName(),
+				'email' => (string)$member->getPrimaryElectronicAddress(),
+				'town' => isset($town) ? $town : NULL,
+				'country' => isset($country) ? $country : NULL,
+				'gps' => isset($gps) ? $gps : NULL
+			);
+		}
 
 		$this->view->assign('value', $memberArray);
 	}
