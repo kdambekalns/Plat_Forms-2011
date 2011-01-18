@@ -67,6 +67,12 @@ class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 	protected $categoryRepository;
 
 	/**
+	 * @inject
+	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
+	 */
+	protected $conferenceRepository;
+
+	/**
 	 * Forwards to the importAction
 	 *
 	 * @return void
@@ -84,8 +90,9 @@ class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 		$this->categoryRepository->removeAll();
+		$this->conferenceRepository->removeAll();
 
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password');
+		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'));
 		$this->accountRepository->add($account);
 
 		$this->response->setStatus(204);

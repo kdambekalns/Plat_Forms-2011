@@ -25,7 +25,6 @@ namespace F3\CaP\Domain\Model;
 /**
  * A Conference
  *
- * @origin: M
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @scope prototype
  * @entity
@@ -63,113 +62,84 @@ class Conference {
 	protected $locationByCoordinates;
 
 	/**
-	 * @var \SplObjectStorage<F3\CaP\Domain\Model\Category>
+	 * @var \SplObjectStorage
 	 */
 	protected $categories;
 
 	/**
-	 * @param \F3\Party\Domain\Model\Address $address
-	 * @return void
+	 *
 	 */
-	public function setAddress(\F3\Party\Domain\Model\Address $address) {
-		$this->address = $address;
+	public function __construct() {
+		$this->categories = new \SplObjectStorage();
 	}
 
 	/**
-	 * @return
-	 */
-	public function getAddress() {
-		return $this->address;
-	}
-
-	/**
-	 * @param SplObjectStorage $categories
-	 * @return void
-	 */
-	public function setCategories(\SplObjectStorage $categories) {
-		$this->categories = $categories;
-	}
-
-	/**
-	 * @return
-	 */
-	public function getCategories() {
-		return $this->categories;
-	}
-
-	/**
-	 * @param string $description
-	 * @return void
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-	/**
-	 * @param \DateTime $endDate
-	 * @return void
-	 */
-	public function setEndDate(\DateTime $endDate) {
-		$this->endDate = $endDate;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getEndDate() {
-		return $this->endDate;
-	}
-
-	/**
-	 * @param string $locationByCoordinates
-	 * @return void
-	 */
-	public function setLocationByCoordinates($locationByCoordinates) {
-		$this->locationByCoordinates = $locationByCoordinates;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getLocationByCoordinates() {
-		return $this->locationByCoordinates;
-	}
-
-	/**
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * @return string
+	 * Get the Conference's name
+	 *
+	 * @return string The Conference's name
 	 */
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
-	 * @param \DateTime $startDate
+	 * Sets this Conference's name
+	 *
+	 * @param string $name The Conference's name
 	 * @return void
 	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	public function setAddress($address) {
+		$this->address = $address;
+	}
+
+	public function getAddress() {
+		return $this->address;
+	}
+
+	public function setCategories($categories) {
+		$this->categories = $categories;
+	}
+
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	public function setDescription($description) {
+		$this->description = $description;
+	}
+
+	public function getDescription() {
+		return $this->description;
+	}
+
+	public function setEndDate(\DateTime $endDate) {
+		$this->endDate = $endDate;
+	}
+
+	public function getEndDate() {
+		return $this->endDate;
+	}
+
+	public function setLocationByCoordinates($locationByCoordinates) {
+		$this->locationByCoordinates = $locationByCoordinates;
+	}
+
+	public function getLocationByCoordinates() {
+		return $this->locationByCoordinates;
+	}
+
 	public function setStartDate(\DateTime $startDate) {
 		$this->startDate = $startDate;
 	}
 
-	/**
-	 * @return \DateTime
-	 */
 	public function getStartDate() {
 		return $this->startDate;
 	}
+
+
 }
 ?>

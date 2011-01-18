@@ -32,25 +32,6 @@ namespace F3\CaP\Domain\Repository;
 class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 
 	/**
-	 * @var array
-	 */
-	protected $defaultOrderings = array(
-		'startDate' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING,
-		'name' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING,
-	);
-
-	/**
-	 * Finds conferences that are current, i.e. end today or later.
-	 *
-	 * @return \F3\FLOW3\Persistence\QueryResultInterface The query result
-	 * @author Karsten Dambekalns <karsten@typo3.org>
-	 */
-	public function findCurrent() {
-		$query = $this->createQuery();
-		return $query->matching($query->lessThanOrEqual('endDate', new \DateTime('today')))->execute();
-	}
-
-	/**
 	 * Parse a query as defined by M26
 	 *
 	 * @param string $query
@@ -79,10 +60,10 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 						$query['options'][$userQueryPart[1]] = TRUE;
 						break;
 					case 'from':
-						$query['from'] = $this->parseDateString($userQueryPart[1]);
+						$query['from'] = \F3\CaP\Utility\DateConverter::createDateFromString($userQueryPart[1]);
 						break;
 					case 'until':
-						$query['until'] = $this->parseDateString($userQueryPart[1]);
+						$query['until'] = \F3\CaP\Utility\DateConverter::createDateFromString($userQueryPart[1]);
 						break;
 					case 'reg':
 						if (is_numeric($userQueryPart[1])) {
@@ -98,32 +79,5 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		}
 
 		return $query;
-	}
-
-	/**
-	 * Parses a string containing a date in one of the following formats:
-	 *  20110118
-	 *  2011/01/18
-	 *  2011-01-18
-	 *  18.01.2001
-	 *
-	 * If $dateString cannot be parsed NULL is returned.
-	 *
-	 * @param string $dateString
-	 * @return DateTime
-	 * @author Karsten Dambekalns <karsten@typo3.org>
-	 */
-	protected function parseDateString($dateString) {
-		if (strpos($dateString, '/') !== FALSE) {
-			$date = \DateTime::createFromFormat('!Y/m/d', $dateString);
-		} elseif (strpos($dateString, '.') !== FALSE) {
-			$date = \DateTime::createFromFormat('!d.m.Y', $dateString);
-		} elseif (strpos($dateString, '-') !== FALSE) {
-			$date = \DateTime::createFromFormat('!Y-m-d', $dateString);
-		} else {
-			$date = \DateTime::createFromFormat('!Ymd', $dateString);
-		}
-
-		return $date === FALSE ? NULL : $date;
 	}
 }

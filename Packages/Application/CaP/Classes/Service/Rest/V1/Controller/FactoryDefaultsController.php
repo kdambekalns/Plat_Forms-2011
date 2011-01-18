@@ -56,6 +56,12 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 
 	/**
 	 * @inject
+	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
+	 */
+	protected $conferenceRepository;
+
+	/**
+	 * @inject
 	 * @var \F3\FLOW3\Security\AccountRepository
 	 */
 	protected $accountRepository;
@@ -84,8 +90,9 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 		$this->categoryRepository->removeAll();
+		$this->conferenceRepository->removeAll();
 
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password');
+		$account = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'));
 		$this->accountRepository->add($account);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
@@ -123,6 +130,23 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			foreach ($categoryRecord->subcategories as $subCategoryRecord) {
 				$categories[$subCategoryRecord->name]->setParent($categories[$categoryRecord->name]);
 			}
+		}
+
+		foreach ($factoryDefaults->conference as $conferenceRecord) {
+			$conference = $this->objectManager->create('F3\CaP\Domain\Model\Conference');
+			$conference->setName($conferenceRecord->name);
+			$conference->setDescription($conferenceRecord->description);
+
+			$conference->setStartDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->startdate));
+			$conference->setEndDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->enddate));
+
+			$conferenceCategories = new \SplObjectStorage();
+			foreach ($conferenceRecord->categories as $categoryRecord) {
+				$conferenceCategories->attach($categories[$categoryRecord->name]);
+			}
+			$conference->setCategories($conferenceCategories);
+
+			$this->conferenceRepository->add($conference);
 		}
 
 		$this->response->setStatus(204);

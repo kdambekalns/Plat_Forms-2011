@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\CaP\Service\Rest\V1\Controller;
+namespace F3\CaP\Utility;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "CaP".                        *
@@ -23,53 +23,37 @@ namespace F3\CaP\Service\Rest\V1\Controller;
  *                                                                        */
 
 /**
- * REST Controller for Conference
+ * Date Converter
  *
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
+class DateConverter {
 
 	/**
-	 * @inject
-	 * @var \F3\CaP\Domain\Repository\ConferenceRepository
-	 */
-	protected $conferenceRepository;
-
-	/**
-	 * @var string
-	 */
-	protected $resourceArgumentName = 'conference';
-
-	/**
-	 * @var array
-	 */
-	protected $supportedFormats = array('json');
-
-	/**
-	 * @var array
-	 */
-	protected $viewFormatToObjectNameMap = array(
-		 'json' => 'F3\FLOW3\MVC\View\JsonView',
-	);
-
-	/**
+	 * Parses a string containing a date in one of the following formats:
+	 *  20110118
+	 *  2011/01/18
+	 *  2011-01-18
+	 *  18.01.2001
 	 *
-	 */
-	public function listAction() {
-		$this->view->assign('value', $this->conferenceRepository->findAll());
-	}
-
-	/**
-	 * Shows the specified conference
+	 * If $dateString cannot be parsed NULL is returned.
 	 *
-	 * @param
-	 * @return string View output for the specified conference
-	 * @author Robert Lemke <robert@typo3.org>
+	 * @param string $dateString
+	 * @return DateTime
+	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
-	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
-		$this->view->assign('value', $conference);
+	static public function createDateFromString($dateString) {
+		if (strpos($dateString, '/') !== FALSE) {
+			$date = \DateTime::createFromFormat('!Y/m/d', $dateString);
+		} elseif (strpos($dateString, '.') !== FALSE) {
+			$date = \DateTime::createFromFormat('!d.m.Y', $dateString);
+		} elseif (strpos($dateString, '-') !== FALSE) {
+			$date = \DateTime::createFromFormat('!Y-m-d', $dateString);
+		} else {
+			$date = \DateTime::createFromFormat('!Ymd', $dateString);
+		}
+
+		return $date === FALSE ? NULL : $date;
 	}
 }
-
-?>
