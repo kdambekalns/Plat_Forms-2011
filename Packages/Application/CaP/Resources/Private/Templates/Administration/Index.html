@@ -1,0 +1,51 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<h1>Administration</h1>
+
+	<p>
+	<f:if condition="{categoryPath}">
+		<f:then>
+			<f:link.action>[All]</f:link.action>
+			<f:for each="{categoryPath}" as="category">
+				&gt; <f:link.action arguments="{category: category}">{category.name}</f:link.action>
+			</f:for>.
+			<f:if condition="{categories}">
+			 Select a sub-category below to add a new sub-category below it.
+			</f:if>
+		</f:then>
+		<f:else>
+			Select a category below to add a new sub-category below it.
+		</f:else>
+	</f:if>
+	<ol class="categories">
+		<f:for each="{categories}" as="category">
+			<li><f:link.action arguments="{category: category}">{category.name}</f:link.action></li>
+		</f:for>
+	</ol>
+	</p>
+	<f:form action="create" object="{newCategory}" name="newCategory" class="dataform">
+		<fieldset>
+			<legend>
+				<f:if condition="{parentCategory}">
+					<f:then>Add a new category below {parentCategory.name}:</f:then>
+					<f:else>Add a new top-level category:</f:else>
+				</f:if>
+			</legend>
+			<f:form.errors for="newCategory">
+				<div class="error">
+					<strong>{error.propertyName}</strong>: <f:for each="{error.errors}" as="errorDetail">{errorDetail.message}</f:for>
+				</div>
+			</f:form.errors>
+			<ol>
+				<li>
+					<label>Name<em>*</em><f:form.textfield property="name" required="required" /></label>
+					<f:if condition="{parentCategory}">
+						<f:then><f:form.hidden property="parent" value="{parentCategory}" /></label></f:then>
+					</f:if>
+				</li>
+				<li><f:form.submit value="Add category" class="positive-submit" /></li>
+			</ol>
+		</fieldset>
+	</f:form>
+</f:section>
