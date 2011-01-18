@@ -114,6 +114,30 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$this->view->assign('conference', $conference);
 	}
+
+	/**
+	 * Renders a form for creating a new conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $newConference
+	 * @dontvalidate $newConference
+	 * @return void
+	 */
+	public function newAction(\F3\CaP\Domain\Model\Conference $newConference = NULL) {
+		$this->view->assign('categories', $this->categoryRepository->findAll());
+		$this->view->assign('newConference', $newConference);
+		$this->view->assign('currentMember', $this->account->getParty());
+	}
+
+	/**
+	 * Creates a new conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $newConference
+	 * @return void
+	 */
+	public function createAction(\F3\CaP\Domain\Model\Conference $newConference) {
+		$this->conferenceRepository->add($newConference);
+		$this->redirect('show', NULL, NULL, array('conference' => $newConference));
+	}
 }
 
 ?>

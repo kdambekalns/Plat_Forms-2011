@@ -67,6 +67,11 @@ class Conference {
 	protected $categories;
 
 	/**
+	 * @var \F3\CaP\Domain\Model\Member
+	 */
+	protected $creator;
+
+	/**
 	 *
 	 */
 	public function __construct() {
@@ -92,7 +97,10 @@ class Conference {
 		$this->name = $name;
 	}
 
-	public function setAddress($address) {
+	/**
+	 * @param \F3\Party\Domain\Model\Address $address
+	 */
+	public function setAddress(\F3\Party\Domain\Model\Address $address) {
 		$this->address = $address;
 	}
 
@@ -100,14 +108,23 @@ class Conference {
 		return $this->address;
 	}
 
-	public function setCategories($categories) {
-		$this->categories = $categories;
+	/**
+	 * @param array<\F3\CaP\Domain\Model\Category> $categories
+	 */
+	public function setCategories(array $categories) {
+		foreach ($categories as $category) {
+			$this->categories->attach($category);
+		}
 	}
 
 	public function getCategories() {
 		return $this->categories;
 	}
 
+	/**
+	 * @param string $description
+	 * @return void
+	 */
 	public function setDescription($description) {
 		$this->description = $description;
 	}
@@ -116,7 +133,12 @@ class Conference {
 		return $this->description;
 	}
 
-	public function setEndDate(\DateTime $endDate) {
+	/**
+	 * @param string $endDate
+	 * @return void
+	 */
+	public function setEndDate($endDate) {
+		if (is_string($endDate)) $endDate = \F3\CaP\Utility\DateConverter::createDateFromString($endDate);
 		$this->endDate = $endDate;
 	}
 
@@ -124,6 +146,10 @@ class Conference {
 		return $this->endDate;
 	}
 
+	/**
+	 * @param string $locationByCoordinates
+	 * @return void
+	 */
 	public function setLocationByCoordinates($locationByCoordinates) {
 		$this->locationByCoordinates = $locationByCoordinates;
 	}
@@ -132,12 +158,29 @@ class Conference {
 		return $this->locationByCoordinates;
 	}
 
-	public function setStartDate(\DateTime $startDate) {
+	/**
+	 * @param string $startDate
+	 * @return void
+	 */
+	public function setStartDate($startDate) {
+		if (is_string($startDate)) $startDate = \F3\CaP\Utility\DateConverter::createDateFromString($startDate);
 		$this->startDate = $startDate;
 	}
 
 	public function getStartDate() {
 		return $this->startDate;
+	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $creator
+	 * @return void
+	 */
+	public function setCreator(\F3\CaP\Domain\Model\Member $creator) {
+		$this->creator = $creator;
+	}
+
+	public function getCreator() {
+		return $this->creator;
 	}
 
 

@@ -1,0 +1,34 @@
+<f:layout name="master"/>
+
+<f:section name="mainbox">
+	<h1>Create a new conference:</h1>
+	<p>
+		<f:form action="create" object="{newConference}" name="newConference" class="dataform">
+			<fieldset>
+				<f:form.errors for="newConference">
+					<div class="error">
+						<strong>{error.propertyName}</strong>: <f:for each="{error.errors}" as="errorDetail">{errorDetail.message}</f:for>
+					</div>
+				</f:form.errors>
+				<ol>
+					<li><label>Name<em>*</em><f:form.textfield property="name" required="required" /></label></li>
+					<li><label>Description<em>*</em><f:form.textarea property="description" rows="7" cols="30" /></label></li>
+					<li><label>Start Date<em>*</em><f:form.textfield property="startDate" required="required" /></label></li>
+					<li><label>End Date<em>*</em><f:form.textfield property="endDate" required="required" /></label></li>
+					<li><label>Town<em>*</em><f:form.textfield property="address.locality" required="required" /></label></li>
+					<li><label>Country<em>*</em><f:form.textfield property="address.country" required="required" /></label></li>
+					<li>
+						<label>categories<em>*</em><f:form.select property="categories" options="{categories}" multiple="true" optionLabelField="name" size="10" /></label>
+						<f:form.hidden property="creator" value="{currentMember}" />
+					</li>
+				</ol>
+			</fieldset>
+			<fieldset>
+				<legend></legend>
+				<ol>
+					<li><f:form.submit value="Create Conference" class="positive-submit" /> | <f:link.action action="index" class="cancel">Cancel</f:link.action></li>
+				</ol>
+			</fieldset>
+		</f:form>
+	<f:flashMessages class="flashmessages" />
+</f:section>
