@@ -25,6 +25,7 @@ namespace F3\CaP\Domain\Model;
 /**
  * A Conference
  *
+ * @origin: M
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @scope prototype
  * @entity
@@ -32,30 +33,143 @@ namespace F3\CaP\Domain\Model;
 class Conference {
 
 	/**
-	 * The name
-	 * @var string,description:string,startDate:DateTime,endDate:DateTime,address:Address,locationByCoordinates:string,categories:SplObjectStorage
+	 * @var string
 	 */
 	protected $name;
 
+	/**
+	 * @var string
+	 */
+	protected $description;
 
 	/**
-	 * Get the Conference's name
-	 *
-	 * @return string,description:string,startDate:DateTime,endDate:DateTime,address:Address,locationByCoordinates:string,categories:SplObjectStorage The Conference's name
+	 * @var \DateTime
 	 */
-	public function getName() {
-		return $this->name;
+	protected $startDate;
+
+	/**
+	 * @var \DateTime
+	 */
+	protected $endDate;
+
+	/**
+	 * @var \F3\Party\Domain\Model\Address
+	 */
+	protected $address;
+
+	/**
+	 * @var string
+	 */
+	protected $locationByCoordinates;
+
+	/**
+	 * @var \SplObjectStorage<F3\CaP\Domain\Model\Category>
+	 */
+	protected $categories;
+
+	/**
+	 * @param \F3\Party\Domain\Model\Address $address
+	 * @return void
+	 */
+	public function setAddress(\F3\Party\Domain\Model\Address $address) {
+		$this->address = $address;
 	}
 
 	/**
-	 * Sets this Conference's name
-	 *
-	 * @param string,description:string,startDate:DateTime,endDate:DateTime,address:Address,locationByCoordinates:string,categories:SplObjectStorage $name The Conference's name
+	 * @return
+	 */
+	public function getAddress() {
+		return $this->address;
+	}
+
+	/**
+	 * @param SplObjectStorage $categories
+	 * @return void
+	 */
+	public function setCategories(\SplObjectStorage $categories) {
+		$this->categories = $categories;
+	}
+
+	/**
+	 * @return
+	 */
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	/**
+	 * @param string $description
+	 * @return void
+	 */
+	public function setDescription($description) {
+		$this->description = $description;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * @param \DateTime $endDate
+	 * @return void
+	 */
+	public function setEndDate(\DateTime $endDate) {
+		$this->endDate = $endDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getEndDate() {
+		return $this->endDate;
+	}
+
+	/**
+	 * @param string $locationByCoordinates
+	 * @return void
+	 */
+	public function setLocationByCoordinates($locationByCoordinates) {
+		$this->locationByCoordinates = $locationByCoordinates;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocationByCoordinates() {
+		return $this->locationByCoordinates;
+	}
+
+	/**
+	 * @param string $name
 	 * @return void
 	 */
 	public function setName($name) {
 		$this->name = $name;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * @param \DateTime $startDate
+	 * @return void
+	 */
+	public function setStartDate(\DateTime $startDate) {
+		$this->startDate = $startDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getStartDate() {
+		return $this->startDate;
+	}
 }
 ?>
