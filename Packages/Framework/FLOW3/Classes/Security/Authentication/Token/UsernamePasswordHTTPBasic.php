@@ -40,9 +40,17 @@ class UsernamePasswordHTTPBasic extends \F3\FLOW3\Security\Authentication\Token\
 	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
 	public function updateCredentials(\F3\FLOW3\MVC\RequestInterface $request) {
+		$username = NULL;
+		$password = NULL;
 		$requestHeaders = $this->environment->getRequestHeaders();
-		if (isset($requestHeaders['User'])) $username = $requestHeaders['User'];
-		if (isset($requestHeaders['Pw'])) $password = $requestHeaders['Pw'];
+
+		if (isset($requestHeaders['User']) && isset($requestHeaders['Pw'])) {
+			$username = $requestHeaders['User'];
+			$password = $requestHeaders['Pw'];
+		} else {
+			$this->credentials = array();
+			$this->authenticationStatus = \F3\FLOW3\Security\Authentication\TokenInterface::NO_CREDENTIALS_GIVEN;
+		}
 
 		if (!empty($username) && !empty($password)) {
 			$this->credentials['username'] = $username;
