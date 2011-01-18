@@ -4,25 +4,16 @@
 # origin: M                                                              #
 
 -
-  name: 'Standard route'
-  uriPattern: ''
-  defaults:
-    '@package':    'CaP'
-    '@controller': 'Conference'
-    '@action':     'index'
-    '@format':     'html'
+  name:          'Frontend: /conferences/category/{category}'
 
--
-  name:          'Frontend: /conferences'
-
-  uriPattern:    'conferences'
+  uriPattern:    'conferences/category/{category}'
   defaults:
     '@package':    'CaP'
     '@controller': 'Conference'
     '@action':     'index'
   routeParts:
-    conference:
-      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+    category:
+      handler:    F3\CaP\Routing\CategoryRoutePartHandler
 
 -
   name:          'Frontend: /conferences/{conference}'
@@ -35,6 +26,15 @@
   routeParts:
     conference:
       handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
+-
+  name:          'Frontend: /conferences'
+
+  uriPattern:    'conferences'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Conference'
+    '@action':     'index'
 
 ##
 # REST services
@@ -120,3 +120,16 @@
     '@subpackage': 'Service\Rest\V1'
     '@controller': 'FactoryDefaults'
     '@format':     'json'
+
+##
+# Fallback
+
+-
+  name: 'Standard route'
+  uriPattern: ''
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Conference'
+    '@action':     'index'
+    '@format':     'html'
+
