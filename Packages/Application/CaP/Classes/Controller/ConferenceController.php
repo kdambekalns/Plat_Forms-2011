@@ -43,6 +43,43 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	protected $conferenceRepository;
 
 	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
+	 * @var \F3\FLOW3\Security\Account
+	 */
+	protected $account;
+
+	/**
+	 * Initializes the controller before invoking an action method.
+	 *
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeAction() {
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$this->account = $token->getAccount();
+			}
+		}
+	}
+
+	/**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * @param \F3\FLOW3\MVC\View\ViewInterface $view The view to be initialized
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeView(\F3\FLOW3\MVC\View\ViewInterface $view) {
+		$view->assign('account', $this->account);
+	}
+
+	/**
 	 * Displays the main screen
 	 *
 	 * @param \F3\CaP\Domain\Model\Category

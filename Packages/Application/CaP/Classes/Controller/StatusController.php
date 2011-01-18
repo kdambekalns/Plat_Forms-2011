@@ -43,6 +43,37 @@ class StatusController extends \F3\FLOW3\MVC\Controller\ActionController {
 	protected $memberRepository;
 
 	/**
+	 * @var \F3\FLOW3\Security\Account
+	 */
+	protected $account;
+
+	/**
+	 * Initializes the controller before invoking an action method.
+	 *
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeAction() {
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$this->account = $token->getAccount();
+			}
+		}
+	}
+
+	/**
+	 * Initializes the view before invoking an action method.
+	 *
+	 * @param \F3\FLOW3\MVC\View\ViewInterface $view The view to be initialized
+	 * @return void
+	 * @author Robert Lemke <robert@typo3.org>
+	 */
+	protected function initializeView(\F3\FLOW3\MVC\View\ViewInterface $view) {
+		$view->assign('account', $this->account);
+	}
+
+	/**
 	 * Index action
 	 *
 	 * @param \F3\CaP\Domain\Model\Member $member The member to show the status for

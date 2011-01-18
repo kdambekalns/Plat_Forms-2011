@@ -49,10 +49,10 @@
 					<div id="loginregister">
 						<f:security.ifAuthenticated>
 							<f:then>
-								<f:link.action action="index" controller="LoginController"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
+								<f:link.action action="index" controller="Login"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
 							</f:then>
 							<f:else>
-								<f:link.action action="index" controller="LoginController"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></f:link.action>
+								<f:link.action action="index" controller="Login"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></f:link.action>
 							</f:else>
 						</f:security.ifAuthenticated>
 					</div>
@@ -66,9 +66,9 @@
 							<div id="userinfo">
 								<div class="info-box logged">
 									<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
-									<div class="cta-user-info"><div class="cta-user-name"><f:link.action action="index" controller="Account\Personal"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
+									<div class="cta-user-info"><div class="cta-user-name"><f:link.action controller="Status" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
 									<div class="cta-user-text">Not your account?</div>
-									<div class="cta-user-logout"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></div>
+									<div class="cta-user-logout"><f:link.action action="logout" controller="Login">Logout</f:link.action></div>
 									</div>
 								</div>
 							</div>
@@ -76,17 +76,9 @@
 						<div id="submenu">
 							<f:security.ifAuthenticated>
 								<ul class="sublevel1">
-									<li class="act-if-sub"><f:link.action controller="Account\Overview">Manage Account</f:link.action>
+									<li class="act-if-sub"><f:link.action controller="Status" arguments="{member: account.party}">Manage Account</f:link.action>
 										<ul class="sublevel2">
-											<li class="no"><f:link.action controller="Account\Personal">Personal Info</f:link.action></li>
-											<li class="no"><f:link.action controller="Account\SpeakerProfile">Speaker Profile</f:link.action></li>
-											<f:if condition="account.party.speakerProfile">
-												<li class="no"><f:link.action controller="Account\Papers">Paper Submission</f:link.action></li>
-											</f:if>
-											<li class="no"><a href="">Conference Tickets</a></li>
-											<li class="no"><a href="">Invoices</a></li>
-											<li class="spacer"><!--//------------//--></li>
-											<li class="no"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></li>
+											<li class="no"><f:link.action action="logout" controller="Login">Logout</f:link.action></li>
 										</ul>
 									</li>
 								</ul>

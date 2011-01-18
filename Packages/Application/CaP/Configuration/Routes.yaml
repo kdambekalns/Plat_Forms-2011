@@ -4,6 +4,49 @@
 # origin: M                                                              #
 
 -
+  name:          'Frontend: /logout'
+
+  uriPattern:    'logout'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Login'
+    '@action':     'logout'
+    '@format':     'html'
+
+-
+  name:          'Frontend: /login(/{@action})'
+
+  uriPattern:    'login(/{@action})'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Login'
+    '@action':     'index'
+    '@format':     'html'
+
+-
+  name:          'Frontend: /members/registration'
+
+  uriPattern:    'members/registration(/{@action})'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Registration'
+    '@action':     'index'
+    '@format':     'html'
+
+-
+  name:          'Frontend: /members/status/{member}'
+
+  uriPattern:    'members/status/{member}'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Status'
+    '@action':     'index'
+    '@format':     'html'
+  routeParts:
+    member:
+      handler:    F3\CaP\Routing\MemberRoutePartHandler
+
+-
   name:          'Frontend: /conferences/category/{category}'
 
   uriPattern:    'conferences/category/{category}'
@@ -11,6 +54,7 @@
     '@package':    'CaP'
     '@controller': 'Conference'
     '@action':     'index'
+    '@format':     'html'
   routeParts:
     category:
       handler:    F3\CaP\Routing\CategoryRoutePartHandler
@@ -23,6 +67,7 @@
     '@package':    'CaP'
     '@controller': 'Conference'
     '@action':     'show'
+    '@format':     'html'
   routeParts:
     conference:
       handler:    F3\CaP\Routing\ConferenceRoutePartHandler
@@ -35,6 +80,7 @@
     '@package':    'CaP'
     '@controller': 'Conference'
     '@action':     'index'
+    '@format':     'html'
 
 ##
 # REST services
