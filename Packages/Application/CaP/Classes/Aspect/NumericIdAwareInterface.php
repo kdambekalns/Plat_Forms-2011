@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\CaP\Service\Rest\V1\Controller;
+namespace F3\CaP\Aspect;
 
 /*                                                                        *
  * This script belongs to the FLOW3 package "CaP".                        *
@@ -23,68 +23,18 @@ namespace F3\CaP\Service\Rest\V1\Controller;
  *                                                                        */
 
 /**
- * REST Controller for Category
+ * An aspect which introduces numeric ids to models of this application
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
  */
-class CategoryController extends \F3\FLOW3\MVC\Controller\RestController {
+interface NumericIdAwareInterface {
 
 	/**
-	 * @var string
+	 * Returns a numeric identifier computed from the object's UUID
+	 * @return integer
 	 */
-	protected $resourceArgumentName = 'category';
-
-	/**
-	 * @var array
-	 */
-	protected $supportedFormats = array('json');
-
-	/**
-	 * @var array
-	 */
-	protected $viewFormatToObjectNameMap = array(
-		 'json' => 'F3\FLOW3\MVC\View\JsonView',
-	);
-
-	/**
-	 * @inject
-	 * @var \F3\CaP\Domain\Repository\CategoryRepository
-	 */
-	protected $categoryRepository;
-
-	/**
-	 * Lists all top-level categories
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$toplevelCategories = array();
-
-		foreach ($this->categoryRepository->findByParent(NULL) as $category) {
-			$detailUri = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category));
-
-			$toplevelCategories[] = array(
-				'id' => $category->getNumericId(),
-				'name' => $category->getName(),
-				'details' => (string)$detailUri
-			);
-		}
-
-		$this->view->assign('value', $toplevelCategories);
-
-		if (count($toplevelCategories) === 0) {
-			$this->response->setStatus(204);
-		}
-	}
-
-	/**
-	 * @param \F3\CaP\Domain\Model\Category
-	 * @return void
-	 */
-	public function showAction(\F3\CaP\Domain\Model\Category $category) {
-		
-	}
+	public function getNumericId();
 }
 
 ?>

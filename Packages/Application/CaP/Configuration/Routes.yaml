@@ -38,6 +38,16 @@
     '@format':     'json'
 
 -
+  name:          'REST: /categories'
+
+  uriPattern:    'ws/categories(/{category})'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Category'
+    '@format':     'json'
+
+-
   name:          'REST: /reset'
 
   uriPattern:    'ws/reset'
