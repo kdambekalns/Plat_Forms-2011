@@ -78,6 +78,7 @@ class HTTPBasic implements \F3\FLOW3\Security\Authentication\EntryPointInterface
 	 * @return void
 	 */
 	public function startAuthentication(\F3\FLOW3\MVC\RequestInterface $request, \F3\FLOW3\MVC\ResponseInterface $response) {
+		header('HTTP/1.1 401 Unauthorized');
 		header('WWW-Authenticate: Basic realm="' . $this->options['realm'] . '"');
 		exit();
 	}

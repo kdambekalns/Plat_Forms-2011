@@ -118,6 +118,10 @@ class RequestDispatchingAspect {
 				$this->securityLogger->log('No authentication entry point found for active tokens, therefore cannot authenticate or redirect to authentication automatically.', LOG_NOTICE);
 				throw $exception;
 			}
+		} catch (\F3\FLOW3\Security\Exception\AccessDeniedException $exception) {
+			header('HTTP/1.1 403 Forbidden');
+			echo 'Access denied!';
+			exit();
 		}
 	}
  }
