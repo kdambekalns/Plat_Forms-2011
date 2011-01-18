@@ -23,18 +23,24 @@ namespace F3\CaP\Aspect;
  *                                                                        */
 
 /**
- * An aspect which introduces numeric ids to models of this application
+ * An aspect which introduces numeric ids and versions to models of this application
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
  */
-interface NumericIdAwareInterface {
+interface MetaPropertiesAwareInterface {
 
 	/**
-	 * Returns a numeric identifier computed from the object's UUID
+	 * Returns the object's identity
 	 * @return integer
 	 */
-	public function getNumericId();
+	public function getId();
+
+	/**
+	 * Returns a version identifier
+	 * @return string
+	 */
+	public function getVersion();
 }
 
 ?>

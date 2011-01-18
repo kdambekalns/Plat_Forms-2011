@@ -62,12 +62,9 @@ class CategoryController extends \F3\FLOW3\MVC\Controller\RestController {
 		$toplevelCategories = array();
 
 		foreach ($this->categoryRepository->findByParent(NULL) as $category) {
-			$detailUri = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category));
-
 			$toplevelCategories[] = array(
-				'id' => $category->getNumericId(),
 				'name' => $category->getName(),
-				'details' => (string)$detailUri
+				'details' => (string)$this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category))
 			);
 		}
 
@@ -83,7 +80,22 @@ class CategoryController extends \F3\FLOW3\MVC\Controller\RestController {
 	 * @return void
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Category $category) {
-		
+		$viewConfiguration = array();
+
+		$parent = $category->getParent();
+		if ($parent !== NULL) {
+			$parentUri = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $parent));
+			$viewConfiguration['value']['parent'] = $parentUri;
+		}
+
+		$viewConfiguration['value']['subcategories'] = array();
+		foreach ($this->categoryRepository->findByParent($category) as $subCategory) {
+			$uri = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $subCategory));
+			$viewConfiguration['value']['subcategories'][] = $uri;
+		}
+
+		$this->view->setConfiguration($viewConfiguration);
+		$this->view->assign('value', $category);
 	}
 }
 

@@ -28,19 +28,23 @@
     '@format':     'json'
 
 -
-  name:          'REST: /categories'
+  name:          'REST: /categories/{category}'
 
-  uriPattern:    'ws/categories'
+  uriPattern:    'ws/categories/{category}'
   defaults:
     '@package':    'CaP'
     '@subpackage': 'Service\Rest\V1'
     '@controller': 'Category'
     '@format':     'json'
+    '@action':     'show'
+  routeParts:
+    category:
+      handler:    F3\CaP\Routing\CategoryRoutePartHandler
 
 -
   name:          'REST: /categories'
 
-  uriPattern:    'ws/categories(/{category})'
+  uriPattern:    'ws/categories'
   defaults:
     '@package':    'CaP'
     '@subpackage': 'Service\Rest\V1'

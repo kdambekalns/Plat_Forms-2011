@@ -219,6 +219,11 @@ class JsonView extends \F3\FLOW3\MVC\View\AbstractView {
 		if (isset($configuration['_exposeObjectIdentifier']) && $configuration['_exposeObjectIdentifier'] === TRUE) {
 			$propertiesToRender['__identity'] = $this->persistenceManager->getIdentifierByObject($object);
 		}
+		foreach ($configuration as $configurationKey => $configurationValue) {
+			if ($configurationKey[0] !== '_') {
+				$propertiesToRender[$configurationKey] = $configurationValue;
+			}
+		}
 		return $propertiesToRender;
 	}
 }
