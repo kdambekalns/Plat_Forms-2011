@@ -1,0 +1,31 @@
+#                                                                        #
+# Configuration for the FLOW3 Framework                                  #
+#                                                                        #
+# This file contains the default base configuration for the FLOW3        #
+# Framework. Don't modify this file but add configuration options to     #
+# the FLOW3.yaml file in the in global Configuration/ directory instead. #
+#                                                                        #
+
+# @package FLOW3
+# @origin M
+
+FLOW3:
+  security:
+    authentication:
+
+      providers:
+        DefaultProvider:
+          providerClass: PersistedUsernamePasswordProvider
+          useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePassword
+
+          #  webRedirect:
+          #    uri: flow3/authentication
+        RESTServiceProvider:
+          providerClass: PersistedUsernamePasswordProvider
+          useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePasswordHTTPBasic
+          #requestPattern:
+          entryPoint:
+            HTTPBasic:
+              realm: "authenticate for the webservice"
+
+      authenticationStrategy: atLeastOneToken

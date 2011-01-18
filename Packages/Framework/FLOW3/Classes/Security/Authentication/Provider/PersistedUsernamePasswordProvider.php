@@ -100,7 +100,7 @@ class PersistedUsernamePasswordProvider implements \F3\FLOW3\Security\Authentica
 	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
 	public function getTokenClassNames() {
-		return array('F3\FLOW3\Security\Authentication\Token\UsernamePassword');
+		return array('F3\FLOW3\Security\Authentication\Token\UsernamePassword', 'F3\FLOW3\Security\Authentication\Token\UsernamePasswordHTTPBasic');
 	}
 
 	/**
@@ -111,6 +111,7 @@ class PersistedUsernamePasswordProvider implements \F3\FLOW3\Security\Authentica
 	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
 	public function authenticate(\F3\FLOW3\Security\Authentication\TokenInterface $authenticationToken) {
+
 		if (!($authenticationToken instanceof \F3\FLOW3\Security\Authentication\Token\UsernamePassword)) {
 			throw new \F3\FLOW3\Security\Exception\UnsupportedAuthenticationTokenException('This provider cannot authenticate the given token.', 1217339840);
 		}

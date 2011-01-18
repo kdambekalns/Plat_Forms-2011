@@ -1,0 +1,39 @@
+#                                                                        #
+# Security policy for the CaP Application                                #
+#                                                                        #
+
+# @package CaP
+# @origin M
+
+resources:
+  entities: []
+  methods:
+    testResource: 'method(F3\CaP\Controller\StandardController->indexAction())'
+
+roles:
+  PortalMember: []
+  PortalAdmin: []
+
+# The security policy acls configuration connects the resources with the roles by assigning
+# privileges. Here is an example configuration array:
+#
+# acls:
+#   Administrator:
+#     methods:
+#       deleteMethods:           GRANT
+#       MyPackageUpdateMethods:  DENY
+#     entities:
+#       F3_FooPackage_MyModelClassResource: GRANT
+#
+#   Customer:
+#     methods:
+#       deleteMethods:          DENY
+#       MyPackageUpdateMethods: DENY
+#     entities:
+#       F3_FooPackage_MyModelClassResource: DENY
+#
+acls:
+  PortalMember:
+    methods:
+      testResource: GRANT
+    entities: []

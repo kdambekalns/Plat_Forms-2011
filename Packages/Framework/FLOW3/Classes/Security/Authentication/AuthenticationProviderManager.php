@@ -228,6 +228,7 @@ class AuthenticationProviderManager implements \F3\FLOW3\Security\Authentication
 			$this->providers[] = $providerInstance;
 
 			foreach ($providerInstance->getTokenClassNames() as $tokenClassName) {
+				if (isset($providerConfiguration['useTokenClass']) && $providerConfiguration['useTokenClass'] !== $tokenClassName) continue;
 				$tokenInstance = $this->objectManager->get($tokenClassName);
 				$tokenInstance->setAuthenticationProviderName($providerName);
 				$this->tokens[] = $tokenInstance;

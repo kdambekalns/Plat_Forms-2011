@@ -1,9 +1,9 @@
 <?php
 declare(ENCODING = 'utf-8');
-namespace F3\CaP\Controller;
+namespace F3\FLOW3\Security\Authentication\Token;
 
 /*                                                                        *
- * This script belongs to the FLOW3 package "CaP".                        *
+ * This script belongs to the FLOW3 framework.                            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License as published by the *
@@ -23,48 +23,34 @@ namespace F3\CaP\Controller;
  *                                                                        */
 
 /**
- * Standard controller for the CaP package 
+ * An authentication token used for simple username and password authentication via HTTP Basic Auth.
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
+ * @scope prototype
+ * @origin M
  */
-class StandardController extends \F3\FLOW3\MVC\Controller\ActionController {
+class UsernamePasswordHTTPBasic extends \F3\FLOW3\Security\Authentication\Token\UsernamePassword {
 
 	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountRepository
-	*/
-	protected $accountRepository;
-
-	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountFactory
-	 */
-	protected $accountFactory;
-
-	/**
-	 * Index action
+	 * Updates the username and password credentials from the POST vars, if the POST parameters
+	 * are available. Sets the authentication status to REAUTHENTICATION_NEEDED, if credentials have been sent.
 	 *
+	 * @param \F3\FLOW3\MVC\RequestInterface $request The current request instance
 	 * @return void
+	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
-	public function indexAction() {
-		$this->view->assign('foos', array(
-			'bar', 'baz'
-		));
-	}
+	public function updateCredentials(\F3\FLOW3\MVC\RequestInterface $request) {
+		$requestHeaders = $this->environment->getRequestHeaders();
+		if (isset($requestHeaders['User'])) $username = $requestHeaders['User'];
+		if (isset($requestHeaders['Pw'])) $password = $requestHeaders['Pw'];
 
-	/**
-	 * add account action
-	 *
-	 * @return void
-	 */
-	public function addAccountAction() {
-		$account = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'RESTServiceProvider');
-		//$account->setParty($person);
-		$this->accountRepository->add($account);
+		if (!empty($username) && !empty($password)) {
+			$this->credentials['username'] = $username;
+			$this->credentials['password'] = $password;
 
-		return 'account created!';
+			$this->setAuthenticationStatus(self::AUTHENTICATION_NEEDED);
+		}
 	}
-	
 }
 
 ?>
