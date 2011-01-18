@@ -58,5 +58,18 @@ class Member extends \F3\Party\Domain\Model\Person {
 		$this->contacts->attach($contact);
 	}
 
+	/**
+	 * Returns the username of the website account
+	 * 
+	 * @return string The username for the web account of this member
+	 */
+	public function getWebUsername() {
+		foreach ($this->accounts as $account) {
+			if ($account->getAuthenticationProviderName() === 'DefaultProvider') {
+				return $account->getAccountIdentifier();
+			}
+		}
+	}
+
 }
 ?>

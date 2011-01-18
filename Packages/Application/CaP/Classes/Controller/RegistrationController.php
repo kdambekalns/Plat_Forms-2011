@@ -23,7 +23,7 @@ namespace F3\CaP\Controller;
  *                                                                        */
 
 /**
- * Standard controller for the CaP package 
+ * Registration controller for the CaP package
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin RM
@@ -116,14 +116,14 @@ class RegistrationController extends \F3\FLOW3\MVC\Controller\ActionController {
 		}
 
 		$RESTAccount = $this->accountFactory->createAccountWithPassword($username, $password, array('PortalMember'), 'RESTServiceProvider');
-		$RESTAccount->setParty($newMember);
 		$WebAccount = $this->accountFactory->createAccountWithPassword($username, $password, array('PortalMember'), 'DefaultProvider');
-		$WebAccount->setParty($newMember);
+		$newMember->addAccount($RESTAccount);
+		$newMember->addAccount($WebAccount);
+
 		$this->accountRepository->add($RESTAccount);
 		$this->accountRepository->add($WebAccount);
 
 		$authenticationTokens = $this->securityContext->getAuthenticationTokensOfType('\F3\FLOW3\Security\Authentication\Token\UsernamePassword');
-		\F3\var_dump($authenticationTokens);
 		if (count($authenticationTokens) === 1) {
 			$authenticationTokens[0]->setAccount($WebAccount);
 			$authenticationTokens[0]->setAuthenticationStatus(\F3\FLOW3\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);

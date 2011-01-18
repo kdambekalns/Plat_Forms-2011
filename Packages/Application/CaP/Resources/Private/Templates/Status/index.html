@@ -1,0 +1,19 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<div id="statusscreen">
+		<p><f:flashMessages class="flashmessages" /></p>
+		<p>Hello {member.name}, this is your status page:</p>
+		<label for="username">Username:</label>
+		<p id="username">{member.webUsername}</p>
+		<label for="email">E-Mail:</label>
+		<p id="email">{member.primaryElectronicAddress}</p>
+		<label for="town">Town:</label>
+		<p id="town">{member.address.locality}</p>
+		<label for="country">Country:</label>
+		<p id="country">{member.address.country}</p>
+	</div>
+
+	TODO: List contacts<br />
+	TODO: List personal calendars
+</f:section>
