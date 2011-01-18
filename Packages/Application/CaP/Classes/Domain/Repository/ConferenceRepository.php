@@ -32,6 +32,25 @@ namespace F3\CaP\Domain\Repository;
 class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 
 	/**
+	 * @var array
+	 */
+	protected $defaultOrderings = array(
+		'startDate' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING,
+		'name' => \F3\FLOW3\Persistence\QueryInterface::ORDER_ASCENDING,
+	);
+
+	/**
+	 * Finds conferences that are current, i.e. end today or later.
+	 *
+	 * @return \F3\FLOW3\Persistence\QueryResultInterface The query result
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function findCurrent() {
+		$query = $this->createQuery();
+		return $query->matching($query->lessThanOrEqual('endDate', new \DateTime('today')))->execute();
+	}
+
+	/**
 	 * Parse a query as defined by M26
 	 *
 	 * @param string $query

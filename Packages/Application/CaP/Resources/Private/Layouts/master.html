@@ -1,161 +1,21 @@
-<!DOCTYPE html
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
 	<head>
-
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 		<!--
-			Finest quality handmade source code by Robert Lemke and Karsten Dambekalns
-
 			This website is powered by FLOW3.
 			FLOW3 is a free open source application framework licensed under GNU/LGPL.
 			Information and contribution at http://flow3.typo3.org
 		-->
-
 		<f:base/>
-
 		<meta name="generator" content="FLOW3" />
 
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/conference.css')}" media="screen" />
-
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/stylesheet_f877b8fbe1.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/logo.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/topmenu.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/searchbox.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/sitemap.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/gfxheaders.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/main.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/submenu.css')}" media="screen" />
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/columns.css')}" media="screen" />
-
-		<script src="{f:uri.resource(path: 'JavaScript/jquery-1.3.2.min.js')}" type="text/javascript"></script>
-		<script src="{f:uri.resource(path: 'JavaScript/base.js')}" type="text/javascript"></script>
-		<script src="{f:uri.resource(path: 'JavaScript/sponsorlogos.js')}" type="text/javascript"></script>
-		<script src="{f:uri.resource(path: 'JavaScript/iframeResizer.js')}" type="text/javascript"></script>
-
-		<title>{conference.name}</title>
+		<title>CaP</title>
 	</head>
 
-	<body id="typo3org" onload="resizeCaller();">
-		<div id="wrapper">
-			<div class="sitemapcontainer">
-				<div class="sitemapcontent">
-					<div id="sitemap"></div>
-					<div id="combobox">
-						<a href="gsa-user-registration/sitemap/visible/" title="View sitemap" id="sitemaptrigger" class="sitemaptriggeroff">&#160;</a>
-						<div id="searchbox"><form method="get" action="index.php">
-								<input type="hidden" name="id" value="149" />
-								<input type="text" class="blur" name="tx_indexedsearch[sword]" title="Search" />
-								<input type="hidden" name="tx_indexedsearch[_sections]" value="0" />
-								<input type="hidden" name="tx_indexedsearch[_freeIndexUid]" value="_" />
-								<input type="hidden" name="tx_indexedsearch[pointer]" value="0" />
-								<input type="hidden" name="tx_indexedsearch[ext]" value="" />
-								<input type="hidden" name="tx_indexedsearch[type]" value="0" />
-								<input type="hidden" name="tx_indexedsearch[defOp]" value="0" />
-								<input type="hidden" name="tx_indexedsearch[media]" value="-1" />
-								<input type="hidden" name="tx_indexedsearch[order]" value="rank_flag" />
-								<input type="hidden" name="tx_indexedsearch[group]" value="flat" />
-								<input type="hidden" name="tx_indexedsearch[lang]" value="-1" />
-								<input type="hidden" name="tx_indexedsearch[desc]" value="0" />
-								<input type="hidden" name="tx_indexedsearch[results]" value="10" />
-								<input type="submit" name="submit" class="search-submit" />
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="master">
-				<div id="topcontainer">
-					<div id="logo">
-						<div style="background:url({f:uri.resource(path: 'Images/logos/typo3-logo.png')}) no-repeat top left;">
-							<a href="/" title="Home"><span>TYPO3</span></a>
-						</div>
-					</div>
-				</div>
-				<div id="centeredbox">
-					<div id="topmenu">
-						<div id="level1menu"><ul><li><a href="overview/" class="gt-menu gt-8bf160d17d"><span>Overview</span></a></li><li><a href="tickets/" class="gt-menu gt-85a71c0b2a"><span>Tickets</span></a></li><li><a href="sessions/talks/talk-overview/" class="gt-menu gt-981b076838"><span>Sessions</span></a></li><li><a href="travel-hotel/hotel/" class="gt-menu gt-5a7fafb177"><span>Travel &amp; Hotel</span></a></li><li><a href="social-networks/" class="gt-menu gt-e03de4ebfd"><span>Social Networks</span></a></li><li><a href="contribute/" class="gt-menu gt-c30fe59462"><span>Contribute</span></a></li></ul></div>
-						<div id="rootlinemenu">&gt;&#160;<a href="home/" onfocus="blurLink(this);">{conference.name}</a>&#160;&gt;&#160;X&#160;</div>
-						<div id="dropdownmenu">
-							<a href="sites/" onclick="return false"><img src="{f:uri.resource(path: 'Images/dummy/dropdownmenu_up.png')}" alt="" /></a>
-						</div>
-						<div id="loginregister">
-							<f:security.ifAuthenticated>
-								<f:then>
-									<f:link.action action="index" controller="Account\Personal"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
-								</f:then>
-								<f:else>
-									<img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" />
-								</f:else>
-							</f:security.ifAuthenticated>
-						</div>
-					</div>
-					<div id="mainoverlay">
-						<!-- OVERLAY -->
-					</div>
-					<div id="maincontainer">
-						<div id="leftbox">
-							<div id="userinfo">
-								<f:security.ifAuthenticated>
-									<f:then>
-										<div class="info-box logged">
-											<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
-											<div class="cta-user-info"><div class="cta-user-name"><f:link.action action="index" controller="Account\Personal"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
-											<div class="cta-user-text">Not your account?</div>
-											<div class="cta-user-logout"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></div>
-											</div>
-										</div>
-									</f:then>
-									<f:else>
-										<div class="info-box non-logged"><a href="tickets/"><span class="info-box-no"><span class="info-header">Get your ticket</span><br /><span class="info-text">Conference Shop</span></span></a><a href="tickets/"><span class="info-box-hover"><span class="info-header">Join the event</span><br /><span class="info-text">Conference Shop</span></span></a></div>
-									</f:else>
-								</f:security.ifAuthenticated>
-							</div>
-							<div id="submenu">
-								<f:security.ifAuthenticated>
-									<ul class="sublevel1">
-										<li class="act-if-sub"><f:link.action controller="Account\Overview">Manage Account</f:link.action>
-											<ul class="sublevel2">
-												<li class="no"><f:link.action controller="Account\Personal">Personal Info</f:link.action></li>
-												<li class="no"><f:link.action controller="Account\SpeakerProfile">Speaker Profile</f:link.action></li>
-												<f:if condition="account.party.speakerProfile">
-													<li class="no"><f:link.action controller="Account\Papers">Paper Submission</f:link.action></li>
-												</f:if>
-												<li class="no"><a href="">Conference Tickets</a></li>
-												<li class="no"><a href="">Invoices</a></li>
-												<li class="spacer"><!--//------------//--></li>
-												<li class="no"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></li>
-											</ul>
-										</li>
-									</ul>
-								</f:security.ifAuthenticated>
-							</div>
-						</div>
-						<div id="mainbox">
-							<div id="mainspacer">
-								<f:render section="mainbox"/>
-							</div>
-						</div>
-						<br class="clear-all" />
-					</div>
-				</div>
-				<div id="bottomcontainer">
-					<p>&copy; <f:format.date format="Y">now</f:format.date> <a href="http://association.typo3.org" target="_blank">TYPO3 Association</a> &middot; All rights reserved. <a href="/overview/imprint/" target="_self">Imprint</a></p>
-					<img class="footer-logo" src="{f:uri.resource(path: 'Images/logos/footer-logo.gif')}" alt="" />
-				</div>
-			</div>
-			<br class="clear-all" />
+	<body>
+		<div id="mainbox">
+			<f:render section="mainbox"/>
 		</div>
-
-		<f:security.ifAuthenticated>
-			<f:then>
-				<f:link.action action="logout" />
-			</f:then>
-			<f:else>
-				<p>Don't have an account? <f:link.action controller="Account\Registration">Create one!</f:link.action></p>
-			</f:else>
-		</f:security.ifAuthenticated>
 	</body>
 </html>
