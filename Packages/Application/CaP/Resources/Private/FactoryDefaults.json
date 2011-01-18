@@ -246,7 +246,7 @@
 				"username" : "GSchröder",
 				"password" : "kzr",
 				"fullname" : "Gerhard Schröder",
-				"email" : "GSchröder@email.example.com",
+				"email" : "GSchroeder@email.example.com",
 				"town" : "Berlin",
 				"country" : "Germany",
 				"gps" : "52.0N,13E"
@@ -264,7 +264,7 @@
 				"username" : "MMüller",
 				"password" : "123",
 				"fullname" : "Michael Müller",
-				"email" : "MMüller@email.example.com",
+				"email" : "MMueller@email.example.com",
 				"town" : "Berlin",
 				"country" : "Germany",
 				"gps" : "52.0N,13E"

@@ -59,7 +59,6 @@ class ElectronicAddress {
 
 	/**
 	 * @var string
-	 * @validate Alphanumeric, StringLength(minimum = 1, maximum = 20)
 	 */
 	protected $usage;
 
