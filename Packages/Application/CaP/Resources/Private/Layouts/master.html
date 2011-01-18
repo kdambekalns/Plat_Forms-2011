@@ -10,12 +10,171 @@
 		<f:base/>
 		<meta name="generator" content="FLOW3" />
 
-		<title>CaP</title>
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/conference.css')}" media="screen" />
+
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/stylesheet_f877b8fbe1.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/logo.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/topmenu.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/searchbox.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/sitemap.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/main.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/submenu.css')}" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path: 'Stylesheets/columns.css')}" media="screen" />
+
+		<script src="{f:uri.resource(path: 'JavaScript/iframeResizer.js')}" type="text/javascript"></script>
+
+		<title>CaP by the FLOW3 team</title>
 	</head>
 
 	<body>
-		<div id="mainbox">
-			<f:render section="mainbox"/>
+	<div id="wrapper">
+		<div class="sitemapcontainer">
+			<div class="sitemapcontent">
+				<div id="combobox">
+					<div id="searchbox"><form method="get">
+							<input type="text" class="blur" name="keyword" title="Search" />
+							<input type="submit" name="submit" class="search-submit" />
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div id="master">
+			<div id="centeredbox">
+				<div id="topmenu">
+					<div id="level1menu"><ul><li><a href="">FOO</a></li></ul></div>
+					<div id="rootlinemenu">&gt;&#160;<a href="home/" onfocus="blurLink(this);">{conference.name}</a>&#160;&gt;&#160;X&#160;</div>
+					<div id="loginregister">
+						<f:security.ifAuthenticated>
+							<f:then>
+								<f:link.action action="index" controller="LoginController"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
+							</f:then>
+							<f:else>
+								<f:link.action action="index" controller="LoginController"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></f:link.action>
+							</f:else>
+						</f:security.ifAuthenticated>
+					</div>
+				</div>
+				<div id="mainoverlay">
+					<!-- OVERLAY -->
+				</div>
+				<div id="maincontainer">
+					<div id="leftbox">
+						<f:security.ifAuthenticated>
+							<div id="userinfo">
+								<div class="info-box logged">
+									<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
+									<div class="cta-user-info"><div class="cta-user-name"><f:link.action action="index" controller="Account\Personal"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
+									<div class="cta-user-text">Not your account?</div>
+									<div class="cta-user-logout"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></div>
+									</div>
+								</div>
+							</div>
+						</f:security.ifAuthenticated>
+						<div id="submenu">
+							<f:security.ifAuthenticated>
+								<ul class="sublevel1">
+									<li class="act-if-sub"><f:link.action controller="Account\Overview">Manage Account</f:link.action>
+										<ul class="sublevel2">
+											<li class="no"><f:link.action controller="Account\Personal">Personal Info</f:link.action></li>
+											<li class="no"><f:link.action controller="Account\SpeakerProfile">Speaker Profile</f:link.action></li>
+											<f:if condition="account.party.speakerProfile">
+												<li class="no"><f:link.action controller="Account\Papers">Paper Submission</f:link.action></li>
+											</f:if>
+											<li class="no"><a href="">Conference Tickets</a></li>
+											<li class="no"><a href="">Invoices</a></li>
+											<li class="spacer"><!--//------------//--></li>
+											<li class="no"><f:link.action action="logout" controller="Account\Login">Logout</f:link.action></li>
+										</ul>
+									</li>
+								</ul>
+							</f:security.ifAuthenticated>
+						</div>
+					</div>
+					<div id="mainbox">
+						<div id="mainspacer">
+							<f:render section="mainbox"/>
+						</div>
+					</div>
+					<br class="clear-all" />
+				</div>
+			</div>
+			<div id="bottomcontainer">
+				<p>Powered by <a href="http://flow3.typo3.org" target="_blank">FLOW3</a> &middot; Artcoded by Karsten, Andi and Robert</p>
+				<img class="footer-logo" src="{f:uri.resource(path: 'Images/logos/footer-logo.gif')}" alt="" />
+			</div>
+		</div>
+		<br class="clear-all" />
+	</div>
+
+	<div id="login-register-box"><img src="{f:uri.resource(path: 'Images/header/login-register-header.png')}" alt="" />
+		<h3 class="login"><span>Login</span></h3>
+		<f:form action="authenticate" controller="Account\Login" method="post">
+			<div>
+				<label for="username">
+					Username
+				</label>
+				<f:form.textbox class="blur" id="username" name="F3\FLOW3\Security\Authentication\Token\UsernamePassword::username" title="Username" />
+			</div>
+
+			<div>
+				<label for="password">
+					Password
+				</label>
+				<f:form.password class="blur" id="password" name="F3\FLOW3\Security\Authentication\Token\UsernamePassword::password" title="Password" />
+			</div>
+		</f:form>
+
+		<h3 class="register"><span>Register</span></h3>
+		<f:link.action action="index" controller="Account\Registration" class="register">Join the event and <strong>register</strong> now</f:link.action>
+		<div class="bottom-shadow">&nbsp;</div>
+	</div>
+
+	<div id="dropdownmenu-links"><div class="wrapper-top"><h3>Official TYPO3 websites<span><a href="gsa-user-registration/#" onclick="return false">close</a></span></h3>
+			<ul>
+				<li class="current-site">
+					<h4><a href="http://t3con10.typo3.org/" target="_top">t3con10.typo3.org</a></h4>
+					<p>TYPO3-Conference 2010</p>
+				</li>
+				<li>
+					<h4><a href="http://flow3.typo3.org/" target="_blank">flow3.typo3.org</a></h4>
+					<p>Next generation PHP framework</p>
+				</li>
+				<li>
+					<h4><a href="http://association.typo3.org/" target="_blank">association.typo3.org</a></h4>
+					<p>The TYPO3 Association</p>
+				</li>
+				<li>
+					<h4><a href="http://typo3.org/community/events/" target="_blank">events.typo3.org</a></h4>
+					<p>TYPO3 Events</p>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<h4><a href="http://wiki.typo3.org/" target="_blank">wiki.typo3.org</a></h4>
+					<p>Official TYPO3 wiki</p>
+				</li>
+				<li>
+					<h4><a href="http://support.typo3.org/" target="_blank">support.typo3.org</a></h4>
+					<p>TYPO3 support forums</p>
+				</li>
+				<li>
+					<h4><a href="http://buzz.typo3.org" target="_blank">buzz.typo3.org</a></h4>
+					<p>Offical TYPO3 Blogs</p>
+				</li>
+				<li>
+					<h4><a href="http://bugs.typo3.org" target="_blank">bugs.typo3.org /.com</a></h4>
+					<p>Official TYPO3 Bugtracker</p>
+				</li>
+			</ul>
+		</div>
+		<div class="separator"></div>
+		<div class="wrapper-bottom">
+			<h3 class="deeplinks">Quick Deeplink Subdomains</h3>
+			<div class="bottom-shadow"></div>
+		</div><!--div:class:wrapper-bottom-->
+	</div>
 	</body>
+
+
 </html>
