@@ -64,7 +64,7 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		$currentConferences['now'] = $query->matching(
 			$query->logicalAnd(
 				$query->lessThanOrEqual('startDate', new \DateTime('today')),
-				$query->lessThanOrEqual('endDate', new \DateTime('today'))
+				$query->greaterThanOrEqual('endDate', new \DateTime('today'))
 			)
 		)->execute();
 
@@ -107,8 +107,8 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		$currentConferences['now'] = $query->matching(
 			$query->logicalAnd(
 				$query->lessThanOrEqual('startDate', new \DateTime('today')),
-				$query->lessThanOrEqual('endDate', new \DateTime('today')),
-				$query->equals('category', $category)
+				$query->greaterThanOrEqual('endDate', new \DateTime('today')),
+				$query->contains('categories', $category)
 			)
 		)->execute();
 
@@ -117,7 +117,7 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		$currentConferences['day'] = $query->matching(
 			$query->logicalAnd(
 				$query->equals('startDate', new \DateTime('tomorrow')),
-				$query->equals('category', $category)
+				$query->contains('categories', $category)
 			)
 		)->execute();
 
@@ -127,7 +127,7 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 			$query->logicalAnd(
 				$query->greaterThan('startDate', new \DateTime('tomorrow')),
 				$query->lessThanOrEqual('startDate', new \DateTime('today +1 week')),
-				$query->equals('category', $category)
+				$query->contains('categories', $category)
 			)
 		)->execute();
 
@@ -136,7 +136,7 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		$currentConferences['future'] = $query->matching(
 			$query->logicalAnd(
 				$query->greaterThan('startDate', new \DateTime('today +1 week')),
-				$query->equals('category', $category)
+				$query->contains('categories', $category)
 			)
 		)->execute();
 
