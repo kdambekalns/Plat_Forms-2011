@@ -13,4 +13,11 @@
 	</f:for>
 
 	<p>{conference.description}</p>
+
+	<p>Attendees:</p>
+	<f:for each="{conference.attendees}" as="attendee">
+		<p>{attendee.name}</p>
+	</f:for>
+
+	<f:link.action action="attend" arguments="{conference: conference}">Attend to this conference</f:link.action>
 </f:section>

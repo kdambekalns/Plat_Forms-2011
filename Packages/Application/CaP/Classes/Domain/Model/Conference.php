@@ -72,10 +72,16 @@ class Conference {
 	protected $creator;
 
 	/**
-	 *
+	 * @var \SplObjectStorage<\F3\CaP\Domain\Model\Member>
+	 */
+	protected $attendees;
+
+	/**
+	 * Constructor
 	 */
 	public function __construct() {
 		$this->categories = new \SplObjectStorage();
+		$this->attendees = new \SplObjectStorage();
 	}
 
 	/**
@@ -183,6 +189,28 @@ class Conference {
 		return $this->creator;
 	}
 
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $attendee
+	 * @return void
+	 */
+	public function addAttendee(\F3\CaP\Domain\Model\Member $attendee) {
+		$this->attendees->attach($attendee);
+	}
 
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $attendee
+	 * @return void
+	 */
+	public function removeAttendee(\F3\CaP\Domain\Model\Member $attendee) {
+		$this->attendees->detach($attendee);
+	}
+
+	/**
+	 * @return \SplObjectStorage<\F3\CaP\Domain\Model\Member>
+	 * @return void
+	 */
+	public function getAttendees() {
+		return $this->attendees;
+	}
 }
 ?>

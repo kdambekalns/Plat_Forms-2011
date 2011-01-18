@@ -138,6 +138,17 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 		$this->conferenceRepository->add($newConference);
 		$this->redirect('show', NULL, NULL, array('conference' => $newConference));
 	}
+
+	/**
+	 * Lets the current member attend to the conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @return void
+	 */
+	public function attendAction(\F3\CaP\Domain\Model\Conference $conference) {
+		$conference->addAttendee($this->account->getParty());
+		$this->redirect('show', NULL, NULL, array('conference' => $conference));
+	}
 }
 
 ?>
