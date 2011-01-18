@@ -23,7 +23,7 @@ namespace F3\CaP\Routing;
  *                                                                        */
 
 /**
- * A route part handler for the Node Service
+ * A route part handler for the Category
  *
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
  * @origin: RM

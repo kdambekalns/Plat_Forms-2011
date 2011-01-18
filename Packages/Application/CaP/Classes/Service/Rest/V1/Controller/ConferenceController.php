@@ -57,7 +57,22 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	 *
 	 */
 	public function listAction() {
-		$this->view->assign('value', $this->conferenceRepository->findAll());
+		$conferencesArray = array();
+		foreach ($this->conferenceRepository->findAll() as $conference) {
+			$categoriesArray = array();
+			foreach ($conference->getCategories() as $category) {
+				$categoriesArray[] = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category');
+			}
+
+			$conferencesArray[] = array(
+				'name' => $conference->getName(),
+				'startdate' => $conference->getStartDate()->format('Y-m-d'),
+				'enddate' => $conference->getEndDate()->format('Y-m-d'),
+				'categories' => $categoriesArray,
+				'details' => $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('conference' => $conference))
+			);
+		}
+		$this->view->assign('value', $conferencesArray);
 	}
 
 	/**

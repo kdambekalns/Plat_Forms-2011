@@ -16,9 +16,21 @@
 # REST services
 
 -
-  name:          'REST: /conferences'
+  name:          'REST: /conferences/{conference}'
 
-  # Example URL: http://example.com/ws/conferences
+  uriPattern:    'ws/conferences/{conference}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Conference'
+    '@format':     'json'
+    '@action':     'show'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
+-
+  name:          'REST: /conferences'
 
   uriPattern:    'ws/conferences'
   defaults:
