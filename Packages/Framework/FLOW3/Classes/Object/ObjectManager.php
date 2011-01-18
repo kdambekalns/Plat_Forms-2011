@@ -78,7 +78,7 @@ class ObjectManager implements \F3\FLOW3\Object\ObjectManagerInterface {
 	/**
 	 * @var array
 	 */
-	protected $predefinedAvailableClassNames = array('DateTime');
+	protected $predefinedAvailableClassNames = array('DateTime', 'SplObjectStorage');
 
 	/**
 	 * Injects the class loader

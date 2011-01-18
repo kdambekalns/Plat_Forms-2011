@@ -23,12 +23,12 @@ namespace F3\CaP\Service\Rest\V1\Controller;
  *                                                                        */
 
 /**
- * REST Controller for Reset
+ * REST Controller for Category
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin: M
  */
-class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
+class CategoryController extends \F3\FLOW3\MVC\Controller\RestController {
 
 	/**
 	 * @var array
@@ -44,52 +44,24 @@ class ResetController extends \F3\FLOW3\MVC\Controller\RestController {
 
 	/**
 	 * @inject
-	 * @var \F3\CaP\Domain\Repository\MemberRepository
-	 */
-	protected $memberRepository;
-
-	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountRepository
-	 */
-	protected $accountRepository;
-
-	/**
-	 * @inject
-	 * @var \F3\FLOW3\Security\AccountFactory
-	 */
-	protected $accountFactory;
-
-	/**
-	 * @inject
 	 * @var \F3\CaP\Domain\Repository\CategoryRepository
 	 */
 	protected $categoryRepository;
 
 	/**
-	 * Forwards to the importAction
+	 * Lists all top-level categories
 	 *
 	 * @return void
 	 */
 	public function listAction() {
-		$this->forward('reset');
+		$toplevelCategories = $this->categoryRepository->findByParent(NULL);
+		if (count($toplevelCategories) > 0) {
+			$this->view->assign('value', $toplevelCategories);
+		} else {
+			$this->response->setStatus(204);
+		}
 	}
 
-	/**
-	 * Discards all data of this application and creates an admin user
-	 *
-	 * @return void
-	 */
-	public function resetAction() {
-		$this->accountRepository->removeAll();
-		$this->memberRepository->removeAll();
-		$this->categoryRepository->removeAll();
-
-		$account = $this->accountFactory->createAccountWithPassword('admin', 'password');
-		$this->accountRepository->add($account);
-
-		$this->response->setStatus(204);
-	}
 }
 
 ?>
