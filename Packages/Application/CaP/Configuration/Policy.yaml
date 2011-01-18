@@ -8,7 +8,7 @@
 resources:
   entities: []
   methods:
-    testResource: 'method(F3\CaP\Controller\StandardController->indexAction())'
+    testResource: 'method(F3\CaP\Controller\TestController->indexAction()) || method(F3\CaP\Controller\TestRESTController->indexAction())'
 
 roles:
   PortalMember: []

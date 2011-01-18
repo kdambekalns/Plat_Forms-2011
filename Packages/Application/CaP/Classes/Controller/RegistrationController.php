@@ -27,7 +27,7 @@ namespace F3\CaP\Controller;
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-class StandardController extends \F3\FLOW3\MVC\Controller\ActionController {
+class RegistrationController extends \F3\FLOW3\MVC\Controller\ActionController {
 
 	/**
 	 * @inject
@@ -58,11 +58,13 @@ class StandardController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function addAccountAction() {
-		$account = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'RESTServiceProvider');
-		//$account->setParty($person);
-		$this->accountRepository->add($account);
+		$this->accountRepository->removeAll();
+		$RESTAccount = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'RESTServiceProvider');
+		$WebAccount = $this->accountFactory->createAccountWithPassword('member', 'password', array('PortalMember'), 'DefaultProvider');
+		$this->accountRepository->add($RESTAccount);
+		$this->accountRepository->add($WebAccount);
 
-		return 'account created!';
+		return 'accounts for REST and Web created!';
 	}
 	
 }

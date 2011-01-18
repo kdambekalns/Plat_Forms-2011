@@ -17,15 +17,19 @@ FLOW3:
         DefaultProvider:
           providerClass: PersistedUsernamePasswordProvider
           useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePassword
+          requestPatterns:
+            controllerObjectName: 'F3\CaP\Controller\(Login|Test)Controller'
+          entryPoint:
+            webRedirect:
+              uri: cap/login
 
-          #  webRedirect:
-          #    uri: flow3/authentication
         RESTServiceProvider:
           providerClass: PersistedUsernamePasswordProvider
           useTokenClass: F3\FLOW3\Security\Authentication\Token\UsernamePasswordHTTPBasic
-          #requestPattern:
+          requestPatterns:
+            controllerObjectName: F3\CaP\Controller\TestRESTController
           entryPoint:
             HTTPBasic:
-              realm: "authenticate for the webservice"
+              realm: "Authenticate for the REST services"
 
       authenticationStrategy: atLeastOneToken

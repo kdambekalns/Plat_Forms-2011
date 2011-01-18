@@ -7,13 +7,16 @@
 # Please refer to the FLOW3 manual for possible configuration options.   #
 #                                                                        #
 
+# $Id$
+
+
 ##
-# Subroutes from the CaP package.
-#
+# Default route to map the first two URL segments to package and controller
+# optional third URL segment is mapped to action
 
 -
-  name: 'CaP'
-  uriPattern: '<CaPSubroutes>'
-  subRoutes:
-    CaPSubroutes:
-      package: CaP
+  name: 'default'
+  uriPattern: '{@package}/{@controller}(/{@action})'
+  defaults:
+    '@action':     'index'
+    '@format':     'html'

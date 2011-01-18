@@ -177,10 +177,13 @@ class Context {
 	public function initialize(\F3\FLOW3\MVC\RequestInterface $request) {
 		$this->request = $request;
 
+		$this->separateActiveAndInactiveTokens();
+
 		$mergedTokens = $this->mergeTokens($this->filterInactiveTokens($this->authenticationManager->getTokens(), $request), $this->tokens);
 
 		$this->updateTokens($mergedTokens);
 		$this->tokens = $mergedTokens;
+
 		$this->separateActiveAndInactiveTokens();
 	}
 

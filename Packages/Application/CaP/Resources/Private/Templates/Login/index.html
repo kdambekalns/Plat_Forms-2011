@@ -1,0 +1,41 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<div id="loginscreen">
+		<h1>Login</h1>
+		<p><f:flashMessages class="flashmessages" /></p>
+		<f:security.ifAuthenticated>
+			<f:then>
+				<p>You are currently logged in as <strong>{account.accountIdentifier}</strong>.</p>
+			</f:then>
+			<f:else>
+				<p>You need to login with your {conference.name} account in order to proceed.</p>
+			</f:else>
+		</f:security.ifAuthenticated>
+		<f:form action="authenticate" method="post" class="dataform">
+			<fieldset>
+				<f:security.ifAuthenticated>
+					<f:then>
+						<legend>Login with a different account</legend>
+					</f:then>
+					<f:else>
+						<legend>Login with existing account</legend>
+					</f:else>
+				</f:security.ifAuthenticated>
+				<ol>
+					<li><label>Username<f:form.textbox name="F3[FLOW3][Security][Authentication][Token][UsernamePassword][username]" /></label></li>
+					<li><label>Password<f:form.password  name="F3[FLOW3][Security][Authentication][Token][UsernamePassword][password]" /></label></li>
+					<li><f:form.submit value="Login" class="positive-submit" /></li>
+				</ol>
+			</fieldset>
+		</f:form>
+		<f:security.ifAuthenticated>
+			<f:then>
+				<f:link.action controller="Login" action="logout">Logout</f:link.action>
+			</f:then>
+			<f:else>
+				<p>Don't have an account? <f:link.action controller="Account\Registration">Create one!</f:link.action></p>
+			</f:else>
+		</f:security.ifAuthenticated>
+	</div>
+</f:section>
