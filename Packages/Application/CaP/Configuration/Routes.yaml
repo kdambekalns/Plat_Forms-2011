@@ -12,6 +12,30 @@
     '@action':     'index'
     '@format':     'html'
 
+-
+  name:          'Frontend: /conferences'
+
+  uriPattern:    'conferences'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Conference'
+    '@action':     'index'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
+-
+  name:          'Frontend: /conferences/{conference}'
+
+  uriPattern:    'conferences/{conference}'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Conference'
+    '@action':     'show'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
 ##
 # REST services
 
