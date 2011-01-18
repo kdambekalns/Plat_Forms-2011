@@ -1,6 +1,7 @@
 #                                                                        #
 # Default routes configuration for the CaP package                       #
 #                                                                        #
+# origin: M                                                              #
 
 -
   name: 'Standard route'
@@ -10,3 +11,28 @@
     '@controller': 'Standard'
     '@action':     'index'
     '@format':     'html'
+
+##
+# REST services
+
+-
+  name:          'REST: /conferences'
+
+  # Example URL: http://example.com/ws/conferences
+
+  uriPattern:    'ws/conferences'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Conference'
+    '@format':     'json'
+
+-
+  name:          'REST: /factorydefaults'
+
+  uriPattern:    'ws/factorydefaults'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'FactoryDefaults'
+    '@format':     'json'
