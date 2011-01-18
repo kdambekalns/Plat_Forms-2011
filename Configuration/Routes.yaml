@@ -7,20 +7,16 @@
 # Please refer to the FLOW3 manual for possible configuration options.   #
 #                                                                        #
 
-# $Id$
-
 ##
-# Subroutes from the Welcome package.
+# Subroutes from the CaP package.
 #
-# If the package "Welcome" is installed, its fallback route will point to an 
-# informative welcome screen.
 
 -
-  name: 'Welcome'
-  uriPattern: '<WelcomeSubroutes>'
+  name: 'CaP'
+  uriPattern: '<CaPSubroutes>'
   subRoutes:
-    WelcomeSubroutes:
-      package: Welcome
+    CaPSubroutes:
+      package: CaP
 
 ##
 # Subroutes from the DocumentationBrowser package.

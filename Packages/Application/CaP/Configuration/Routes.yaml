@@ -1,0 +1,12 @@
+#                                                                        #
+# Default routes configuration for the CaP package                       #
+#                                                                        #
+
+-
+  name: 'Standard route'
+  uriPattern: ''
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Standard'
+    '@action':     'index'
+    '@format':     'html'
