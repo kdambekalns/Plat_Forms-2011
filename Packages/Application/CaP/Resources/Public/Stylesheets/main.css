@@ -939,216 +939,6 @@ div.attention-box a:hover{
 	margin-bottom: 12px;
 }
 
-.news-latest-container .news-latest-item .news-title-wrapper,
-.news-list-container .news-list-item .news-title-wrapper,
-.tx-ptgsashop-pi7-tableheader, .tx-ptgsashop-pi7-tableheader *{
-  background: #2f2f2f;
-  font-weight: bold;
-  color: white;
-  width: 100%;
-  position: relative;
-  height: 23px;
-}
-
-.news-list-container .news-list-item .news-title-wrapper *,
-.news-latest-container .news-latest-item .news-title-wrapper * {
-	color: white !important;
-}
-
-.news-latest-container .news-latest-item .news-title-wrapper .news-title,
-.news-list-container .news-list-item .news-title-wrapper .news-title{
-	width:  425px;
-	padding: 1px 0px 1px 0.3em;
-}
-
-.news-latest-container .news-latest-item .news-title-wrapper .news-title a,
-.news-list-container .news-list-item .news-title-wrapper .news-title a{
-	text-decoration: none;
-	color: white;
-}
-
-.news-latest-container .news-latest-item .news-title-wrapper .news-title a:hover,
-.news-list-container .news-list-item .news-title-wrapper .news-title a:hover{
-	background-color: #2f2f2f !important;
-}
-
-.news-latest-container .news-latest-item .news-title-wrapper .news-date,
-.news-list-container .news-list-item .news-title-wrapper .news-date{
-  width: 25px;
-  vertical-align: middle;
-  text-align: center;
-  font-size: 10px;
-  border-left: 1px solid #595959;
-  padding: 5px 3px 5px 2px;
-}
-
-.news-latest-container .news-latest-item .news-title-wrapper div em,
-.news-list-container .news-list-item .news-title-wrapper div em {
-  font-size: 17px;
-  font-weight: bold;
-  font-style: normal;
-  line-height: 7px;
-}
-
-.news-list-container .news-list-item .news-teaser.hover {
-	background: #515151;
-}
-
-.news-list-container .news-list-item .news-teaser.hover * {
-	color: white;
-}
-
-.news-list-container .news-list-item .new.news-list-container .news-list-item .news-teaser{
-	padding-top: 4px;
-}
-
-.news-list-container .news-list-item .news-teaser * {
-	padding-left: 0.3em;
-	line-height: 1.2em !important;
-}
-
-.news-list-container .news-list-item .title-hover .news-date {
-	display: none;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-more {
-	display:  none;
-	padding-bottom: 12px;
-	margin-top: 5px;
-}
-
-.news-list-container .news-list-item .title-hover .news-more {
-	/*display:  table-cell;*/
-	display: block;
-	width: 25px;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-more span.more {
-	font-size: 10px;
-	color: #636363 !important;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-more span.arrow{
-  width: 14px;
-  background: url(../Images/backgrounds/search-header-more-arrow.png) no-repeat 1px 0px;
-  position: absolute;
-  height: 26px;
-  margin: 0 0 0 0px;
-  margin-top: -3px;
-}
-
-.news-list-item p{
-	margin-bottom: 0px !important;
-	margin-top: 0px !important;
-}
-
-/* Safari Patch ... in the Patch file please! ...
- *
- * TODO:
- * Why are they not in the patch file? Lazzy guys ... */
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-	.news-list-container .news-list-item .news-title-wrapper .news-more span.arrow{
-		top: 3px;
-		right: -12px;
-	}
-}
-
-/* ---------------- */
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date0,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date0 *,
-div.legend div.legend-date.date0 {
-	color: #685f55 !important;
-	background: #2F2F2F;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date1,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date1 *,
-div.legend div.legend-date.date1 {
-	color: #ffffff !important;
-	background: #FF8700;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date2,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date2 *,
-div.legend div.legend-date.date2 {
-	color: #f0e0d0 !important;
-	background: #B36612;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date3,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date3 *,
-div.legend div.legend-date.date3 {
-	color: #d1bca3 !important;
-	background: #8D571A;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date3,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date3 *,
-div.legend div.legend-date.date3 {
-	color: #d1bca3 !important;
-	background: #8D571A;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date.date4,
-.news-list-container .news-list-item .news-title-wrapper .news-date.date4 *,
-div.legend div.legend-date.date4 {
-	color: #a4917a !important;
-	background: #684722;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date span.news-header-date {
-	font-size: 13px;
-	line-height: 1em;
-	text-align: center;
-}
-
-.news-list-container .news-list-item .news-title-wrapper .news-date span.news-header-month {
-	line-height: 1em;
-	text-align: center;
-	font-weight: normal;
-	font-size: 8px;
-}
-
-.news-list-container .news-list-item  div.news-teaser.hover {
-	cursor: pointer;
-}
-
-/**
- * news legend
- */
-div.legend {
-	float: right;
-	font-size: 10px;
-	margin-right: 28px;
-}
-
-div.legend * {
-	color: #707070;
-}
-
-div.legend div.legend-date {
-	padding: 0px 3px;
-	border-left: 1px solid white;
-	color: white;
-	text-align: center;
-}
-
-div.legend div.legend-label,
-div.legend div.legend-date {
-	float: left;
-	font-weight: bold;
-}
-
-div.legend div.legend-date.date1 {
-	margin-left: 20px;
-}
-
-div.legend div.legend-text {
-
-}
-
 /**
  * user registration
  */
@@ -1286,3 +1076,16 @@ div.legend div.legend-text {
 	padding-top:5px;
 }
 
+div#mainbox table {
+	width:100%;
+	border-spacing:0;
+}
+div#mainbox table th {
+	background-color:#aaa;
+	padding:2px;
+}
+div#mainbox table td {
+	background-color:#fff;
+	padding:2px;
+	border-bottom:solid 1px #aaa;
+}
