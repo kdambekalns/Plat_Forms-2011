@@ -88,13 +88,18 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 			if ($filter['location']['country']) {
 				$qomParts[] = $query->equals('country', $this->account->getParty()->getCountry());
 			}
-			$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
-			usort($members, function($a, $b) {
-				$nameA = $a->getUsername();
-				$nameB = $b->getUsername();
-				return ($nameA < $nameB) ? -1 : 1;
-			});
-			return $members;
+
+			if (count($qomParts) > 0) {
+				$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
+				usort($members, function($a, $b) {
+					$nameA = $a->getUsername();
+					$nameB = $b->getUsername();
+					return ($nameA < $nameB) ? -1 : 1;
+				});
+				return $members;
+			} else {
+				return array();
+			}
 		} else {
 			return array();
 		}
