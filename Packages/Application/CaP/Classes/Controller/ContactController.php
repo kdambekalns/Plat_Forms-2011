@@ -38,6 +38,7 @@ class ContactController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function acceptContactRequestAction(\F3\CaP\Domain\Model\ContactRequest $contactRequest) {
 		$contactRequest->acceptRequest();
+		$this->redirect('show', 'member', NULL, array('member' => $contactRequest->getReceiver()));
 	}
 
 	/**
@@ -48,6 +49,7 @@ class ContactController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function declineContactRequestAction(\F3\CaP\Domain\Model\ContactRequest $contactRequest) {
 		$contactRequest->declineRequest();
+		$this->redirect('show', 'member', NULL, array('member' => $contactRequest->getReceiver()));
 	}
 }
 

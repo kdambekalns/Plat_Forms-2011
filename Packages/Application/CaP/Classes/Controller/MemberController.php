@@ -104,6 +104,7 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Member $member) {
 		$this->view->assign('member', $member);
+		$this->view->assign('contactRequests', $this->contactRequestRepository->findOpenByReceiver($member));
 	}
 
 	/**

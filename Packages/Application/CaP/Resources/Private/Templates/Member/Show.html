@@ -27,4 +27,21 @@
 		</f:else>
 	</f:if>
 
+	<h2>Your contact requests</h2>
+	<f:if condition="{contactRequests}">
+		<f:then>
+			<ol>
+			<f:for each="{contactRequests}" as="contactRequest">
+				<li>
+					{contactRequest.sender.fullName}
+					<f:link.action controller="Contact" action="acceptContactRequest" arguments="{contactRequest: contactRequest}">Accept Request</f:link.action>
+					<f:link.action controller="Contact" action="declineContactRequest" arguments="{contactRequest: contactRequest}">Decline Request</f:link.action>
+				</li>
+			</f:for>
+			</ol>
+		</f:then>
+		<f:else>
+		<p>No contact requests, that's sad...</p>
+		</f:else>
+	</f:if>
 </f:section>

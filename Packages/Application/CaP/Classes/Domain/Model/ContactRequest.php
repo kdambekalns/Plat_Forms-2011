@@ -108,7 +108,7 @@ class ContactRequest {
 	/**
 	 * @return void
 	 */
-	protected function acceptRequest() {
+	public function acceptRequest() {
 		$currentAccount = NULL;
 		$activeTokens = $this->securityContext->getAuthenticationTokens();
 		foreach ($activeTokens as $token) {
@@ -116,16 +116,17 @@ class ContactRequest {
 				$currentAccount = $token->getAccount();
 			}
 		}
-		if ($currentAccount === $this->receiver) {
+		if ($currentAccount->getParty() === $this->receiver) {
 			$this->receiver->addContact($this->sender);
 			$this->sender->addContact($this->receiver);
+			$this->status = self::IN_CONTACT;
 		}
 	}
 
 	/**
 	 * @return void
 	 */
-	protected function declineRequest() {
+	public function declineRequest() {
 		$currentAccount = NULL;
 		$activeTokens = $this->securityContext->getAuthenticationTokens();
 		foreach ($activeTokens as $token) {
@@ -133,7 +134,7 @@ class ContactRequest {
 				$currentAccount = $token->getAccount();
 			}
 		}
-		if ($currentAccount === $this->receiver) {
+		if ($currentAccount->getParty() === $this->receiver) {
 			$this->status = self::RCD_DECLINED;
 		}
 	}

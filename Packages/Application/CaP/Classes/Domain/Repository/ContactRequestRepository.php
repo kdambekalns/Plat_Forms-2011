@@ -41,5 +41,14 @@ class ContactRequestRepository extends \F3\FLOW3\Persistence\Repository {
 		)->execute();
 	}
 
+	public function findOpenByReceiver(\F3\CaP\Domain\Model\Member $receiver) {
+		$query = $this->createQuery();
+		return $query->matching(
+			$query->logicalAnd(
+				$query->equals('status', \F3\CaP\Domain\Model\ContactRequest::RCD_REQUESTED),
+				$query->equals('receiver', $receiver)
+			)
+		)->execute();
+	}
 }
 ?>

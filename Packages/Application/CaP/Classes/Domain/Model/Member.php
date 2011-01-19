@@ -110,6 +110,7 @@ class Member implements \F3\Party\Domain\Model\PartyInterface  {
 	public function __construct() {
 		$this->electronicAddresses = new \SplObjectStorage();
 		$this->accounts = new \SplObjectStorage();
+		$this->contacts = new \SplObjectStorage();
 	}
 
 	/**
