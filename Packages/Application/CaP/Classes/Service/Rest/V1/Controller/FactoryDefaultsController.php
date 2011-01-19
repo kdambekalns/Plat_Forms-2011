@@ -89,12 +89,14 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	public function importAction() {
 		$siteAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'DefaultProvider');
 		$restAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider');
+		if ($siteAdminAccount !== NULL) $member = $siteAdminAccount->getParty();
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 		$this->categoryRepository->removeAll();
 		$this->conferenceRepository->removeAll();
 		if ($siteAdminAccount !== NULL) $this->accountRepository->add($siteAdminAccount);
 		if ($restAdminAccount !== NULL) $this->accountRepository->add($restAdminAccount);
+		if ($member !== NULL) $this->memberRepository->add($member);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
 

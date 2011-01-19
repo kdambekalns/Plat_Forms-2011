@@ -54,19 +54,11 @@ class SetupController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$existingSiteAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'DefaultProvider');
-		if ($existingSiteAccount !== NULL) $this->accountRepository->remove($existingSiteAccount);
-		$existingRestAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider');
-		if ($existingRestAccount !== NULL) {
-			$this->memberRepository->remove($existingRestAccount->getParty());
-			$this->accountRepository->remove($existingRestAccount);
-		}
+		$this->accountRepository->removeAll();
+		$this->memberRepository->removeAll();
 
 		$siteAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin', 'PortalMember'), 'DefaultProvider');
 		$restAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin', 'PortalMember'), 'RESTServiceProvider');
-
-		$this->accountRepository->add($siteAccount);
-		$this->accountRepository->add($restAccount);
 
 		$electronicAddress = $this->objectManager->create('F3\Party\Domain\Model\ElectronicAddress');
 		$electronicAddress->setIdentifier('admin@localhost');
@@ -81,6 +73,9 @@ class SetupController extends \F3\FLOW3\MVC\Controller\ActionController {
 		$member->addAccount($restAccount);
 		$member->setTown('Nürnberg');
 		$member->setCountry('Germany');
+
+		$this->accountRepository->add($siteAccount);
+		$this->accountRepository->add($restAccount);
 
 		return 'Created the admin/password account';
 	}
