@@ -138,11 +138,31 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	/**
 	 * Creates a new conference
 	 *
-	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * If FLOW3 would be used in a regular fashion (not depending on the specialities of this Spec
+	 * regarding the incoming JSON format), this action would receive a ready-built Conference
+	 * object rather than a simple array.
+	 *
+	 * @param array $conference
 	 * @return void
 	 */
-	public function createAction(\F3\CaP\Domain\Model\Conference $conference) {
-		return 'x';
+	public function createAction(array $conference) {
+		$conferenceArray = array(
+			'name' => $conference['name'] ?: '',
+			'description' => $conference['description'] ?: '',
+			'creator' => $conference['creator'] ?: '',
+			'startDate' => $conference['startdate'] ? \F3\CaP\Utility\DateConverter::createDateFromString($conference['startdate']) : NULL,
+			'endDate' => $conference['enddate'] ? \F3\CaP\Utility\DateConverter::createDateFromString($conference['enddate']) : NULL,
+		);
+
+		try {
+			$conference = $this->propertyMapper->map(array_keys($conferenceArray), $conferenceArray, 'F3\CaP\Domain\Model\Conference');
+			if ($conference !== FALSE) {
+				$this->conferenceRepository->add($conference);
+				$this->forward('show', NULL, NULL, array('conference' => $conference));
+			}
+		} catch (\InvalidArgumentException $exception) {
+		}
+		$this->response->setStatus(400);
 	}
 }
 

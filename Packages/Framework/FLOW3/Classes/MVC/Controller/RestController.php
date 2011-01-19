@@ -68,6 +68,11 @@ class RestController extends \F3\FLOW3\MVC\Controller\ActionController {
 				break;
 				case 'POST' :
 					$actionName = 'create';
+					if (!$this->request->hasArgument($this->resourceArgumentName)) {
+						if ($this->request->getFormat() === 'json') {
+							$this->request->setArgument($this->resourceArgumentName, json_decode($GLOBALS['HTTP_RAW_POST_DATA'], TRUE));
+						}
+					}
 				break;
 				case 'PUT' :
 					if (!$this->request->hasArgument($this->resourceArgumentName)) {

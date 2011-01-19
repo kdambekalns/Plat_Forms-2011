@@ -62,12 +62,13 @@ class Conference {
 	protected $locationByCoordinates;
 
 	/**
-	 * @var \SplObjectStorage
+	 * @var \SplObjectStorage<F3\CaP\Domain\Model\Category>
 	 */
 	protected $categories;
 
 	/**
 	 * @var \F3\CaP\Domain\Model\Member
+	 * @validate NotEmpty
 	 */
 	protected $creator;
 

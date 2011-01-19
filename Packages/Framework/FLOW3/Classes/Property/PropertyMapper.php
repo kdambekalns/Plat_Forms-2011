@@ -214,7 +214,7 @@ class PropertyMapper {
 	 * @author Robert Lemke <robert@typo3.org>
 	 * @api
 	 */
-	public function map(array $propertyNames, $source, &$target, $optionalPropertyNames = array()) {
+	public function map(array $propertyNames, $source, $target, $optionalPropertyNames = array()) {
 		if (!is_object($source) && !is_array($source)) throw new \F3\FLOW3\Property\Exception\InvalidSourceException('The source object must be a valid object or array, ' . gettype($target) . ' given.', 1187807099);
 		if (is_string($target) && strpos($target, '\\') !== FALSE) {
 			return $this->transformToObject($source, $target, '--none--');
@@ -380,16 +380,14 @@ class PropertyMapper {
 			} else {
 				$newObject = $this->buildObject($propertyValue, $targetType);
 				if (count($propertyValue)) {
-					if ($this->map(array_keys($propertyValue), $propertyValue, $newObject)) {
-						return $newObject;
-					}
-					throw new \F3\FLOW3\Property\Exception\InvalidTargetException('Values could not be mapped to new object of type ' .$targetType . ' for property "' . $propertyName . '". (Map errors: ' . implode (' - ', $this->mappingResults->getErrors()) . ')' , 1259770027);
+					$this->map(array_keys($propertyValue), $propertyValue, $newObject);
+					return $newObject;
 				} else {
 					return $newObject;
 				}
 			}
 		} else {
-			throw new \InvalidArgumentException('transformToObject() accepts only strings and arrays.', 1251814355);
+			throw new \InvalidArgumentException('transformToObject() accepts only uuids as strings and arrays with properties, ' . gettype($propertyValue) . ' given.', 1251814355);
 		}
 
 		return $object;
