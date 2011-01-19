@@ -3,16 +3,13 @@
 <f:section name="mainbox">
 	<f:form action="index" class="dataform">
 		<fieldset>
-			<legend>Filter by status</legend>
+			<legend>Filter contacts by</legend>
 			<f:form.checkbox name="filter[status][contact]" value="1" checked="{filter.status.contact}"/> Not my contact
-			<f:form.checkbox name="filter[status][rcd]" value="1" checked="{filter.status.rcd}"/> Not RCD'd
-		</fieldset>
-		<fieldset>
-			<legend>Filter by location</legend>
+			<f:form.checkbox name="filter[status][rcd]" value="1" checked="{filter.status.rcd}"/> Not RCD'd by me
 			<f:form.checkbox name="filter[location][locality]" value="1" checked="{filter.location.locality}"/> In my town
 			<f:form.checkbox name="filter[location][country]" value="1" checked="{filter.location.country}"/> In my country
+			<f:form.submit value="Apply" />
 		</fieldset>
-		<f:form.submit value="Apply" />
 	</f:form>
 
 	<table><tr><th>Username</th><th>Town</th><th>Country</th></tr>
