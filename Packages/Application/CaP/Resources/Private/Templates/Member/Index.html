@@ -1,0 +1,23 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<f:form action="index" class="dataform">
+		<fieldset>
+			<legend>Filter by status</legend>
+			<f:form.checkbox name="filter[status][contact]" value="1" checked="{filter.status.contact}"/> Not my contact
+			<f:form.checkbox name="filter[status][rcd]" value="1" checked="{filter.status.rcd}"/> Not RCD'd
+		</fieldset>
+		<fieldset>
+			<legend>Filter by location</legend>
+			<f:form.checkbox name="filter[location][locality]" value="1" checked="{filter.location.locality}"/> In my town
+			<f:form.checkbox name="filter[location][country]" value="1" checked="{filter.location.country}"/> In my country
+		</fieldset>
+		<f:form.submit value="Apply" />
+	</f:form>
+
+	<ul>
+	<f:for each="{members}" as="member">
+		<li></li><f:link.action action="show" arguments="{member: member}">{member.name.lastname}, {member.name.firstname}</f:link.action></li>
+	</f:for>
+	</ul>
+</f:section>

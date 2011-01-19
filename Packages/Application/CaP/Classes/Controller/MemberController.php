@@ -23,12 +23,12 @@ namespace F3\CaP\Controller;
  *                                                                        */
 
 /**
- * Status controller for the CaP package
+ * Member controller for the CaP package
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @origin M
  */
-class StatusController extends \F3\FLOW3\MVC\Controller\ActionController {
+class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 
 	/**
 	 * @inject
@@ -74,25 +74,28 @@ class StatusController extends \F3\FLOW3\MVC\Controller\ActionController {
 	}
 
 	/**
-	 * Index action
+	 * Lists all available members
 	 *
-	 * @param \F3\CaP\Domain\Model\Member $member The member to show the status for
+	 * @param array $filter
 	 * @return void
 	 */
-	public function indexAction(\F3\CaP\Domain\Model\Member $member) {
+	public function indexAction(array $filter = array()) {
+		\F3\var_dump($filter);
+		$members = $this->memberRepository->findAll();
+		$this->view->assign('members', $members);
+	}
+
+	/**
+	 * Index action
+	 *
+	 * @param \F3\CaP\Domain\Model\Member $member The member to show
+	 * @return void
+	 */
+	public function showAction(\F3\CaP\Domain\Model\Member $member) {
 		//SHOULD: redirect to registration controller edit action if we want to show the status for our own member
 		$this->view->assign('member', $member);
 	}
 
-	/**
-	 * Lists all available members
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$members = $this->memberRepository->findAll();
-		$this->view->assign('members', $members);
-	}
 }
 
 ?>

@@ -31,7 +31,19 @@ namespace F3\CaP\Domain\Repository;
  */
 class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 
-	// add customized methods here
 
+	/**
+	 * @return array<\F3\CaP\Domain\Model\Member>
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function findAll() {
+		$members = parent::findAll()->toArray();
+		usort($members, function($a, $b) {
+			$nameA = $a->getName()->getLastName() . $a->getName()->getFirstName();
+			$nameB = $b->getName()->getLastName() . $b->getName()->getFirstName();
+			return ($nameA < $nameB) ? -1 : 1;
+		});
+		return $members;
+	}
 }
 ?>

@@ -32,11 +32,6 @@
 		<div class="sitemapcontainer">
 			<div class="sitemapcontent">
 				<div id="combobox">
-					<div id="searchbox"><form method="get">
-							<input type="text" class="blur" name="keyword" title="Search" />
-							<input type="submit" name="submit" class="search-submit" />
-						</form>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -66,7 +61,7 @@
 							<div id="userinfo">
 								<div class="info-box logged">
 									<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
-									<div class="cta-user-info"><div class="cta-user-name"><f:link.action controller="Status" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
+									<div class="cta-user-info"><div class="cta-user-name"><f:link.action action="show" controller="Member" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
 									<div class="cta-user-text">Not your account?</div>
 									<div class="cta-user-logout"><f:link.action action="logout" controller="Login">Logout</f:link.action></div>
 									</div>
@@ -76,7 +71,7 @@
 						<div id="submenu">
 							<f:security.ifAuthenticated>
 								<ul class="sublevel1">
-									<li class="act-if-sub"><f:link.action controller="Status" arguments="{member: account.party}">Manage Account</f:link.action>
+									<li class="act-if-sub"><f:link.action action="show" controller="Member" arguments="{member: account.party}">Manage Account</f:link.action>
 										<ul class="sublevel2">
 											<li class="no"><f:link.action action="logout" controller="Login">Logout</f:link.action></li>
 										</ul>
@@ -103,7 +98,7 @@
 
 	<div id="login-register-box"><img src="{f:uri.resource(path: 'Images/header/login-register-header.png')}" alt="" />
 		<h3 class="login"><span>Login</span></h3>
-		<f:form action="authenticate" controller="Account\Login" method="post">
+		<f:form action="authenticate" controller="Login" method="post">
 			<div>
 				<label for="username">
 					Username
@@ -120,16 +115,12 @@
 		</f:form>
 
 		<h3 class="register"><span>Register</span></h3>
-		<f:link.action action="index" controller="Account\Registration" class="register">Join the event and <strong>register</strong> now</f:link.action>
+		<f:link.action action="index" controller="Registration" class="register">Join the event and <strong>register</strong> now</f:link.action>
 		<div class="bottom-shadow">&nbsp;</div>
 	</div>
 
 	<div id="dropdownmenu-links"><div class="wrapper-top"><h3>Official TYPO3 websites<span><a href="gsa-user-registration/#" onclick="return false">close</a></span></h3>
 			<ul>
-				<li class="current-site">
-					<h4><a href="http://t3con10.typo3.org/" target="_top">t3con10.typo3.org</a></h4>
-					<p>TYPO3-Conference 2010</p>
-				</li>
 				<li>
 					<h4><a href="http://flow3.typo3.org/" target="_blank">flow3.typo3.org</a></h4>
 					<p>Next generation PHP framework</p>
@@ -137,28 +128,6 @@
 				<li>
 					<h4><a href="http://association.typo3.org/" target="_blank">association.typo3.org</a></h4>
 					<p>The TYPO3 Association</p>
-				</li>
-				<li>
-					<h4><a href="http://typo3.org/community/events/" target="_blank">events.typo3.org</a></h4>
-					<p>TYPO3 Events</p>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<h4><a href="http://wiki.typo3.org/" target="_blank">wiki.typo3.org</a></h4>
-					<p>Official TYPO3 wiki</p>
-				</li>
-				<li>
-					<h4><a href="http://support.typo3.org/" target="_blank">support.typo3.org</a></h4>
-					<p>TYPO3 support forums</p>
-				</li>
-				<li>
-					<h4><a href="http://buzz.typo3.org" target="_blank">buzz.typo3.org</a></h4>
-					<p>Offical TYPO3 Blogs</p>
-				</li>
-				<li>
-					<h4><a href="http://bugs.typo3.org" target="_blank">bugs.typo3.org /.com</a></h4>
-					<p>Official TYPO3 Bugtracker</p>
 				</li>
 			</ul>
 		</div>

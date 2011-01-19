@@ -39,12 +39,22 @@
   uriPattern:    'members/status/{member}'
   defaults:
     '@package':    'CaP'
-    '@controller': 'Status'
-    '@action':     'index'
+    '@controller': 'Member'
+    '@action':     'show'
     '@format':     'html'
   routeParts:
     member:
       handler:    F3\CaP\Routing\MemberRoutePartHandler
+
+-
+  name:          'Frontend: /members'
+
+  uriPattern:    'members'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Member'
+    '@action':     'index'
+    '@format':     'html'
 
 -
   name:          'Frontend: /conferences/category/{category}'
