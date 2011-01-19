@@ -63,8 +63,8 @@ class SetupController extends \F3\FLOW3\MVC\Controller\ActionController {
 			$this->accountRepository->remove($existingRestAccount);
 		}
 
-		$siteAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'), 'DefaultProvider');
-		$restAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'), 'RESTServiceProvider');
+		$siteAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin', 'PortalMember'), 'DefaultProvider');
+		$restAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin', 'PortalMember'), 'RESTServiceProvider');
 
 		$this->accountRepository->add($siteAccount);
 		$this->accountRepository->add($restAccount);

@@ -7,8 +7,12 @@
 
 resources:
   entities: []
-  methods: []
-#    someResource: 'method(F3\CaP\Service\Rest\V1\Controller\.*Controller->.*Action())'
+  methods:
+    memberRestServiceActions: 'method(F3\CaP\Service\Rest\V1\Controller\(Category|Conference|Member)Controller->(!initialize|.*)Action())'
+    adminRestServiceActions: 'method(F3\CaP\Service\Rest\V1\Controller\(FactoryDefaults|Reset)Controller->(!initialize|.*)Action())'
+    adminControllerActions: 'method(F3\CaP\Controller\AdministrationController->(!initialize|.*)Action())'
+    memberControllerActions: 'method(F3\CaP\Controller\MemberController->(!initialize|.*)Action())'
+    memberConferenceControllerActions: 'method(F3\CaP\Controller\MemberController->(show|new|edit|update|create|register|unregister)Action())'
 
 roles:
   PortalMember: []
@@ -16,6 +20,13 @@ roles:
 
 acls: []
   PortalMember:
-    methods: []
-#      serviceResource: GRANT
+    methods:
+      memberRestServiceActions: GRANT
+      memberControllerActions: GRANT
+      memberConferenceControllerActions: GRANT
+    entities: []
+  PortalAdmin:
+    methods:
+      adminRestServiceActions: GRANT
+      adminControllerActions: GRANT
     entities: []

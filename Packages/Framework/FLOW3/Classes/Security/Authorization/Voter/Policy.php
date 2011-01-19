@@ -56,6 +56,7 @@ class Policy implements \F3\FLOW3\Security\Authorization\AccessDecisionVoterInte
 	public function voteForJoinPoint(\F3\FLOW3\Security\Context $securityContext, \F3\FLOW3\AOP\JoinPointInterface $joinPoint) {
 		$accessGrants = 0;
 		$accessDenies = 0;
+
 		foreach ($securityContext->getRoles() as $role) {
 			try {
 				$privileges = $this->policyService->getPrivilegesForJoinPoint($role, $joinPoint);
