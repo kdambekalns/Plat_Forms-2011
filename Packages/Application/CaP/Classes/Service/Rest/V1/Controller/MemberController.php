@@ -55,6 +55,18 @@ class MemberController extends \F3\FLOW3\MVC\Controller\RestController {
 
 	/**
 	 * @inject
+	 * @var \F3\FLOW3\Security\AccountRepository
+	 */
+	protected $accountRepository;
+
+	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\AccountFactory
+	 */
+	protected $accountFactory;
+
+	/**
+	 * @inject
 	 * @var \F3\FLOW3\Security\Context
 	 */
 	protected $securityContext;
@@ -75,22 +87,68 @@ class MemberController extends \F3\FLOW3\MVC\Controller\RestController {
 		$loggedInAccount = $this->securityContext->getAccountByAuthenticationProviderName('RESTServiceProvider');
 		if ($loggedInAccount !== NULL) {
 			$loggedInMember = $loggedInAccount->getParty();
-
-			// TODO: if is contact of ...
-
-			$memberArray += array(
-				'id' => $member->getId(),
-				'version' => $member->getVersion(),
-				'username' => $member->getUsername(),
-				'fullname' => $member->getFullName(),
-				'email' => (string)$member->getPrimaryElectronicAddress(),
-				'town' => $member->getTown(),
-				'country' => $member->getCountry(),
-				'gps' => $member->getLocationByCoordinates()
-			);
+			if ($loggedInMember->isContactOf($member) || $loggedInMember === $member) {
+				$memberArray += array(
+					'id' => $member->getId(),
+					'version' => $member->getVersion(),
+					'username' => $member->getUsername(),
+					'fullname' => $member->getFullName(),
+					'email' => (string)$member->getPrimaryElectronicAddress(),
+					'town' => $member->getTown(),
+					'country' => $member->getCountry(),
+					'gps' => $member->getLocationByCoordinates()
+				);
+			}
 		}
 
 		$this->view->assign('value', $memberArray);
+	}
+
+
+	/**
+	 * Creates a new member
+	 *
+	 * @param array $member
+	 * @return void
+	 */
+	public function createAction(array $member) {
+		if (isset($member['fullname'])) {
+			if (substr_count($member['fullname'], ' ') === 2) {
+				list($member['firstName'], $member['middleName'], $member['lastName']) = explode(' ', $member['fullname']);
+			} else {
+				list($member['firstName'], $member['lastName']) = explode(' ', $member['fullname']);
+			}
+			unset ($member['fullname']);
+		}
+
+		if (!isset($member['username']) || !isset($member['password'])) {
+			$this->throwStatus(400, 'Bad Request: Missing username or password');
+		}
+		if ($this->accountRepository->findByAccountIdentifier($member['username'])->count() > 0) {
+			$this->throwStatus(400, 'Bad Request: Account already exists');
+		}
+
+		$restAccount = $this->accountFactory->createAccountWithPassword($member['username'], $member['password'], array('PortalMember'), 'RESTServiceProvider');
+		$webAccount = $this->accountFactory->createAccountWithPassword($member['username'], $member['password'], array('PortalMember'), 'DefaultProvider');
+
+		try {
+			$member = $this->propertyMapper->map(array('email'), $member, 'F3\CaP\Domain\Model\Member', array('town', 'country', 'gps'));
+			if ($member === FALSE) {
+				$this->throwStatus(404);
+			}
+			$this->memberRepository->add($member);
+
+			$member->addAccount($restAccount);
+			$member->addAccount($webAccount);
+
+			$this->accountRepository->add($restAccount);
+			$this->accountRepository->add($webAccount);
+
+			$this->forward('show', NULL, NULL, array('member' => $member));
+
+		} catch (\InvalidArgumentException $exception) {
+			$this->response->setStatus(400, 'Bad Request: ' . $exception);
+		}
 	}
 }
 

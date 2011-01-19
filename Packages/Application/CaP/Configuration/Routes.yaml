@@ -83,17 +83,6 @@
     '@format':     'html'
 
 -
-  name:          'Frontend: /members/contact(/{@action})'
-
-  uriPattern:    'members/contact/{@action}'
-  defaults:
-    '@package':    'CaP'
-    '@subpackage': ''
-    '@controller': 'Contact'
-    '@action':     ''
-    '@format':     'html'
-
--
   name:          'Frontend: /conferences/category/{category}'
 
   uriPattern:    'conferences/category/{category}'
@@ -198,7 +187,6 @@
     '@subpackage': 'Service\Rest\V1'
     '@controller': 'Conference'
     '@format':     'json'
-    '@action':     'show'
   routeParts:
     conference:
       handler:    F3\CaP\Routing\ConferenceRoutePartHandler
@@ -211,6 +199,17 @@
     '@package':    'CaP'
     '@subpackage': 'Service\Rest\V1'
     '@controller': 'Conference'
+    '@format':     'json'
+
+
+-
+  name:          'REST: /members'
+
+  uriPattern:    'ws/members'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Member'
     '@format':     'json'
 
 -
