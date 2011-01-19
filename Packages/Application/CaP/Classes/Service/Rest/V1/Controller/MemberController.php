@@ -78,22 +78,15 @@ class MemberController extends \F3\FLOW3\MVC\Controller\RestController {
 
 			// TODO: if is contact of ...
 
-			$address = $member->getAddress();
-			if ($address !== NULL) {
-				$town = $address->getLocality();
-				$country = $address->getCountry();
-				$gps = $address->getLocationByCoordinates();
-			}
-
 			$memberArray += array(
 				'id' => $member->getId(),
 				'version' => $member->getVersion(),
 				'username' => $member->getUsername(),
-				'fullname' => (string)$member->getName(),
+				'fullname' => $member->getFullName(),
 				'email' => (string)$member->getPrimaryElectronicAddress(),
-				'town' => isset($town) ? $town : NULL,
-				'country' => isset($country) ? $country : NULL,
-				'gps' => isset($gps) ? $gps : NULL
+				'town' => $member->getTown(),
+				'country' => $member->getCountry(),
+				'gps' => $member->getLocationByCoordinates()
 			);
 		}
 

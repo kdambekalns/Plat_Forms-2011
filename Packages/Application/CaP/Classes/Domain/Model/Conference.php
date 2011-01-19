@@ -67,9 +67,9 @@ class Conference {
 	protected $locationByCoordinates;
 
 	/**
-	 * @var \SplObjectStorage<F3\CaP\Domain\Model\Category>
+	 * @var array<F3\CaP\Domain\Model\Category>
 	 */
-	protected $categories;
+	protected $categories = array();
 
 	/**
 	 * @var \F3\CaP\Domain\Model\Member
@@ -86,7 +86,6 @@ class Conference {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->categories = new \SplObjectStorage();
 		$this->attendees = new \SplObjectStorage();
 	}
 
@@ -113,9 +112,8 @@ class Conference {
 	 * @param array<\F3\CaP\Domain\Model\Category> $categories
 	 */
 	public function setCategories(array $categories) {
-		$this->categories = new \SplObjectStorage($categories);
 		foreach ($categories as $category) {
-			$this->categories->attach($category);
+			$this->categories[$category->getName()] = $category;
 		}
 	}
 
@@ -123,7 +121,7 @@ class Conference {
 	 * @return array <\F3\CaP\Domain\Model\Category>
 	 */
 	public function getCategories() {
-		return (array)$this->categories;
+		return $this->categories;
 	}
 
 	/**

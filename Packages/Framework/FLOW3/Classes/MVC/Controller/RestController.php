@@ -70,7 +70,11 @@ class RestController extends \F3\FLOW3\MVC\Controller\ActionController {
 					$actionName = 'create';
 					if (!$this->request->hasArgument($this->resourceArgumentName)) {
 						if ($this->request->getFormat() === 'json') {
-							$this->request->setArgument($this->resourceArgumentName, json_decode($GLOBALS['HTTP_RAW_POST_DATA'], TRUE));
+							$decodedJson = json_decode($GLOBALS['HTTP_RAW_POST_DATA'], TRUE);
+							if ($decodedJson === NULL) {
+								$this->throwStatus(400, NULL, 'POST data was no valid JSON');
+							}
+							$this->request->setArgument($this->resourceArgumentName, $decodedJson);
 						}
 					}
 				break;

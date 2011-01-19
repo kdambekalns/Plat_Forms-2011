@@ -57,23 +57,8 @@ class MetaPropertiesAspect {
 	 * @return string
 	 */
 	public function getVersionAdvice(\F3\FLOW3\AOP\JoinPointInterface $joinPoint) {
-		$proxy = $joinPoint->getProxy();
-		$hashSource = '';
-		foreach (array_keys($this->reflectionService->getClassSchema($joinPoint->getClassName())->getProperties()) as $propertyName) {
-			$propertyValue = $proxy->FLOW3_AOP_Proxy_getProperty($propertyName);
-			if (is_array($propertyValue)) {
-				$hashSource .= serialize($propertyValue);
-			} elseif (!is_object($propertyValue)) {
-				$hashSource .= $propertyValue;
-			} elseif (property_exists($propertyValue, 'FLOW3_Persistence_Entity_UUID')) {
-				$hashSource .= $propertyValue->FLOW3_Persistence_Entity_UUID;
-			} elseif (property_exists($propertyValue, 'FLOW3_Persistence_ValueObject_Hash')) {
-				$hashSource .= $propertyValue->FLOW3_Persistence_ValueObject_Hash;
-			}
-		}
-		return sha1($hashSource);
+		return $_SERVER['REQUEST_TIME'];
 	}
-
 }
 
 ?>

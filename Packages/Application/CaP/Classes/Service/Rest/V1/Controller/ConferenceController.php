@@ -83,7 +83,10 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 		foreach ($conferences as $conference) {
 			$categoriesArray = array();
 			foreach ($conference->getCategories() as $category) {
-				$categoriesArray[] = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category');
+				$categoriesArray[] = array(
+					'name' => $category->getName(),
+					'details' => $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category')
+				);
 			}
 
 			$conferencesArray[] = array(
@@ -111,7 +114,10 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$categoriesArray = array();
 		foreach ($conference->getCategories() as $category) {
-			$categoriesArray[] = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category');
+			$categoriesArray[] = array(
+				'name' => $category->getName(),
+				'details' => $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category')
+			);
 		}
 
 		$conferenceArray = array(
@@ -154,6 +160,12 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 			'endDate' => $conference['enddate'] ? \F3\CaP\Utility\DateConverter::createDateFromString($conference['enddate']) : NULL,
 		);
 
+		if (isset($conference->categories)) {
+			foreach ($conference['categories'] as $categoryUuid) {
+				$conferenceArray['categories'][] = array('__identitiy' => $categoryUuid);
+			}
+		}
+
 		try {
 			$conference = $this->propertyMapper->map(array_keys($conferenceArray), $conferenceArray, 'F3\CaP\Domain\Model\Conference');
 			if ($conference !== FALSE) {
@@ -164,6 +176,17 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 		}
 		$this->response->setStatus(400);
 	}
+
+	/**
+	 * Updates an existing conference
+	 *
+	 * @param array $conference
+	 * @return void
+	 */
+	public function updateAction(array $conference) {
+
+	}
+
 }
 
 ?>
