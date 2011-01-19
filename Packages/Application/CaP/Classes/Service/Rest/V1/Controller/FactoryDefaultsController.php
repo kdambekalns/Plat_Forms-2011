@@ -78,11 +78,6 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function listAction() {
-		if ($this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider') === NULL) {
-			$this->createAdminAccounts();
-			$this->redirect('index');
-		}
-
 		$this->forward('import');
 	}
 
@@ -92,12 +87,14 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function importAction() {
+		$siteAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'DefaultProvider');
+		$restAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider');
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 		$this->categoryRepository->removeAll();
 		$this->conferenceRepository->removeAll();
-
-		$this->createAdminAccounts();
+		if ($siteAdminAccount !== NULL) $this->accountRepository->add($siteAdminAccount);
+		if ($restAdminAccount !== NULL) $this->accountRepository->add($restAdminAccount);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
 
@@ -169,36 +166,6 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 		}
 
 		$this->response->setStatus(204);
-	}
-
-	/**
-	 * @return void
-	 */
-	public function createAdminAccounts() {
-		$siteAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'), 'DefaultProvider');
-		$restAccount = $this->accountFactory->createAccountWithPassword('admin', 'password', array('PortalAdmin'), 'RESTServiceProvider');
-
-		$this->accountRepository->add($siteAccount);
-		$this->accountRepository->add($restAccount);
-
-		$name = $this->objectManager->create('F3\Party\Domain\Model\PersonName', '', 'Administrator');
-
-		$electronicAddress = $this->objectManager->create('F3\Party\Domain\Model\ElectronicAddress');
-		$electronicAddress->setIdentifier('admin@localhost');
-		$electronicAddress->setType(\F3\Party\Domain\Model\ElectronicAddress::TYPE_EMAIL);
-
-		$address = $this->objectManager->create('F3\Party\Domain\Model\Address');
-		$address->setLocality('Nürnberg');
-		$address->setCountry('Germany');
-
-		$member = $this->objectManager->create('F3\CaP\Domain\Model\Member');
-		$member->setName($name);
-		$member->setPrimaryElectronicAddress($electronicAddress);
-		$member->addAccount($siteAccount);
-		$member->addAccount($restAccount);
-		$member->setAddress($address);
-
-		$this->memberRepository->add($member);
 	}
 }
 

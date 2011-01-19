@@ -6,6 +6,16 @@
 # FRONTEND
 
 -
+  name:          'Frontend: /setup'
+
+  uriPattern:    'setup'
+  defaults:
+    '@package':    'CaP'
+    '@controller': 'Setup'
+    '@action':     'index'
+    '@format':     'html'
+
+-
   name:          'Frontend: /logout'
 
   uriPattern:    'logout'
