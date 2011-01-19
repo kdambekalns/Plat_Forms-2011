@@ -40,10 +40,10 @@
 			<div id="centeredbox">
 				<div id="topmenu">
 					<div id="level1menu"><ul>
-						<li><a href="conferences">Conferences</a></li>
-						<li><a href="members">Members</a></li>
+						<li><f:link.action controller="conference">Conferences</f:link.action></li>
+						<li><f:link.action controller="member">Members</f:link.action></li>
 						<f:security.ifHasRole role="PortalAdmin">
-						<li><a href="conferences">Administration</a></li>
+						<li><f:link.action controller="administration">Administration</f:link.action></li>
 						</f:security.ifHasRole>
 					</ul></div>
 					<div id="rootlinemenu"><f:raw>{rootlinemenu}</f:raw></div>
