@@ -52,9 +52,14 @@ class Conference {
 	protected $endDate;
 
 	/**
-	 * @var \F3\Party\Domain\Model\Address
+	 * @var string
 	 */
-	protected $address;
+	protected $venue;
+
+	/**
+	 * @var string
+	 */
+	protected $location;
 
 	/**
 	 * @var string
@@ -104,17 +109,6 @@ class Conference {
 	}
 
 	/**
-	 * @param \F3\Party\Domain\Model\Address $address
-	 */
-	public function setAddress(\F3\Party\Domain\Model\Address $address) {
-		$this->address = $address;
-	}
-
-	public function getAddress() {
-		return $this->address;
-	}
-
-	/**
 	 * @param array<\F3\CaP\Domain\Model\Category> $categories
 	 */
 	public function setCategories(array $categories) {
@@ -125,7 +119,7 @@ class Conference {
 	}
 
 	/**
-	 * 
+	 * @return array <\F3\CaP\Domain\Model\Category>
 	 */
 	public function getCategories() {
 		return (array)$this->categories;
@@ -174,6 +168,36 @@ class Conference {
 	 */
 	public function getEndDateAsString() {
 		return $this->endDate->format('Y/m/d');
+	}
+
+	/**
+	 * @param string $location
+	 * @return void
+	 */
+	public function setLocation($location) {
+		$this->location = $location;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLocation() {
+		return $this->location;
+	}
+
+	/**
+	 * @param string $venue
+	 * @return void
+	 */
+	public function setVenue($venue) {
+		$this->venue = $venue;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getVenue() {
+		return $this->venue;
 	}
 
 	/**
@@ -279,5 +303,6 @@ class Conference {
 	public function isCreator(\F3\CaP\Domain\Model\Member $member) {
 		return $this->creator === $member;
 	}
+
 }
 ?>

@@ -15,9 +15,8 @@
 					<li><label>Description<em>*</em><f:form.textarea property="description" rows="7" cols="30" /></label></li>
 					<li><label>Start Date<em>*</em><f:form.textfield property="startDateAsString" required="required" /></label></li>
 					<li><label>End Date<em>*</em><f:form.textfield property="endDateAsString" required="required" /></label></li>
-					<li><label>Street/Place<em>*</em><f:form.textfield property="address.thoroughfare" required="required" /></label></li>
-					<li><label>Town<em>*</em><f:form.textfield property="address.locality" required="required" /></label></li>
-					<li><label>Country<em>*</em><f:form.textfield property="address.country" required="required" /></label></li>
+					<li><label>Location<em>*</em><f:form.textfield property="location" required="required" /></label></li>
+					<li><label>Venue<em>*</em><f:form.textfield property="venue" required="required" /></label></li>
 					<li>
 						<label>categories<em>*</em><f:form.select property="categories" options="{categories}" multiple="true" optionLabelField="name" size="10" /></label>
 						<f:form.hidden property="creator" value="{currentMember}" />

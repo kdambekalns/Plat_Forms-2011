@@ -19,8 +19,8 @@
 	<f:for each="{members}" as="member">
 		<tr>
 			<td><f:link.action action="show" arguments="{member: member}">{member.username}</f:link.action></td>
-			<td>{member.address.locality}</td>
-			<td>{member.address.country}</td>
+			<td>{member.town}</td>
+			<td>{member.country}</td>
 		</tr>
 	</f:for>
 	</table>

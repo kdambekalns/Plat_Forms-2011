@@ -72,10 +72,9 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
 	public function findWithFilter(array $filter) {
-/*		$query = $this->createQuery();
+		$query = $this->createQuery();
 		$qomParts = array();
 
-		$qomTerms = array();
 		if ($filter['status']['contact']) {
 			#$qomParts[] = $query->...($qomTerms);
 		}
@@ -83,14 +82,14 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 			#$qomParts[] = $query->...($qomTerms);
 		}
 		if ($filter['location']['locality']) {
-			$qomParts[] = $query->equals('address.locality', $this->account->getParty()->getAddress()->getLocality());
+			$qomParts[] = $query->equals('town', $this->account->getParty()->getTown());
 		}
 		if ($filter['location']['country']) {
-			$qomParts[] = $query->equals('address.country', $this->account->getParty()->getAddress()->getCountry());
+			$qomParts[] = $query->equals('country', $this->account->getParty()->getCountry());
 		}
 
 		$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
-*/		$members = parent::findAll()->toArray();
+#		$members = parent::findAll()->toArray();
 		usort($members, function($a, $b) {
 			$nameA = $a->getUsername();
 			$nameB = $b->getUsername();
