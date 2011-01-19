@@ -80,8 +80,8 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction(array $filter = array()) {
-		\F3\var_dump($filter);
-		$members = $this->memberRepository->findAll();
+		$members = $this->memberRepository->findWithFilter($filter);
+		$this->view->assign('filter', $filter);
 		$this->view->assign('members', $members);
 	}
 

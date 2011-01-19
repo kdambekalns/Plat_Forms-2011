@@ -33,14 +33,67 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 
 
 	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
+	 * @var \F3\FLOW3\Security\Account
+	 */
+	protected $account;
+
+	/**
+	 * Initializes the onbject
+	 *
+	 * @return void
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function initializeObject() {
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$this->account = $token->getAccount();
+			}
+		}
+	}
+
+	/**
+	 * array(2)
+	 *  'status' (6) => array(2)
+	 *   'contact' (7) => '' (0)
+	 *   'rcd' (3) => '1' (1)
+	 * 'location' (8) => array(2)
+	 *   'locality' (8) => '1' (1)
+	 *   'country' (7) => '' (0)
+	 *
+	 * @param array $filter
 	 * @return array<\F3\CaP\Domain\Model\Member>
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
-	public function findAll() {
-		$members = parent::findAll()->toArray();
+	public function findWithFilter(array $filter) {
+/*		$query = $this->createQuery();
+		$qomParts = array();
+
+		$qomTerms = array();
+		if ($filter['status']['contact']) {
+			#$qomParts[] = $query->...($qomTerms);
+		}
+		if ($filter['status']['contact']) {
+			#$qomParts[] = $query->...($qomTerms);
+		}
+		if ($filter['location']['locality']) {
+			$qomParts[] = $query->equals('address.locality', $this->account->getParty()->getAddress()->getLocality());
+		}
+		if ($filter['location']['country']) {
+			$qomParts[] = $query->equals('address.country', $this->account->getParty()->getAddress()->getCountry());
+		}
+
+		$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
+*/		$members = parent::findAll()->toArray();
 		usort($members, function($a, $b) {
-			$nameA = $a->getName()->getLastName() . $a->getName()->getFirstName();
-			$nameB = $b->getName()->getLastName() . $b->getName()->getFirstName();
+			$nameA = $a->getUsername();
+			$nameB = $b->getUsername();
 			return ($nameA < $nameB) ? -1 : 1;
 		});
 		return $members;
