@@ -8,7 +8,7 @@
 resources:
   entities: []
   methods:
-    memberRestServiceActions: 'method(F3\CaP\Service\Rest\V1\Controller\(Category|Conference|Member)Controller->(!initialize|.*)Action())'
+    memberRestServiceActions: 'method(F3\CaP\Service\Rest\V1\Controller\(Category|Conference|Member|Attendee)Controller->(!initialize|.*)Action())'
     adminRestServiceActions: 'method(F3\CaP\Service\Rest\V1\Controller\(FactoryDefaults|Reset)Controller->(!initialize|.*)Action())'
     adminControllerActions: 'method(F3\CaP\Controller\AdministrationController->(!initialize|.*)Action())'
     memberControllerActions: 'method(F3\CaP\Controller\MemberController->(!initialize|.*)Action())'

@@ -32,12 +32,6 @@ class MemberObjectConverter implements \F3\FLOW3\Property\ObjectConverterInterfa
 
 	/**
 	 * @inject
-	 * @var \F3\FLOW3\Object\ObjectManagerInterface
-	 */
-	protected $objectManager;
-
-	/**
-	 * @inject
 	 * @var \F3\FLOW3\Security\AccountRepository
 	 */
 	protected $accountRepository;

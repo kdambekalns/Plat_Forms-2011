@@ -140,6 +140,34 @@
       handler:    F3\CaP\Routing\CategoryRoutePartHandler
 
 -
+  name:          'REST: /conferences/{conference}/attendees'
+
+  uriPattern:    'ws/conferences/{conference}/attendees'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Attendee'
+    '@format':     'json'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+
+-
+  name:          'REST: /conferences/{conference}/attendees/{attendee}'
+
+  uriPattern:    'ws/conferences/{conference}/attendees/{attendee}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': 'Service\Rest\V1'
+    '@controller': 'Attendee'
+    '@format':     'json'
+  routeParts:
+    conference:
+      handler:    F3\CaP\Routing\ConferenceRoutePartHandler
+    attendee:
+      handler:    F3\CaP\Routing\MemberRoutePartHandler
+
+-
   name:          'REST: /conferences/{conference}'
 
   uriPattern:    'ws/conferences/{conference}'

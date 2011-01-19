@@ -186,7 +186,6 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	public function updateAction(array $conference) {
 
 	}
-
 }
 
 ?>

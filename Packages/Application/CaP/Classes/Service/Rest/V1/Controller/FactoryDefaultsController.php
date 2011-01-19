@@ -102,8 +102,8 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 
 		$members = array();
 		foreach ($factoryDefaults->member as $memberRecord) {
-			$siteAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalUser'), 'DefaultProvider');
-			$restAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalUser'), 'RESTServiceProvider');
+			$siteAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalMember'), 'DefaultProvider');
+			$restAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalMember'), 'RESTServiceProvider');
 			$this->accountRepository->add($siteAccount);
 			$this->accountRepository->add($restAccount);
 
