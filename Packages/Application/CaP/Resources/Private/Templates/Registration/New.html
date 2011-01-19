@@ -22,15 +22,16 @@
 							</div>
 						</f:form.errors>
 						<ol>
-							<li><label>First Name<em>*</em><f:form.textfield property="name.firstName" required="required" /></label></li>
-							<li><label>Last Name<em>*</em><f:form.textfield property="name.lastName" required="required"/></label></li>
+							<li><label>First Name<em>*</em><f:form.textfield property="firstName" required="required" /></label></li>
+							<li><label>Middle Name<em>*</em><f:form.textfield property="middleName"/></label></li>
+							<li><label>Last Name<em>*</em><f:form.textfield property="lastName" required="required"/></label></li>
 							<li>
 								<label>Email Address<em>*</em><f:form.textfield type="email" property="primaryElectronicAddress.identifier" required="required"/></label>
 								<f:form.hidden property="primaryElectronicAddress.type" value="Email" />
 								<f:form.hidden property="primaryElectronicAddress.usage" value="Home" />
 							</li>
-							<li><label>Town<em>*</em><f:form.textfield type="text" property="address.locality" required="required"/></label></li>
-							<li><label>Country<em>*</em><f:form.textfield type="text" property="address.country" required="required"/></label></li>
+							<li><label>Town<em>*</em><f:form.textfield type="text" property="town" required="required"/></label></li>
+							<li><label>Country<em>*</em><f:form.textfield type="text" property="country" required="required"/></label></li>
 						</ol>
 					</fieldset>
 					<fieldset>

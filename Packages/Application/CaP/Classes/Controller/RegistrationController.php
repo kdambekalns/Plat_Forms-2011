@@ -129,7 +129,7 @@ class RegistrationController extends \F3\FLOW3\MVC\Controller\ActionController {
 			$authenticationTokens[0]->setAuthenticationStatus(\F3\FLOW3\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);
 		}
 
-		$this->redirect('index', 'Member', NULL, array('member' => $newMember));
+		$this->redirect('show', 'Member', NULL, array('member' => $newMember));
 	}
 }
 

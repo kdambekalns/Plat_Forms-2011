@@ -3,15 +3,15 @@
 <f:section name="mainbox">
 	<div id="statusscreen">
 		<p><f:flashMessages class="flashmessages" /></p>
-		<p>Hello {member.name}, this is your status page:</p>
+		<p>Hello {member.fullName}, this is your status page:</p>
 		<label for="username">Username:</label>
-		<p id="username">{member.webUsername}</p>
+		<p id="username">{member.username}</p>
 		<label for="email">E-Mail:</label>
 		<p id="email">{member.primaryElectronicAddress}</p>
 		<label for="town">Town:</label>
-		<p id="town">{member.address.locality}</p>
+		<p id="town">{member.town}</p>
 		<label for="country">Country:</label>
-		<p id="country">{member.address.country}</p>
+		<p id="country">{member.country}</p>
 	</div>
 
 	TODO: List contacts<br />

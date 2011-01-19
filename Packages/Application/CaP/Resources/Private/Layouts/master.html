@@ -61,9 +61,10 @@
 							<div id="userinfo">
 								<div class="info-box logged">
 									<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
-									<div class="cta-user-info"><div class="cta-user-name"><f:link.action action="show" controller="Member" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.name}</f:format.crop></f:link.action></div>
-									<div class="cta-user-text">Not your account?</div>
-									<div class="cta-user-logout"><f:link.action action="logout" controller="Login">Logout</f:link.action></div>
+									<div class="cta-user-info">
+										<div class="cta-user-name"><f:link.action action="show" controller="Member" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.fullName}</f:format.crop></f:link.action></div>
+										<div class="cta-user-text">Not your account?</div>
+										<div class="cta-user-logout"><f:link.action action="logout" controller="Login">Logout</f:link.action></div>
 									</div>
 								</div>
 							</div>

@@ -351,6 +351,7 @@ class Backend extends \F3\FLOW3\Persistence\Backend\AbstractSqlBackend {
 		$statementHandle->execute(array($this->persistenceSession->getIdentifierByObject($parent)));
 		foreach ($statementHandle->fetchAll(\PDO::FETCH_ASSOC) as $entityRow) {
 			if ($this->classSchemata[$entityRow['type']]->isAggregateRoot() !== TRUE) {
+				if (!$this->persistenceSession->hasIdentifier($entityRow['identifier'])) continue;
 				$this->removeEntity($this->persistenceSession->getObjectByIdentifier($entityRow['identifier']));
 			}
 		}
@@ -367,6 +368,7 @@ class Backend extends \F3\FLOW3\Persistence\Backend\AbstractSqlBackend {
 		$statementHandle = $this->databaseHandle->prepare('SELECT "identifier" FROM "valueobjects" WHERE "identifier" IN (SELECT DISTINCT "object" FROM "properties_data" WHERE "parent"=?)');
 		$statementHandle->execute(array($this->persistenceSession->getIdentifierByObject($parent)));
 		while ($valueObjectIdentifier = $statementHandle->fetchColumn()) {
+			if (!$this->persistenceSession->hasIdentifier($valueObjectIdentifier)) continue;
 			$valueObject = $this->persistenceSession->getObjectByIdentifier($valueObjectIdentifier);
 			if ($this->getValueObjectUsageCount($valueObject) === 1) {
 				$this->removeValueObject($valueObject);

@@ -111,23 +111,21 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 				list($firstName, $lastName) = explode(' ', $memberRecord->fullname);
 				$middleName = '';
 			}
-			$name = $this->objectManager->create('F3\Party\Domain\Model\PersonName', '', $firstName, $middleName, $lastName);
 
 			$electronicAddress = $this->objectManager->create('F3\Party\Domain\Model\ElectronicAddress');
 			$electronicAddress->setIdentifier(trim($memberRecord->email));
 			$electronicAddress->setType(\F3\Party\Domain\Model\ElectronicAddress::TYPE_EMAIL);
 
-			$address = $this->objectManager->create('F3\Party\Domain\Model\Address');
-			$address->setLocality($memberRecord->town);
-			$address->setCountry($memberRecord->country);
-			$address->setLocationByCoordinates($memberRecord->gps);
-
 			$member = $this->objectManager->create('F3\CaP\Domain\Model\Member');
-			$member->setName($name);
+			$member->setFirstName($firstName);
+			$member->setMiddleName($middleName);
+			$member->setLastName($lastName);
 			$member->setPrimaryElectronicAddress($electronicAddress);
 			$member->addAccount($siteAccount);
 			$member->addAccount($restAccount);
-			$member->setAddress($address);
+			$member->setTown($memberRecord->town);
+			$member->setCountry($memberRecord->country);
+			$member->setLocationByCoordinates($memberRecord->gps);
 
 			$this->memberRepository->add($member);
 			$members[$memberRecord->username] = $member;
@@ -148,6 +146,9 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			$conference = $this->objectManager->create('F3\CaP\Domain\Model\Conference');
 			$conference->setName($conferenceRecord->name);
 			$conference->setDescription($conferenceRecord->description);
+			$conference->setLocation($conferenceRecord->location);
+			$conference->setVenue($conferenceRecord->venue);
+			$conference->setLocationByCoordinates($conferenceRecord->gps);
 
 			if (isset($members[$conferenceRecord->creator->username])) {
 				$conference->setCreator($members[$conferenceRecord->creator->username]);

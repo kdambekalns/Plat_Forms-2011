@@ -23,85 +23,36 @@ namespace F3\Party\Domain\Model;
  *                                                                        */
 
 /**
- * A party
+ * A party interface
  *
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  * @scope prototype
  * @entity
  */
-class Party implements \F3\Party\Domain\Model\PartyInterface {
-
-	/**
-	 * @var \SplObjectStorage<\F3\FLOW3\Security\Account>
-	 */
-	protected $accounts;
-
-	/**
-	 * @var \F3\Party\Domain\Model\Address
-	 */
-	protected $address;
-
-	/**
-	 * Constructor
-	 *
-	 * @return void
-	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
-	 */
-	public function __construct() {
-		$this->accounts = new \SplObjectStorage();
-	}
+interface PartyInterface {
 
 	/**
 	 * Assigns the given account to this party. Note: The internal reference of the account is
 	 * set to this party.
 	 *
 	 * @return F3\FLOW3\Security\Account $account The account
-	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
-	public function addAccount(\F3\FLOW3\Security\Account $account) {
-		$this->accounts->attach($account);
-		$account->setParty($this);
-	}
+	public function addAccount(\F3\FLOW3\Security\Account $account);
 
 	/**
 	 * Remove an account from this party
 	 *
 	 * @param F3\FLOW3\Security\Account $account The account to remove
 	 * @return void
-	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
-	public function removeAccount(\F3\FLOW3\Security\Account $account) {
-		$this->accounts->detach($account);
-	}
+	public function removeAccount(\F3\FLOW3\Security\Account $account);
 
 	/**
 	 * Returns the accounts of this party
 	 *
 	 * @return SplObjectStorage All assigned F3\FLOW3\Security\Account objects
-	 * @author Andreas Förthner <andreas.foerthner@netlogix.de>
 	 */
-	public function getAccounts() {
-		return $this->accounts;
-	}
-
-	/**
-	 * Sets the address of this party
-	 *
-	 * @param \F3\Party\Domain\Model\Address $address
-	 * @return void
-	 */
-	public function setAddress(\F3\Party\Domain\Model\Address $address) {
-		$this->address = $address;
-	}
-
-	/**
-	 * Returns the address of this party
-	 *
-	 * @return \F3\Party\Domain\Model\Address
-	 */
-	public function getAddress() {
-		return $this->address;
-	}
+	public function getAccounts();
 
 }
 ?>

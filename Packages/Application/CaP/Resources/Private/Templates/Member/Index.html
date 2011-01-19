@@ -15,9 +15,13 @@
 		<f:form.submit value="Apply" />
 	</f:form>
 
-	<ul>
+	<table><tr><th>Username</th><th>Town</th><th>Country</th></tr>
 	<f:for each="{members}" as="member">
-		<li></li><f:link.action action="show" arguments="{member: member}">{member.name.lastname}, {member.name.firstname}</f:link.action></li>
+		<tr>
+			<td><f:link.action action="show" arguments="{member: member}">{member.username}</f:link.action></td>
+			<td>{member.town}</td>
+			<td>{member.country}</td>
+		</tr>
 	</f:for>
-	</ul>
+	</table>
 </f:section>
