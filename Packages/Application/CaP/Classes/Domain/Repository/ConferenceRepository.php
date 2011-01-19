@@ -174,30 +174,34 @@ class ConferenceRepository extends \F3\FLOW3\Persistence\Repository {
 		$query = $this->createQuery();
 		$qomParts = array();
 
-		$qomTerms = array();
-		foreach ($criteria['terms'] as $term) {
-			$qomTerms[] = $query->logicalOr(
-				$query->like('name', '%' . $term . '%', TRUE),
-				$query->like('description', '%' . $term . '%', TRUE)
-			);
-		}
-		if (count($qomTerms) > 0) {
+		if (count($criteria['terms']) > 0) {
+			$qomTerms = array();
+			foreach ($criteria['terms'] as $term) {
+				$qomTerms[] = $query->logicalOr(
+					$query->like('name', '%' . $term . '%', TRUE),
+					$query->like('description', '%' . $term . '%', TRUE)
+				);
+			}
 			$qomParts[] = $query->logicalAnd($qomTerms);
 		}
 
 		if ($criteria['from'] === NULL && $criteria['until'] === NULL) {
-			$qomParts[] = $query->lessThanOrEqual('endDate', new \DateTime('today'));
+			$qomParts[] = $query->greaterThanOrEqual('endDate', new \DateTime('today'));
 		} else {
 			if ($criteria['from'] !== NULL) {
-				$qomParts[] = $query->lessThanOrEqual('endDate',$criteria['from']);
+				$qomParts[] = $query->greaterThanOrEqual('endDate', $criteria['from']);
 			}
 			if ($criteria['until'] !== NULL) {
-				$qomParts[] = $query->greaterThanOrEqual('startDate',$criteria['until']);
+				$qomParts[] = $query->lessThanOrEqual('startDate', $criteria['until']);
 			}
 		}
 
-		// categories
-		// SplObjectStorage<F3\CaP\Domain\Model\Category>
+		if (count($criteria['categories']) > 0) {
+			foreach ($criteria['categories'] as $category) {
+				$qomCategories[] = $query->contains('categories', $category);
+			}
+			$qomParts[] = $query->logicalOr($qomCategories);
+		}
 
 		// region
 		// SplObjectStorage<F3\Party\Domain\Model\Address>

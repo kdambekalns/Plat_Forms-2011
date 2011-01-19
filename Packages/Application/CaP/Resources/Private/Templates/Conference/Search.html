@@ -1,0 +1,36 @@
+<f:layout name="master" />
+
+<f:section name="mainbox">
+	<h1>Conference search</h1>
+
+	<f:form action="search" name="conference-search" class="dataform">
+	<fieldset>
+		<legend>Filter criteria</legend>
+		<f:form.textfield name="criteria[terms]" size="58" value="{criteria.terms}"/> (name / description)<br /><br />
+		From <f:form.textfield name="criteria[from]" value="{criteria.from}"/> until <f:form.textfield name="criteria[until]" value="{criteria.until}"/><br />
+		<f:form.select name="criteria[categories]" options="{categories}" multiple="true" optionLabelField="name" size="10" />
+	</fieldset>
+	<f:form.submit value="Search" class="positive-submit" />
+	</f:form>
+	<f:if condition="{conferences}">
+	<f:then>
+	<p>The following conferences are matching your search.</p>
+	<table class="conferences">
+		<f:for each="{conferences}" as="conference">
+			<f:render section="conferenceEntry" arguments="{conference: conference}"/>
+		</f:for>
+	</table>
+	</f:then>
+	<f:else>
+	<p>No conferences found. Isn't it a pity?</p>
+	</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="conferenceEntry">
+	<tr>
+		<td><f:link.action action="show" arguments="{conference: conference}">{conference.name}</f:link.action></td>
+		<td><f:format.date>{conference.startDate}</f:format.date> to <f:format.date>{conference.endDate}</f:format.date></td>
+		<td>{conference.location}</td>
+	</tr>
+</f:section>

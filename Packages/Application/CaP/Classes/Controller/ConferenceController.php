@@ -85,11 +85,12 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	/**
 	 * Displays the main screen
 	 *
-	 * @param \F3\CaP\Domain\Model\Category
+	 * @param \F3\CaP\Domain\Model\Category $category
 	 * @return void
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
 	public function indexAction(\F3\CaP\Domain\Model\Category $category = NULL) {
+		$this->view->assign('rendersubmenu', TRUE);
 		$this->view->assign('categories', $this->categoryRepository->findByParent($category));
 
 		if ($category === NULL) {
@@ -105,6 +106,27 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 			} while (($category = $category->getParent()) !== NULL);
 		}
 		$this->view->assign('categoryPath', $categoryPath);
+	}
+
+	/**
+	 * Displays the main screen
+	 *
+	 * @param array $criteria
+	 * @return void
+	 * @author Karsten Dambekalns <karsten@typo3.org>
+	 */
+	public function searchAction(array $criteria = array()) {
+		if (count($criteria) > 0) {
+			$this->view->assign('criteria', $criteria);
+
+			$criteria['terms'] = explode(' ', $criteria['terms']);
+			$criteria['from'] = \F3\CaP\Utility\DateConverter::createDateFromString($criteria['from']);
+			$criteria['until'] = \F3\CaP\Utility\DateConverter::createDateFromString($criteria['until']);
+			$criteria['categories'] = is_array($criteria['categories']) ? $criteria['categories'] : array();
+
+			$this->view->assign('conferences', $this->conferenceRepository->findByCriteria($criteria));
+		}
+		$this->view->assign('categories', $this->categoryRepository->findAll());
 	}
 
 	/**
