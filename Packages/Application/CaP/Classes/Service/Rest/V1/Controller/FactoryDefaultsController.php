@@ -78,10 +78,6 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function listAction() {
-		if ($this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider') === NULL) {
-			$this->redirect('index');
-		}
-
 		$this->forward('import');
 	}
 
@@ -91,10 +87,14 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function importAction() {
+		$siteAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'DefaultProvider');
+		$restAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider');
 		$this->accountRepository->removeAll();
 		$this->memberRepository->removeAll();
 		$this->categoryRepository->removeAll();
 		$this->conferenceRepository->removeAll();
+		if ($siteAdminAccount !== NULL) $this->accountRepository->add($siteAdminAccount);
+		if ($restAdminAccount !== NULL) $this->accountRepository->add($restAdminAccount);
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
 		foreach ($factoryDefaults->member as $memberRecord) {
