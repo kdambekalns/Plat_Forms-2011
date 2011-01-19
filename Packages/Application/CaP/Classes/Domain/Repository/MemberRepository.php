@@ -60,9 +60,7 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 
 	/**
 	 * array(2)
-	 *  'status' (6) => array(2)
-	 *   'contact' (7) => '' (0)
-	 *   'rcd' (3) => '1' (1)
+	 * 'terms' (6) => '' (0)
 	 * 'location' (8) => array(2)
 	 *   'locality' (8) => '1' (1)
 	 *   'country' (7) => '' (0)
@@ -75,12 +73,14 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 		$query = $this->createQuery();
 		$qomParts = array();
 
-		if (count($filter) === 2) {
-			if ($filter['status']['contact']) {
-				#$qomParts[] = $query->...($qomTerms);
-			}
-			if ($filter['status']['contact']) {
-				#$qomParts[] = $query->...($qomTerms);
+		if (count($filter) > 1) {
+			$terms = explode(' ', $filter['terms']);
+			if (count($terms) > 0) {
+				$qomTerms = array();
+				foreach ($terms as $term) {
+					$qomTerms[] = $query->like('fullName', '%' . $term . '%', TRUE);
+				}
+				$qomParts[] = $query->logicalAnd($qomTerms);
 			}
 			if ($filter['location']['locality']) {
 				$qomParts[] = $query->equals('town', $this->account->getParty()->getTown());
@@ -98,10 +98,10 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 				});
 				return $members;
 			} else {
-				return array();
+				return $this->findAll();
 			}
 		} else {
-			return array();
+			return $this->findAll();
 		}
 
 	}
