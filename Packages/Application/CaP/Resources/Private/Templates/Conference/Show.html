@@ -18,7 +18,7 @@
 	<h2>Attendees:</h2>
 	<f:for each="{conference.attendees}" as="attendee">
 		<p>
-			{attendee.fullName}
+			{attendee.fullName} ({attendee.username}) - {attendee.primaryElectronicAddress}
 			<f:if condition="{account.party} != {attendee}">
 			<f:then>
 				<f:link.action action="sendContactRequest" arguments="{receiver: attendee}">Send Contact Request</f:link.action>
