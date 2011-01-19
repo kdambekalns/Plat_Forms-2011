@@ -6,22 +6,30 @@
   display:block;
   height:37px;
   list-style-type:none;
-  background:url(../images/backgrounds/bg-nav-main.gif) repeat-x left top;
+  background:url(../Images/backgrounds/bg-nav-main.gif) repeat-x left top;
 }
 
 #topmenu ul li {
   float:left;
-  background:url(../images/backgrounds/bg-nav-main-itemback.gif) repeat-x left top;
-  padding-right:1px;
+  background:url(../Images/backgrounds/bg-nav-main-itemback.gif) repeat-x left top;
+  padding-right: 1px;
+  height:37px;
+  font-size: 16px;
 }
 
 #topmenu ul li a {
-  background-position: left top;
-  height:37px!important;
+  display:block;
+  float:left;
+  height:37px;
+  margin-top:6px;
+  padding-right: 4px;
+  padding-left: 4px;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 #topmenu ul li a:hover {
-  background-position: left center;
+  color: #FF8700;
 }
 
 #topmenu ul li.act a, #topmenu ul li.act a:hover {

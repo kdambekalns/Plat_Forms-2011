@@ -11,7 +11,7 @@
 html, body {
 	height: 100%;
 	font-size: 12px;
-	background: #DFDFDF url(../images/backgrounds/bg-body-with-banner.gif) repeat-y scroll center top
+	background: #DFDFDF url(../Images/backgrounds/bg-body-with-banner.gif) repeat-y scroll center top
 }
 
 body{
@@ -127,7 +127,7 @@ a:hover {
 }
 
 #typo3org, #typo3org_start, #typo3org_landing {
-	background: #DFDFDF url(../images/backgrounds/bg-body-with-banner.gif) repeat-y center top;
+	background: #DFDFDF url(../Images/backgrounds/bg-body-with-banner.gif) repeat-y center top;
 	text-align: center;
 }
 
@@ -145,7 +145,7 @@ a:hover {
 	text-align:center;
 	width:984px;
 	min-height:100%;
-	background:#FFF url(../images/backgrounds/bg-nav-sub.gif) repeat-y top left;
+	background:#FFF url(../Images/backgrounds/bg-nav-sub.gif) repeat-y top left;
 	border-left:1px solid #616161;
 	border-right:1px solid #616161;
 	z-index:100;
@@ -177,11 +177,11 @@ a:hover {
 	width: 180px;
 	margin: 0px;
 	border: 1px solid #838383;
-	
+
 	filter:alpha(opacity=50);
 	opacity: 0.5;
 	-moz-opacity:0.5;
-	
+
 	margin-bottom: 70px;
 	margin-left: 1042px;
 	margin-top: 96px;
@@ -189,8 +189,8 @@ a:hover {
 }
 
 /* IE 6 CSS overflow: visible bugfix
- * 
- * TODO: 
+ *
+ * TODO:
  * Why are they not in the patch file? Lazzy guys ... */
 
 * html #banner {
@@ -203,8 +203,8 @@ a:hover {
 }
 
 /* IE 7 BugFix
- * 
- * TODO: 
+ *
+ * TODO:
  * Why are they not in the patch file? Lazzy guys ... */
 
 * + html #banner {
@@ -244,11 +244,11 @@ input {
 
 #typo3org_start #master {
 	background: #ffFFff;
-	/* 
-	 * 
-	 * Add BG grafic via HTML object in TYPO3, please. 
-	 * eg: <style>#typo3org_start #master{background: url(/fileadmin/templates/T3CON09/images/backgrounds/startback.png) no-repeat 0px 160px;}</style>
-	 *  	 
+	/*
+	 *
+	 * Add BG grafic via HTML object in TYPO3, please.
+	 * eg: <style>#typo3org_start #master{background: url(/fileadmin/templates/T3CON09/Images/backgrounds/startback.png) no-repeat 0px 160px;}</style>
+	 *
 	 */
 }
 
@@ -269,7 +269,7 @@ input {
 	position:absolute;
 	top:0;
 	left:0;
-	background:url(../images/backgrounds/bg-header.gif) no-repeat center top;
+	background:url(../Images/backgrounds/bg-header.gif) no-repeat center top;
 	width:100%;
 	height:96px;
   	z-index:100;
@@ -280,14 +280,14 @@ input {
 	top:96px;
 	left:0;
   	display:block;
-	background:#585858 url(../images/backgrounds/bg-nav-shadow.gif) no-repeat left bottom;
+	background:#585858 url(../Images/backgrounds/bg-nav-shadow.gif) no-repeat left bottom;
 	width:100%;
 	height:64px;
   	z-index:100;
 }
 
 #typo3org_start #topmenu {
-	background:#585858 url(../images/backgrounds/bg-nav-shadow-start.gif) no-repeat left bottom;
+	background:#585858 url(../Images/backgrounds/bg-nav-shadow-start.gif) no-repeat left bottom;
 }
 
 #maincontainer {
@@ -347,7 +347,7 @@ input {
 	height:150px;
 	float:left;
 	margin-top: 12px;
-	background:#FF8700 url(../images/backgrounds/startpage-smallbox-back.gif) no-repeat top left;
+	background:#FF8700 url(../Images/backgrounds/startpage-smallbox-back.gif) no-repeat top left;
 }
 
 .startpage-smallbox p{
@@ -357,7 +357,7 @@ input {
 
 .startpage-smallbox div.bottom-shadow{
 
-	background: url(../images/backgrounds/bg-dropdownmenu-loginbox.png) repeat-x;
+	background: url(../Images/backgrounds/bg-dropdownmenu-loginbox.png) repeat-x;
 	position: absolute;
 	bottom: -14px;
 	display: none;
@@ -409,7 +409,7 @@ input {
 	position:absolute;
 	bottom:0px;
 	left:0px;
-	background:#FFF url(../images/backgrounds/bg-footer.gif) no-repeat left top;
+	background:#FFF url(../Images/backgrounds/bg-footer.gif) no-repeat left top;
 	width:100%;
 	z-index:100;
 
@@ -442,7 +442,7 @@ input {
 
 
 #typo3org_start #bottomcontainer {
-	background:#FFF url(../images/backgrounds/bg-footer-start.gif) no-repeat left top;
+	background:#FFF url(../Images/backgrounds/bg-footer-start.gif) no-repeat left top;
 }
 
 body#typo3org_start #mainbox{
@@ -463,7 +463,7 @@ body#typo3org_start #mainbox #mainspacer{
 }
 
 #loginregister span.loggedIn {
-	background-image: url(../images/header/loggedButton.png);
+	background-image: url(../Images/header/loggedButton.png);
 	background-position: left top;
 	display: block;
 	height: 37px;
@@ -493,7 +493,7 @@ body#typo3org_start #mainbox #mainspacer{
 
 #login-register-box{
 	z-index: 200;
-	background:  url(../images/backgrounds/login-register-box.png) top center repeat-y;
+	background:  url(../Images/backgrounds/login-register-box.png) top center repeat-y;
 	width: 222px;
 	padding: 0px 0px 0px 0px;
 	text-align: center;
@@ -503,7 +503,7 @@ body#typo3org_start #mainbox #mainspacer{
 
 #login-register-box div.bottom-shadow{
 	height: 3px;
-	background: url(../images/backgrounds/bg-dropdownmenu-loginbox.png) top center repeat-x;
+	background: url(../Images/backgrounds/bg-dropdownmenu-loginbox.png) top center repeat-x;
 	margin-left: 3px;
 	margin-right: 3px;
 	position: relative;
@@ -514,7 +514,7 @@ body#typo3org_start #mainbox #mainspacer{
 
 #dropdownmenu-links div.bottom-shadow{
 	height: 3px;
-	background: url(../images/backgrounds/bg-dropdownmenu-loginbox.png) top center repeat-x;
+	background: url(../Images/backgrounds/bg-dropdownmenu-loginbox.png) top center repeat-x;
 	margin-left: -1px;
 	margin-right: 0px;
 	position: relative;
@@ -532,12 +532,12 @@ body#typo3org_start #mainbox #mainspacer{
 
 #login-register-box h3.login{
 	padding: 6px;
-	background: url(../images/backgrounds/bg-login-h3.gif) 12px 9px no-repeat;
+	background: url(../Images/backgrounds/bg-login-h3.gif) 12px 9px no-repeat;
 }
 
 #login-register-box h3.register{
 	padding: 6px;
-	background: url(../images/backgrounds/bg-register-h3.gif) 12px 9px no-repeat;
+	background: url(../Images/backgrounds/bg-register-h3.gif) 12px 9px no-repeat;
 	margin-top: 36px;
 	margin-bottom: 6px;
 	height: 26px;
@@ -577,13 +577,13 @@ body#typo3org_start #mainbox #mainspacer{
 input#username{
 	width: 192px;
 	height: 20px;
-	background: url(../images/backgrounds/bg-login-username.gif) no-repeat;
+	background: url(../Images/backgrounds/bg-login-username.gif) no-repeat;
 }
 
 input#password{
 	width: 192px;
 	height: 20px;
-	background: url(../images/backgrounds/bg-login-password.gif) no-repeat;
+	background: url(../Images/backgrounds/bg-login-password.gif) no-repeat;
 }
 
 
@@ -599,7 +599,7 @@ input#password{
 
 #login-register-box a:link,
 #login-register-box a:visited{
-	background: url(../images/misc/link-arrow.png) top left no-repeat;
+	background: url(../Images/misc/link-arrow.png) top left no-repeat;
 	font-size: 10px;
 	font-weight: normal;
 	color: black;
@@ -632,7 +632,7 @@ input#password{
 
 #login-register-box input.login{
 	float: left;
-	background: url(../images/misc/btn-arrow.png) no-repeat;
+	background: url(../Images/misc/btn-arrow.png) no-repeat;
 	width: 99px;
 	height: 23px;
 	border: 0px;
@@ -665,7 +665,7 @@ input#password{
     font-size: 12px;
     display: none;
     position: absolute;
-		background:  url(../images/backgrounds/bg-dropdownmenu.png) top center repeat-y;
+		background:  url(../Images/backgrounds/bg-dropdownmenu.png) top center repeat-y;
 		width: 222px;
 }
 #dropdownmenu-links div.wrapper-top{
@@ -765,7 +765,6 @@ input#password{
 }
 
 #dropdownmenu-links ul li.current-site {
-    background: transparent url(/fileadmin/templates/T3CON09/images/misc/current-site.png) no-repeat scroll 0 0;
     padding: 5px;
 		width: 250px;
 		margin-left: -3px;
@@ -935,13 +934,13 @@ div.attention-box a:hover{
 }
 
 .news-list-container .news-list-item {
-	background: transparent url(../images/backgrounds/latest-news-header-shadow.png) repeat-x scroll 0 0;
+	background: transparent url(../Images/backgrounds/latest-news-header-shadow.png) repeat-x scroll 0 0;
 	padding-top: 4px;
 	margin-bottom: 12px;
 }
 
 .news-latest-container .news-latest-item .news-title-wrapper,
-.news-list-container .news-list-item .news-title-wrapper, 
+.news-list-container .news-list-item .news-title-wrapper,
 .tx-ptgsashop-pi7-tableheader, .tx-ptgsashop-pi7-tableheader *{
   background: #2f2f2f;
   font-weight: bold;
@@ -1031,7 +1030,7 @@ div.attention-box a:hover{
 
 .news-list-container .news-list-item .news-title-wrapper .news-more span.arrow{
   width: 14px;
-  background: url(../images/backgrounds/search-header-more-arrow.png) no-repeat 1px 0px;
+  background: url(../Images/backgrounds/search-header-more-arrow.png) no-repeat 1px 0px;
   position: absolute;
   height: 26px;
   margin: 0 0 0 0px;
@@ -1044,8 +1043,8 @@ div.attention-box a:hover{
 }
 
 /* Safari Patch ... in the Patch file please! ...
- * 
- * TODO: 
+ *
+ * TODO:
  * Why are they not in the patch file? Lazzy guys ... */
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -1166,7 +1165,7 @@ div.legend div.legend-text {
  */
 #userinfo {
 	height: 105px;
-	background:  transparent url(../images/backgrounds/bg-submenu-cta-top-bg.png);
+	background:  transparent url(../Images/backgrounds/bg-submenu-cta-top-bg.png);
 }
 
 #userinfo .info-box a {
@@ -1196,7 +1195,7 @@ div.legend div.legend-text {
 }
 
 #userinfo .info-box.non-logged .info-box-no {
-	background: transparent url(../images/backgrounds/bg-infobox-nav-question.png) no-repeat scroll center center;
+	background: transparent url(../Images/backgrounds/bg-infobox-nav-question.png) no-repeat scroll center center;
 	height: 75px;
 	display: block;
 }
@@ -1211,7 +1210,7 @@ div.legend div.legend-text {
 
 
 #userinfo .info-box.non-logged .info-box-hover {
-	background: transparent url(../images/backgrounds/bg-infobox-nav-answer.png) no-repeat scroll center center;
+	background: transparent url(../Images/backgrounds/bg-infobox-nav-answer.png) no-repeat scroll center center;
 	height: 75px;
 	display: none;
 }

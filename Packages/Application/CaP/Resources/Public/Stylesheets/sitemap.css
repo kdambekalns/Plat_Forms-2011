@@ -35,24 +35,24 @@
 	height:36px;
 	width:30px;
 	text-decoration:none;
-	background:url(../images/icons/sitemap-loader-close.gif) no-repeat -30px 0px;
+	background:url(../Images/icons/sitemap-loader-close.gif) no-repeat -30px 0px;
 }
 
 
 .sitemaptriggeron {
-	background:url(../images/icons/sitemap_icon_on.gif) no-repeat bottom left!important;
+	background:url(../Images/icons/sitemap_icon_on.gif) no-repeat bottom left!important;
 }
 
 .sitemaptriggeroff {
-	background:url(../images/icons/sitemap-loader-close.gif) no-repeat -30px 0px !important;
+	background:url(../Images/icons/sitemap-loader-close.gif) no-repeat -30px 0px !important;
 }
 
 .sitemapLoad {
-	background:url(../images/icons/sitemap-loader-close.gif) no-repeat 0px 0px !important;
+	background:url(../Images/icons/sitemap-loader-close.gif) no-repeat 0px 0px !important;
 }
 
 .sitemapClose {
-	background:url(../images/icons/sitemap-loader-close.gif) no-repeat -60px 0px !important;
+	background:url(../Images/icons/sitemap-loader-close.gif) no-repeat -60px 0px !important;
 }
 
 #searchbox {
@@ -61,7 +61,7 @@
 	margin-bottom:-36px;
 	height:36px;
 	width:200px;
-	background:url(../images/backgrounds/bg-searchfield.gif) no-repeat bottom left;
+	background:url(../Images/backgrounds/bg-searchfield.gif) no-repeat bottom left;
 }
 
 #searchbox span {
@@ -80,7 +80,7 @@
 	width:984px;
 	z-index:1000;
 	list-style-type:none;
-	background:url(../images/backgrounds/sitemapback.gif);
+	background:url(../Images/backgrounds/sitemapback.gif);
 	border-left:1px solid #616161;
 	border-right:1px solid #616161;
 }
@@ -128,17 +128,17 @@
 }
 
 .subon .trigger {
-	background:url(../images/icons/sitemap-minus.gif) no-repeat!important;
+	background:url(../Images/icons/sitemap-minus.gif) no-repeat!important;
 	cursor:hand;
 }
 
 .suboff .trigger {
-	background:url(../images/icons/sitemap-plus.gif) no-repeat!important;
+	background:url(../Images/icons/sitemap-plus.gif) no-repeat!important;
 	cursor:hand;
 }
 
 .sitemapcontent .empty {
-	background:url(../images/icons/sitemap-empty.gif) no-repeat!important;
+	background:url(../Images/icons/sitemap-empty.gif) no-repeat!important;
 }
 
 .sitemapcontent a {
