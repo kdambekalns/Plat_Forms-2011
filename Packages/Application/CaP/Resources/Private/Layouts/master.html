@@ -40,10 +40,10 @@
 			<div id="centeredbox">
 				<div id="topmenu">
 					<div id="level1menu"><ul>
-						<li><f:link.action controller="conference">Conferences</f:link.action></li>
-						<li><f:link.action controller="member">Members</f:link.action></li>
+						<li><a href="conferences">Conferences</a></li>
+						<li><a href="members">Members</a></li>
 						<f:security.ifHasRole role="PortalAdmin">
-						<li><f:link.action controller="administration">Administration</f:link.action></li>
+						<li><a href="conferences">Administration</a></li>
 						</f:security.ifHasRole>
 					</ul></div>
 					<div id="rootlinemenu"><f:raw>{rootlinemenu}</f:raw></div>
@@ -68,8 +68,7 @@
 								<div class="info-box logged">
 									<div class="cta-user-img-mask"><img src="{f:uri.resource(path: 'Images/backgrounds/cta-btn-login-bg-masked.png')}" width="207" height="75" border="0" alt="" title="" /></div>
 									<div class="cta-user-info">
-										<div class="cta-user-name"><f:link.action action="show" controller="Member" arguments="{member: account.party}"><f:format.crop maxCharacters="16" append="…">{account.party.fullName}</f:format.crop></f:link.action></div>
-										<div class="cta-user-text">Not your account?</div>
+										<div class="cta-user-name"><f:link.action action="show" controller="Member" arguments="{member: account.party}"><f:format.crop maxCharacters="20" append="…">{account.party.fullName}</f:format.crop></f:link.action></div>
 										<div class="cta-user-logout"><f:link.action action="logout" controller="Login">Logout</f:link.action></div>
 									</div>
 								</div>
