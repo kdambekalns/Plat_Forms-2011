@@ -76,9 +76,15 @@ class ObjectAccess {
 				return $subject[$propertyName];
 			}
 		} else {
-			if (is_callable(array($subject, 'get' . ucfirst($propertyName)))) {
+
+				// FIXME: Implement properly:
+			$class = new \ReflectionClass($subject);
+
+			if (is_callable(array($subject, 'get' . ucfirst($propertyName)))
+					&& $class->getMethod('get' . ucfirst($propertyName))->getNumberOfParameters() === 0) {
 				return call_user_func(array($subject, 'get' . ucfirst($propertyName)));
-			} elseif (is_callable(array($subject, 'is' . ucfirst($propertyName)))) {
+			} elseif (is_callable(array($subject, 'is' . ucfirst($propertyName)))
+					&& $class->getMethod('is' . ucfirst($propertyName))->getNumberOfParameters() === 0) {
 				return call_user_func(array($subject, 'is' . ucfirst($propertyName)));
 			} elseif ($subject instanceof \ArrayAccess && isset($subject[$propertyName])) {
 				return $subject[$propertyName];
@@ -86,7 +92,7 @@ class ObjectAccess {
 				return $subject->$propertyName;
 			}
 		}
-
+	return;
 		throw new \F3\FLOW3\Reflection\Exception\PropertyNotAccessibleException('The property "' . $propertyName . '" on the subject was not accessible.', 1263391473);
 	}
 
