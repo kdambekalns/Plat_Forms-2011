@@ -90,6 +90,7 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @author Karsten Dambekalns <karsten@typo3.org>
 	 */
 	public function indexAction(\F3\CaP\Domain\Model\Category $category = NULL) {
+		$this->view->assign('rendersubmenu', TRUE);
 		$this->view->assign('categories', $this->categoryRepository->findByParent($category));
 
 		if ($category === NULL) {
