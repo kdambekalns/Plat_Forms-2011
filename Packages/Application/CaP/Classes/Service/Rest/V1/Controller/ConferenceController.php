@@ -54,26 +54,6 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	);
 
 	/**
-	 * @var \F3\FLOW3\Security\Account
-	 */
-	protected $account;
-
-	/**
-	 * Initializes the controller before invoking an action method.
-	 *
-	 * @return void
-	 * @author Robert Lemke <robert@typo3.org>
-	 */
-	protected function initializeAction() {
-		$activeTokens = $this->securityContext->getAuthenticationTokens();
-		foreach ($activeTokens as $token) {
-			if ($token->isAuthenticated()) {
-				$this->account = $token->getAccount();
-			}
-		}
-	}
-
-	/**
 	 * Lists all conferences
 	 *
 	 * @return void
@@ -159,7 +139,6 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 
 		$this->view->setConfiguration(array('value' => array('_exclude' => array('attendee'))));
 		$this->view->assign('value', $conferenceArray);
-		$this->view->assign('account', $this->account);
 	}
 
 	/**
