@@ -105,12 +105,44 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\RestController {
 	/**
 	 * Shows the specified conference
 	 *
-	 * @param
+	 * @param \F3\CaP\Domain\Model\Conference $conference
 	 * @return string View output for the specified conference
-	 * @author Robert Lemke <robert@typo3.org>
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
-		$this->view->assign('value', $conference);
+		$categoriesArray = array();
+		foreach ($conference->getCategories() as $category) {
+			$categoriesArray[] = $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('category' => $category), 'Category');
+		}
+
+		$conferenceArray = array(
+			'version' => $conference->getVersion(),
+			'id' => $conference->getId(),
+			'name' => $conference->getName(),
+			'creator' => $this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('show', array('username' => $conference->getCreator()), 'Member'),
+			'series' => NULL,
+			'startdate' => $conference->getStartDate()->format('Y-m-d'),
+			'enddate' => $conference->getEndDate()->format('Y-m-d'),
+			'categories' => $categoriesArray,
+			'description' => $conference->getDescription(),
+			'location' => $conference->getAddress()->getLocality(),
+			'gps' => $conference->getAddress()->getLocationByCoordinates(),
+			'venue' => '',
+			'accomodation' => '',
+			'howtofind' => ''
+		);
+
+		$this->view->setConfiguration(array('value' => array('_exclude' => array('attendee'))));
+		$this->view->assign('value', $conferenceArray);
+	}
+
+	/**
+	 * Creates a new conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @return void
+	 */
+	public function createAction(\F3\CaP\Domain\Model\Conference $conference) {
+		return 'x';
 	}
 }
 

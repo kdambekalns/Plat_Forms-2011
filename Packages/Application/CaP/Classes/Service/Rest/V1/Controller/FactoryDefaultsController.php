@@ -153,9 +153,9 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			$conference->setStartDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->startdate));
 			$conference->setEndDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->enddate));
 
-			$conferenceCategories = new \SplObjectStorage();
+			$conferenceCategories = array();
 			foreach ($conferenceRecord->categories as $categoryRecord) {
-				$conferenceCategories->attach($categories[$categoryRecord->name]);
+				$conferenceCategories[] = $categories[$categoryRecord->name];
 			}
 			$conference->setCategories($conferenceCategories);
 

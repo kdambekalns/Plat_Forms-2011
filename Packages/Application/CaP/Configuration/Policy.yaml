@@ -8,7 +8,7 @@
 resources:
   entities: []
   methods: []
-    serviceResource: 'method(F3\CaP\Service\Rest\V1\Controller\.*Controller->.*Action())'
+#    someResource: 'method(F3\CaP\Service\Rest\V1\Controller\.*Controller->.*Action())'
 
 roles:
   PortalMember: []
@@ -16,6 +16,6 @@ roles:
 
 acls: []
   PortalMember:
-    methods:
-      serviceResource: GRANT
+    methods: []
+#      serviceResource: GRANT
     entities: []

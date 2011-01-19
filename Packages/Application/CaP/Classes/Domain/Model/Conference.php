@@ -118,13 +118,17 @@ class Conference {
 	 * @param array<\F3\CaP\Domain\Model\Category> $categories
 	 */
 	public function setCategories(array $categories) {
+		$this->categories = new \SplObjectStorage($categories);
 		foreach ($categories as $category) {
 			$this->categories->attach($category);
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public function getCategories() {
-		return $this->categories;
+		return (array)$this->categories;
 	}
 
 	/**
