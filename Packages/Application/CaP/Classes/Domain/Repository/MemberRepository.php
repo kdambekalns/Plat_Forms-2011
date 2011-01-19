@@ -75,27 +75,30 @@ class MemberRepository extends \F3\FLOW3\Persistence\Repository {
 		$query = $this->createQuery();
 		$qomParts = array();
 
-		if ($filter['status']['contact']) {
-			#$qomParts[] = $query->...($qomTerms);
-		}
-		if ($filter['status']['contact']) {
-			#$qomParts[] = $query->...($qomTerms);
-		}
-		if ($filter['location']['locality']) {
-			$qomParts[] = $query->equals('town', $this->account->getParty()->getTown());
-		}
-		if ($filter['location']['country']) {
-			$qomParts[] = $query->equals('country', $this->account->getParty()->getCountry());
+		if (count($filter) === 2) {
+			if ($filter['status']['contact']) {
+				#$qomParts[] = $query->...($qomTerms);
+			}
+			if ($filter['status']['contact']) {
+				#$qomParts[] = $query->...($qomTerms);
+			}
+			if ($filter['location']['locality']) {
+				$qomParts[] = $query->equals('town', $this->account->getParty()->getTown());
+			}
+			if ($filter['location']['country']) {
+				$qomParts[] = $query->equals('country', $this->account->getParty()->getCountry());
+			}
+			$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
+			usort($members, function($a, $b) {
+				$nameA = $a->getUsername();
+				$nameB = $b->getUsername();
+				return ($nameA < $nameB) ? -1 : 1;
+			});
+			return $members;
+		} else {
+			return array();
 		}
 
-		$members = $query->matching($query->logicalAnd($qomParts))->execute()->toArray();
-#		$members = parent::findAll()->toArray();
-		usort($members, function($a, $b) {
-			$nameA = $a->getUsername();
-			$nameB = $b->getUsername();
-			return ($nameA < $nameB) ? -1 : 1;
-		});
-		return $members;
 	}
 }
 ?>
