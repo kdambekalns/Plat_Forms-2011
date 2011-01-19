@@ -94,6 +94,7 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 			if ($this->account->getParty()->hasContactRequestSentTo($member)) $contactRequested->attach($member);
 		}
 		$this->view->assign('membersWithContactRequest', $contactRequested);
+		$this->view->assign('account', $this->account);
 	}
 
 	/**
@@ -115,11 +116,13 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function sendContactRequestAction(\F3\CaP\Domain\Model\Member $receiver, array $currentSearchFilter = array()) {
-		$contactRequest = $this->objectManager->create('F3\CaP\Domain\Model\ContactRequest');
-		$contactRequest->setSender($this->account->getParty());
-		$contactRequest->setReceiver($receiver);
-		$contactRequest->setStatus(\F3\CaP\Domain\Model\ContactRequest::RCD_REQUESTED);
-		$this->contactRequestRepository->add($contactRequest);
+		if ($receiver !== $this->account->getParty()) {
+			$contactRequest = $this->objectManager->create('F3\CaP\Domain\Model\ContactRequest');
+			$contactRequest->setSender($this->account->getParty());
+			$contactRequest->setReceiver($receiver);
+			$contactRequest->setStatus(\F3\CaP\Domain\Model\ContactRequest::RCD_REQUESTED);
+			$this->contactRequestRepository->add($contactRequest);
+		}
 
 		$this->redirect('index', NULL, NULL, array('filter' => $currentSearchFilter));
 	}
