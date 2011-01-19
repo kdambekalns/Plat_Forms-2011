@@ -19,18 +19,19 @@
 		<p>{attendee.name}</p>
 	</f:for>
 
-	<f:if condition="{isAttendee}">
-		<f:then>
-			<f:link.action action="unregister" arguments="{conference: conference}">Unregister from this conference</f:link.action>
-		</f:then>
-		<f:else>
-			<f:link.action action="register" arguments="{conference: conference}">Register for this conference</f:link.action>
-		</f:else>
-	</f:if>
-
 	<f:if condition="{isCreator}">
 		<f:then>
 			<f:link.action action="edit" arguments="{conference: conference}">Edit this conference</f:link.action>
 		</f:then>
+		<f:else>
+			<f:if condition="{isAttendee}">
+				<f:then>
+					<f:link.action action="unregister" arguments="{conference: conference}">Unregister from this conference</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action action="register" arguments="{conference: conference}">Register for this conference</f:link.action>
+				</f:else>
+			</f:if>
+		</f:else>
 	</f:if>
 </f:section>
