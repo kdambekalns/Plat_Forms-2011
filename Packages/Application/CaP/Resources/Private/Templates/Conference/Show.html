@@ -14,10 +14,17 @@
 
 	<p>{conference.description}</p>
 
-	<p>Attendees:</p>
+	<p>Attendees: (TODO: Attendee names conditional display gedöhns)</p>
 	<f:for each="{conference.attendees}" as="attendee">
 		<p>{attendee.name}</p>
 	</f:for>
 
-	<f:link.action action="attend" arguments="{conference: conference}">Attend to this conference</f:link.action>
+	<f:if condition="{isAttendee}">
+		<f:then>
+			<f:link.action action="unregister" arguments="{conference: conference}">Unregister from this conference</f:link.action>
+		</f:then>
+		<f:else>
+			<f:link.action action="register" arguments="{conference: conference}">Register for this conference</f:link.action>
+		</f:else>
+	</f:if>
 </f:section>

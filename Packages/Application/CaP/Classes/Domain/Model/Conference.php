@@ -212,5 +212,14 @@ class Conference {
 	public function getAttendees() {
 		return $this->attendees;
 	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $member
+	 * @return boolean TRUE, if the given member attends to this conference
+	 * @return void
+	 */
+	public function isAttendee(\F3\CaP\Domain\Model\Member $member) {
+		return $this->attendees->contains($member);
+	}
 }
 ?>

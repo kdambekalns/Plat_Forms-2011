@@ -113,6 +113,7 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$this->view->assign('conference', $conference);
+		$this->view->assign('isAttendee', $conference->isAttendee($this->account->getParty()));
 	}
 
 	/**
@@ -140,13 +141,24 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	}
 
 	/**
-	 * Lets the current member attend to the conference
+	 * Lets the current member register for the conference
 	 *
 	 * @param \F3\CaP\Domain\Model\Conference $conference
 	 * @return void
 	 */
-	public function attendAction(\F3\CaP\Domain\Model\Conference $conference) {
+	public function registerAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$conference->addAttendee($this->account->getParty());
+		$this->redirect('show', NULL, NULL, array('conference' => $conference));
+	}
+
+	/**
+	 * Lets the current member unregister from the conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @return void
+	 */
+	public function unregisterAction(\F3\CaP\Domain\Model\Conference $conference) {
+		$conference->removeAttendee($this->account->getParty());
 		$this->redirect('show', NULL, NULL, array('conference' => $conference));
 	}
 }
