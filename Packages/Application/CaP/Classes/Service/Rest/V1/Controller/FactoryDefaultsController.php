@@ -87,7 +87,6 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 	 * @return void
 	 */
 	public function importAction() {
-		echo "hi there";
 		$siteAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'DefaultProvider');
 		$restAdminAccount = $this->accountRepository->findActiveByAccountIdentifierAndAuthenticationProviderName('admin', 'RESTServiceProvider');
 		$this->accountRepository->removeAll();
