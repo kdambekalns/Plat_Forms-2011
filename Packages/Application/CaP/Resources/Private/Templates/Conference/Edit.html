@@ -1,11 +1,11 @@
 <f:layout name="master"/>
 
 <f:section name="mainbox">
-	<h1>Create a new conference:</h1>
+	<h1>Edit the conference:</h1>
 	<p>
-		<f:form action="create" object="{newConference}" name="newConference" class="dataform">
+		<f:form action="update" object="{conference}" name="conference" class="dataform">
 			<fieldset>
-				<f:form.errors for="newConference">
+				<f:form.errors for="conference">
 					<div class="error">
 						<strong>{error.propertyName}</strong>: <f:for each="{error.errors}" as="errorDetail">{errorDetail.message}</f:for>
 					</div>
@@ -27,7 +27,7 @@
 			<fieldset>
 				<legend></legend>
 				<ol>
-					<li><f:form.submit value="Create Conference" class="positive-submit" /> | <f:link.action action="index" class="cancel">Cancel</f:link.action></li>
+					<li><f:form.submit value="Update Conference" class="positive-submit" /> | <f:link.action action="index" class="cancel">Cancel</f:link.action></li>
 				</ol>
 			</fieldset>
 		</f:form>

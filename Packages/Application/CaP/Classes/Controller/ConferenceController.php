@@ -114,6 +114,7 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$this->view->assign('conference', $conference);
 		$this->view->assign('isAttendee', $conference->isAttendee($this->account->getParty()));
+		$this->view->assign('isCreator', $conference->isCreator($this->account->getParty()));
 	}
 
 	/**
@@ -127,6 +128,31 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 		$this->view->assign('categories', $this->categoryRepository->findAll());
 		$this->view->assign('newConference', $newConference);
 		$this->view->assign('currentMember', $this->account->getParty());
+	}
+
+	/**
+	 * Renders a form for editing a conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @dontvalidate $newConference
+	 * @return void
+	 */
+	public function editAction(\F3\CaP\Domain\Model\Conference $conference) {
+		$this->view->assign('conference', $conference);
+		$this->view->assign('categories', $this->categoryRepository->findAll());
+	}
+
+
+	/**
+	 * Updates the given conference
+	 *
+	 * @param \F3\CaP\Domain\Model\Conference $conference
+	 * @return void
+	 */
+	public function updateAction(\F3\CaP\Domain\Model\Conference $conference) {
+		$this->conferenceRepository->update($conference);
+		$this->flashMessageContainer->add('Your conference has been updated.');
+		$this->redirect('show', NULL, NULL, array('conference' => $conference));
 	}
 
 	/**
