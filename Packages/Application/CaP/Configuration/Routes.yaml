@@ -110,6 +110,18 @@
     '@action':     'index'
     '@format':     'html'
 
+-
+  name:          'Frontend: /administration(/{@action})'
+
+  uriPattern:    'administration(/{@action})'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': ''
+    '@controller': 'Administration'
+    '@action':     'index'
+    '@format':     'html'
+
+
 ##
 # REST services
 

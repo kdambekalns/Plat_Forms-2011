@@ -17,7 +17,7 @@
 
 	<p>Attendees: (TODO: Attendee names conditional display gedöhns)</p>
 	<f:for each="{conference.attendees}" as="attendee">
-		<p>{attendee.name}</p>
+		<p>{attendee.fullName}</p>
 	</f:for>
 
 	<f:if condition="{isCreator}">
