@@ -43,6 +43,12 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 	protected $memberRepository;
 
 	/**
+	 * @inject
+	 * @var F3\CaP\Domain\Repository\ContactRequestRepository
+	 */
+	protected $contactRequestRepository;
+
+	/**
 	 * @var \F3\FLOW3\Security\Account
 	 */
 	protected $account;
@@ -83,6 +89,11 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 		$members = $this->memberRepository->findWithFilter($filter);
 		$this->view->assign('filter', $filter);
 		$this->view->assign('members', $members);
+		$contactRequested = new \SplObjectStorage();
+		foreach ($members as $member) {
+			if ($this->account->getParty()->hasContactRequestSentTo($member)) $contactRequested->attach($member);
+		}
+		$this->view->assign('membersWithContactRequest', $contactRequested);
 	}
 
 	/**
@@ -92,10 +103,25 @@ class MemberController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 * @return void
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Member $member) {
-		//SHOULD: redirect to registration controller edit action if we want to show the status for our own member
 		$this->view->assign('member', $member);
 	}
 
+	/**
+	 * Sends a contact request to the given receiver
+	 *
+	 * @param \F3\CaP\Domain\Model\Member $receiver
+	 * @param array $currentSearchFilter
+	 * @return void
+	 */
+	public function sendContactRequestAction(\F3\CaP\Domain\Model\Member $receiver, array $currentSearchFilter = array()) {
+		$contactRequest = $this->objectManager->create('F3\CaP\Domain\Model\ContactRequest');
+		$contactRequest->setSender($this->account->getParty());
+		$contactRequest->setReceiver($receiver);
+		$contactRequest->setStatus(\F3\CaP\Domain\Model\ContactRequest::RCD_REQUESTED);
+		$this->contactRequestRepository->add($contactRequest);
+
+		$this->redirect('index', NULL, NULL, array('filter' => $currentSearchFilter));
+	}
 }
 
 ?>

@@ -39,12 +39,18 @@
 		<div id="master">
 			<div id="centeredbox">
 				<div id="topmenu">
-					<div id="level1menu"><ul><li><a href="conferences">CONFERENCES</a></li><li><a href="members">MEMBERS</a></li></ul></div>
+					<div id="level1menu"><ul>
+						<li><a href="conferences">Conferences</a></li>
+						<li><a href="members">Members</a></li>
+						<f:security.ifHasRole role="PortalAdmin">
+						<li><a href="conferences">Administration</a></li>
+						</f:security.ifHasRole>
+					</ul></div>
 					<div id="rootlinemenu"><f:raw>{rootlinemenu}</f:raw></div>
 					<div id="loginregister">
 						<f:security.ifAuthenticated>
 							<f:then>
-								<f:link.action action="index" controller="Login"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
+								<f:link.action action="show" controller="Member" arguments="{member: account.party}"><span class="loggedIn"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></span></f:link.action>
 							</f:then>
 							<f:else>
 								<f:link.action action="index" controller="Login"><img src="{f:uri.resource(path: 'Images/header/login-register.gif')}" width="215" height="37" border="0" alt="" title="" /></f:link.action>
@@ -70,15 +76,9 @@
 							</div>
 						</f:security.ifAuthenticated>
 						<div id="submenu">
-							<f:security.ifAuthenticated>
-								<ul class="sublevel1">
-									<li class="act-if-sub"><f:link.action action="show" controller="Member" arguments="{member: account.party}">Manage Account</f:link.action>
-										<ul class="sublevel2">
-											<li class="no"><f:link.action action="logout" controller="Login">Logout</f:link.action></li>
-										</ul>
-									</li>
-								</ul>
-							</f:security.ifAuthenticated>
+							<f:if condition="{rendersubmenu}">
+								<f:render section="submenu"/>
+							</f:if>
 						</div>
 					</div>
 					<div id="mainbox">

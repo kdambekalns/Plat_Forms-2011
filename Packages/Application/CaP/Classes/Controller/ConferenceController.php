@@ -116,8 +116,8 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	public function showAction(\F3\CaP\Domain\Model\Conference $conference) {
 		$this->view->assign('conference', $conference);
-		$this->view->assign('isAttendee', $conference->isAttendee($this->account->getParty()));
-		$this->view->assign('isCreator', $conference->isCreator($this->account->getParty()));
+		$this->view->assign('isAttendee', $conference->memberIsAttendee($this->account->getParty()));
+		$this->view->assign('isCreator', $conference->memberIsCreator($this->account->getParty()));
 	}
 
 	/**

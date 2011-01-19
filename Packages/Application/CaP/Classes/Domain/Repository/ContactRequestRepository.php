@@ -31,7 +31,15 @@ namespace F3\CaP\Domain\Repository;
  */
 class ContactRequestRepository extends \F3\FLOW3\Persistence\Repository {
 
-	// add customized methods here
+	public function findBySenderAndReceiver(\F3\CaP\Domain\Model\Member $sender, \F3\CaP\Domain\Model\Member $receiver) {
+		$query = $this->createQuery();
+		return $query->matching(
+			$query->logicalAnd(
+				$query->equals('sender', $sender),
+				$query->equals('receiver', $receiver)
+			)
+		)->execute();
+	}
 
 }
 ?>

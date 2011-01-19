@@ -290,7 +290,7 @@ class Conference {
 	 * @return boolean TRUE, if the given member attends to this conference
 	 * @return void
 	 */
-	public function isAttendee(\F3\CaP\Domain\Model\Member $member) {
+	public function memberIsAttendee(\F3\CaP\Domain\Model\Member $member) {
 		return $this->attendees->contains($member);
 	}
 
@@ -299,7 +299,7 @@ class Conference {
 	 * @return boolean TRUE, if the given member is the creator of this conference
 	 * @return void
 	 */
-	public function isCreator(\F3\CaP\Domain\Model\Member $member) {
+	public function memberIsCreator(\F3\CaP\Domain\Model\Member $member) {
 		return $this->creator === $member;
 	}
 

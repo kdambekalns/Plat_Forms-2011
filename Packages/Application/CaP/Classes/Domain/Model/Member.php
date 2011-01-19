@@ -33,9 +33,15 @@ namespace F3\CaP\Domain\Model;
 class Member implements \F3\Party\Domain\Model\PartyInterface  {
 
 	/**
+	 * @var \F3\CaP\Domain\Repository\ContactRequestRepository
+	 * @inject
+	 */
+	protected $contactRequestRepository;
+
+	/**
 	 * The contacts
 	 *
-	 * @var array
+	 * @var \SplObjectStorage<\F3\Party\Domain\Model\Member>
 	 */
 	protected $contacts;
 
@@ -206,13 +212,23 @@ class Member implements \F3\Party\Domain\Model\PartyInterface  {
 	}
 
 	/**
-	 * Sets this Member's contacts
+	 * Adds a contact to this member
 	 *
-	 * @param  $contact
+	 * @param \F3\Party\Domain\Model\Member $contact
 	 * @return void
 	 */
 	public function addContact($contact) {
 		$this->contacts->attach($contact);
+	}
+
+	/**
+	 * Removes a contact from this member
+	 *
+	 * @param \F3\Party\Domain\Model\Member $contact
+	 * @return void
+	 */
+	public function removeContact($contact) {
+		$this->contacts->detach($contact);
 	}
 
 	/**
@@ -360,6 +376,22 @@ class Member implements \F3\Party\Domain\Model\PartyInterface  {
 			}
 		}
 		$this->fullName = implode(' ', $filledNameParts);
+	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $member
+	 * @return void
+	 */
+	public function isContactOf(\F3\CaP\Domain\Model\Member $member) {
+		return $this->contacts->contains($member);
+	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $member
+	 * @return void
+	 */
+	public function hasContactRequestSentTo(\F3\CaP\Domain\Model\Member $member) {
+		return $this->contactRequestRepository->findBySenderAndReceiver($this, $member)->count() > 0;
 	}
 }
 ?>
