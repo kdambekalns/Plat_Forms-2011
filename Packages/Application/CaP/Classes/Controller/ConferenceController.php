@@ -77,6 +77,9 @@ class ConferenceController extends \F3\FLOW3\MVC\Controller\ActionController {
 	 */
 	protected function initializeView(\F3\FLOW3\MVC\View\ViewInterface $view) {
 		$view->assign('account', $this->account);
+
+		$rootlineMenu = '<a href="/conferences/search">Search</a> <a href="/conferences/new">Add</a>';
+		$view->assign('rootlinemenu', $rootlineMenu);
 	}
 
 	/**
