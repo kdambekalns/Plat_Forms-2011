@@ -139,21 +139,41 @@ class Conference {
 		$this->description = $description;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getDescription() {
 		return $this->description;
+	}
+
+	/**
+	 * @param \DateTime $endDate
+	 * @return void
+	 */
+	public function setEndDate(\DateTime $endDate) {
+		$this->endDate = $endDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getEndDate() {
+		return $this->endDate;
 	}
 
 	/**
 	 * @param string $endDate
 	 * @return void
 	 */
-	public function setEndDate($endDate) {
-		if (is_string($endDate)) $endDate = \F3\CaP\Utility\DateConverter::createDateFromString($endDate);
-		$this->endDate = $endDate;
+	public function setEndDateAsString($endDate) {
+		$this->endDate = \F3\CaP\Utility\DateConverter::createDateFromString($endDate);
 	}
 
-	public function getEndDate() {
-		return $this->endDate;
+	/**
+	 * @return string
+	 */
+	public function getEndDateAsString() {
+		return $this->endDate->format('Y/m/d');
 	}
 
 	/**
@@ -164,21 +184,41 @@ class Conference {
 		$this->locationByCoordinates = $locationByCoordinates;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getLocationByCoordinates() {
 		return $this->locationByCoordinates;
+	}
+
+	/**
+	 * @param \DateTime $startDate
+	 * @return void
+	 */
+	public function setStartDate(\DateTime $startDate) {
+		$this->startDate = $startDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getStartDate() {
+		return $this->startDate;
 	}
 
 	/**
 	 * @param string $startDate
 	 * @return void
 	 */
-	public function setStartDate($startDate) {
-		if (is_string($startDate)) $startDate = \F3\CaP\Utility\DateConverter::createDateFromString($startDate);
-		$this->startDate = $startDate;
+	public function setStartDateAsString($startDate) {
+		$this->startDate = \F3\CaP\Utility\DateConverter::createDateFromString($startDate);
 	}
 
-	public function getStartDate() {
-		return $this->startDate;
+	/**
+	 * @return string
+	 */
+	public function getStartDateAsString() {
+		return $this->startDate->format('Y/m/d');
 	}
 
 	/**
@@ -189,6 +229,11 @@ class Conference {
 		$this->creator = $creator;
 	}
 
+	/**
+	 * Returns the creator of this conference
+	 *
+	 * @return \F3\CaP\Domain\Model\Member
+	 */
 	public function getCreator() {
 		return $this->creator;
 	}
@@ -224,6 +269,15 @@ class Conference {
 	 */
 	public function isAttendee(\F3\CaP\Domain\Model\Member $member) {
 		return $this->attendees->contains($member);
+	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $member
+	 * @return boolean TRUE, if the given member is the creator of this conference
+	 * @return void
+	 */
+	public function isCreator(\F3\CaP\Domain\Model\Member $member) {
+		return $this->creator === $member;
 	}
 }
 ?>

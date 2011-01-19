@@ -43,7 +43,7 @@ class MemberRoutePartHandler extends \F3\FLOW3\MVC\Web\Routing\DynamicRoutePart 
 	 * @return boolean
 	 */
 	protected function matchValue($value) {
-		$account = $this->accountRepository->findOneByAccountIdentifier($value);
+		$account = $this->accountRepository->findOneByAccountIdentifier(urldecode($value));
 		if ($account === NULL) {
 			return FALSE;
 		}
@@ -63,7 +63,7 @@ class MemberRoutePartHandler extends \F3\FLOW3\MVC\Web\Routing\DynamicRoutePart 
 		if (!$value instanceof \F3\Cap\Domain\Model\Member) {
 			return FALSE;
 		}
-		$this->value = $value->getUsername();
+		$this->value = urlencode($value->getUsername());
 		return TRUE;
 	}
 

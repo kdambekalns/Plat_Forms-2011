@@ -3,6 +3,8 @@
 #                                                                        #
 # origin: M                                                              #
 
+# FRONTEND
+
 -
   name:          'Frontend: /logout'
 
@@ -29,6 +31,7 @@
   uriPattern:    'members/registration(/{@action})'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Registration'
     '@action':     'index'
     '@format':     'html'
@@ -39,6 +42,7 @@
   uriPattern:    'members/status/{member}'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Member'
     '@action':     'show'
     '@format':     'html'
@@ -52,6 +56,7 @@
   uriPattern:    'members'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Member'
     '@action':     'index'
     '@format':     'html'
@@ -62,6 +67,7 @@
   uriPattern:    'conferences/category/{category}'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Conference'
     '@action':     'index'
     '@format':     'html'
@@ -75,6 +81,7 @@
   uriPattern:    'conferences/{conference}'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Conference'
     '@action':     'show'
     '@format':     'html'
@@ -88,6 +95,7 @@
   uriPattern:    'conferences(/{@action})'
   defaults:
     '@package':    'CaP'
+    '@subpackage': ''
     '@controller': 'Conference'
     '@action':     'index'
     '@format':     'html'

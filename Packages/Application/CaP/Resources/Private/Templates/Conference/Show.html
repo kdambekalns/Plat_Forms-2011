@@ -27,4 +27,10 @@
 			<f:link.action action="register" arguments="{conference: conference}">Register for this conference</f:link.action>
 		</f:else>
 	</f:if>
+
+	<f:if condition="{isCreator}">
+		<f:then>
+			<f:link.action action="edit" arguments="{conference: conference}">Edit this conference</f:link.action>
+		</f:then>
+	</f:if>
 </f:section>

@@ -230,6 +230,12 @@ class SelectViewHelper extends \F3\Fluid\ViewHelpers\Form\AbstractFormFieldViewH
 				return TRUE;
 			} elseif (is_array($selectedValue) && in_array($value, $selectedValue)) {
 				return TRUE;
+			} elseif ($selectedValue instanceof \SplObjectStorage) {
+				foreach ($selectedValue as $singleValue) {
+					if ($singleValue instanceof \F3\FLOW3\AOP\ProxyInterface) {
+						if ($singleValue->FLOW3_Persistence_Entity_UUID === $value) return TRUE;
+					}
+				}
 			}
 		}
 		return FALSE;

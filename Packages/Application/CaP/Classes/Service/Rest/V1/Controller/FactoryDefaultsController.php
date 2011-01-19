@@ -100,6 +100,8 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 		$this->createAdminAccounts();
 
 		$factoryDefaults = json_decode(file_get_contents('resource://CaP/Private/FactoryDefaults.json'));
+
+		$members = array();
 		foreach ($factoryDefaults->member as $memberRecord) {
 			$siteAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalUser'), 'DefaultProvider');
 			$restAccount = $this->accountFactory->createAccountWithPassword($memberRecord->username, $memberRecord->password, array('PortalUser'), 'RESTServiceProvider');
@@ -131,7 +133,7 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			$member->setAddress($address);
 
 			$this->memberRepository->add($member);
-
+			$members[$memberRecord->username] = $member;
 		}
 
 		$categories = array();
@@ -149,6 +151,10 @@ class FactoryDefaultsController extends \F3\FLOW3\MVC\Controller\RestController 
 			$conference = $this->objectManager->create('F3\CaP\Domain\Model\Conference');
 			$conference->setName($conferenceRecord->name);
 			$conference->setDescription($conferenceRecord->description);
+
+			if (isset($members[$conferenceRecord->creator->username])) {
+				$conference->setCreator($members[$conferenceRecord->creator->username]);
+			}
 
 			$conference->setStartDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->startdate));
 			$conference->setEndDate(\F3\CaP\Utility\DateConverter::createDateFromString($conferenceRecord->enddate));
