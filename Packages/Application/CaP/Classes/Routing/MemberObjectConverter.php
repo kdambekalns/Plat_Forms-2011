@@ -58,6 +58,9 @@ class MemberObjectConverter implements \F3\FLOW3\Property\ObjectConverterInterfa
 	 * @return mixed A member object or FALSE
 	 */
 	public function convertFrom($source) {
+		if (!is_string($source)) {
+			return FALSE;
+		}
 		$account = $this->accountRepository->findOneByAccountIdentifier(urldecode($source));
 		if ($account === NULL) {
 			return FALSE;
