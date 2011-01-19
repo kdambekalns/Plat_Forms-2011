@@ -61,6 +61,17 @@
       handler:    F3\CaP\Routing\MemberRoutePartHandler
 
 -
+  name:          'Frontend: /members/contact(/{@action})'
+
+  uriPattern:    'members/contact/{@action}'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': ''
+    '@controller': 'Contact'
+    '@action':     ''
+    '@format':     'html'
+
+-
   name:          'Frontend: /members'
 
   uriPattern:    'members'
