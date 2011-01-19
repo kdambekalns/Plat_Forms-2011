@@ -72,6 +72,17 @@
     '@format':     'html'
 
 -
+  name:          'Frontend: /members(/{@action})'
+
+  uriPattern:    'members(/{@action})'
+  defaults:
+    '@package':    'CaP'
+    '@subpackage': ''
+    '@controller': 'Member'
+    '@action':     'index'
+    '@format':     'html'
+
+-
   name:          'Frontend: /conferences/category/{category}'
 
   uriPattern:    'conferences/category/{category}'

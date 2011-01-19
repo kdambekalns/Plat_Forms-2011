@@ -23,39 +23,119 @@ namespace F3\CaP\Domain\Model;
  *                                                                        */
 
 /**
- * A Contact request
+ * A contact request
  *
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @scope prototype
  * @entity
+ * @origin M
  */
 class ContactRequest {
 
+	const
+		RCD_REQUESTED = 1,
+		RCD_DECLINED = 2,
+		IN_CONTACT = 3;
+
 	/**
-	 * The sender
-	 * @var \F3\CaP\Domain\Model\Member,recipient:Member,date:DateTime,status:integer
+	 * The sender of this request
+	 * @var \F3\CaP\Domain\Model\Member
 	 */
 	protected $sender;
 
+	/**
+	 * The receiver of this request
+	 * @var \F3\CaP\Domain\Model\Member
+	 */
+	protected $receiver;
 
 	/**
-	 * Get the Contact request's sender
-	 *
-	 * @return \F3\CaP\Domain\Model\Member,recipient:Member,date:DateTime,status:integer The Contact request's sender
+	 * @var integer
+	 */
+	protected $status = self::RCD_REQUESTED;
+
+	/**
+	 * @inject
+	 * @var \F3\FLOW3\Security\Context
+	 */
+	protected $securityContext;
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $receiver
+	 * @return void
+	 */
+	public function setReceiver(\F3\CaP\Domain\Model\Member $receiver) {
+		$this->receiver = $receiver;
+	}
+
+	/**
+	 * @return \F3\CaP\Domain\Model\Member
+	 */
+	public function getReceiver() {
+		return $this->receiver;
+	}
+
+	/**
+	 * @param \F3\CaP\Domain\Model\Member $sender
+	 * @return void
+	 */
+	public function setSender(\F3\CaP\Domain\Model\Member $sender) {
+		$this->sender = $sender;
+	}
+
+	/**
+	 * @return \F3\CaP\Domain\Model\Member
 	 */
 	public function getSender() {
 		return $this->sender;
 	}
 
 	/**
-	 * Sets this Contact request's sender
-	 *
-	 * @param \F3\CaP\Domain\Model\Member,recipient:Member,date:DateTime,status:integer $sender The Contact request's sender
+	 * @param integer $status
 	 * @return void
 	 */
-	public function setSender($sender) {
-		$this->sender = $sender;
+	public function setStatus($status) {
+		$this->status = $status;
 	}
 
+	/**
+	 * @return integer
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function acceptRequest() {
+		$currentAccount = NULL;
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$currentAccount = $token->getAccount();
+			}
+		}
+		if ($currentAccount === $this->receiver) {
+			$this->receiver->addContact($this->sender);
+			$this->sender->addContact($this->receiver);
+		}
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function declineRequest() {
+		$currentAccount = NULL;
+		$activeTokens = $this->securityContext->getAuthenticationTokens();
+		foreach ($activeTokens as $token) {
+			if ($token->isAuthenticated()) {
+				$currentAccount = $token->getAccount();
+			}
+		}
+		if ($currentAccount === $this->receiver) {
+			$this->status = self::RCD_DECLINED;
+		}
+	}
 }
 ?>

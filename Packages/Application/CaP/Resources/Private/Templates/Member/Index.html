@@ -3,21 +3,30 @@
 <f:section name="mainbox">
 	<f:form action="index" class="dataform">
 		<fieldset>
-			<legend>Filter contacts by</legend>
+			<legend>Filter by status</legend>
 			<f:form.checkbox name="filter[status][contact]" value="1" checked="{filter.status.contact}"/> Not my contact
-			<f:form.checkbox name="filter[status][rcd]" value="1" checked="{filter.status.rcd}"/> Not RCD'd by me
+			<f:form.checkbox name="filter[status][rcd]" value="1" checked="{filter.status.rcd}"/> Not RCD'd
+		</fieldset>
+		<fieldset>
+			<legend>Filter by location</legend>
 			<f:form.checkbox name="filter[location][locality]" value="1" checked="{filter.location.locality}"/> In my town
 			<f:form.checkbox name="filter[location][country]" value="1" checked="{filter.location.country}"/> In my country
-			<f:form.submit value="Apply" />
 		</fieldset>
+		<f:form.submit value="Apply" />
 	</f:form>
 
-	<table><tr><th>Username</th><th>Town</th><th>Country</th></tr>
+	<table><tr><th>Username</th><th>Town</th><th>Country</th><th>RCD</th></tr>
 	<f:for each="{members}" as="member">
 		<tr>
 			<td><f:link.action action="show" arguments="{member: member}">{member.username}</f:link.action></td>
 			<td>{member.town}</td>
 			<td>{member.country}</td>
+			<td>
+				<f:link.action action="sendContactRequest" arguments="{receiver: member, currentSearchFilter: filter}">Send RCD</f:link.action>
+				<f:for each="{membersWithContactRequest}" as="contactRequestMember">
+					<f:if condition="{contactRequestMember} == {member}">RCD sent</f:if>
+				</f:for>
+			</td>
 		</tr>
 	</f:for>
 	</table>
